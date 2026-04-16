@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>dk 投資雷達</title>
+<style>
+  :root {
+    --bg: #0d0f14; --surface: #141720; --surface2: #1a1e2a;
+    --border: #252b3b; --accent: #3b82f6; --green: #10b981;
+    --orange: #f59e0b; --red: #ef4444; --text: #e2e8f0; --muted: #64748b;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { background:var(--bg); color:var(--text); font-family:'Microsoft JhengHei',sans-serif; font-size:14px; max-width:600px; margin:0 auto; }
+
+  /* Header */
+  .header { background:var(--surface); padding:14px 16px; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100; }
+  .header-top { display:flex; align-items:center; justify-content:space-between; }
+  .logo { font-size:18px; font-weight:700; color:var(--accent); }
+  .logo span { color:var(--green); }
+  .update-time { font-size:11px; color:var(--muted); margin-top:4px; }
+
+  /* Tabs */
+  .tabs { display:flex; background:var(--surface); border-bottom:1px solid var(--border); overflow-x:auto; }
+  .tab { flex:1; min-width:70px; padding:12px 8px; text-align:center; font-size:12px; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; }
+  .tab.active { color:var(--accent); border-bottom-color:var(--accent); }
+
+  /* Content */
+  .content { padding:12px; }
+  .section { display:none; }
+  .section.active { display:block; }
+
+  /* Cards */
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:10px; overflow:hidden; }
+  .card-header { padding:12px 14px; display:flex; align-items:center; justify-content:space-between; }
+  .card-title { font-weight:600; font-size:14px; }
+  .card-sub { font-size:11px; color:var(--muted); margin-top:2px; }
+  .card-body { padding:0 14px 12px; }
+
+  /* Stock row */
+  .stock-row { display:flex; align-items:center; padding:10px 0; border-bottom:1px solid var(--border); gap:10px; }
+  .stock-row:last-child { border-bottom:none; }
+  .stock-code { font-family:monospace; font-weight:700; color:var(--accent); width:42px; font-size:13px; flex-shrink:0; }
+  .stock-name { flex:1; font-size:13px; }
+  .stock-group { font-size:10px; color:var(--muted); }
+  .stock-score { text-align:right; flex-shrink:0; }
+  .score-badge { display:inline-block; padding:3px 8px; border-radius:20px; font-size:12px; font-weight:700; }
+  .score-hot    { background:rgba(239,68,68,.2);  color:#f87171; }
+  .score-signal { background:rgba(245,158,11,.2); color:#fbbf24; }
+  .score-watch  { background:rgba(59,130,246,.2); color:#60a5fa; }
+  .score-none   { background:var(--surface2); color:var(--muted); }
+
+  /* Status */
+  .status-row { font-size:12px; color:var(--muted); padding:4px 0 0; }
+  .signal-item { font-size:11px; color:#94a3b8; padding:2px 0; }
+
+  /* Holding special */
+  .holding-badge { font-size:10px; background:rgba(16,185,129,.15); color:var(--green); padding:2px 6px; border-radius:4px; }
+
+  /* Stats bar */
+  .stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px; }
+  .stat-card { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px; }
+  .stat-label { font-size:11px; color:var(--muted); margin-bottom:4px; }
+  .stat-value { font-size:20px; font-weight:700; }
+  .stat-value.green { color:var(--green); }
+  .stat-value.orange { color:var(--orange); }
+
+  /* Watchlist manager */
+  .wl-group { margin-bottom:16px; }
+  .wl-group-title { font-size:12px; color:var(--muted); margin-bottom:8px; padding:6px 0; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; }
+  .wl-item { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); }
+  .wl-item:last-child { border-bottom:none; }
+  .wl-code { font-family:monospace; color:var(--accent); font-size:13px; font-weight:700; width:42px; }
+  .wl-name { flex:1; font-size:13px; }
+  .btn-del { background:rgba(239,68,68,.15); border:none; color:#f87171; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; }
+  .btn-del:active { background:rgba(239,68,68,.3); }
+
+  /* Add form */
+  .add-form { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:12px; margin-top:12px; }
+  .add-form h4 { font-size:13px; margin-bottom:10px; color:var(--text); }
+  .form-row { display:flex; gap:8px; margin-bottom:8px; }
+  .form-input { flex:1; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:8px 10px; color:var(--text); font-size:13px; font-family:'Microsoft JhengHei',sans-serif; }
+  .form-input:focus { outline:none; border-color:var(--accent); }
+  .form-select { background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:8px 10px; color:var(--text); font-size:13px; }
+  .btn-add { background:var(--accent); border:none; color:#fff; border-radius:6px; padding:8px 16px; font-size:13px; cursor:pointer; font-family:'Microsoft JhengHei',sans-serif; }
+  .btn-add:active { background:#2563eb; }
+  .btn-save { width:100%; background:var(--green); border:none; color:#fff; border-radius:8px; padding:12px; font-size:14px; font-weight:600; cursor:pointer; margin-top:12px; font-family:'Microsoft JhengHei',sans-serif; }
+  .btn-save:active { background:#059669; }
+
+  /* Empty state */
+  .empty { text-align:center; padding:40px 20px; color:var(--muted); font-size:13px; }
+
+  /* Loading */
+  .loading { text-align:center; padding:30px; color:var(--muted); }
+  .spinner { display:inline-block; width:20px; height:20px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .8s linear infinite; margin-bottom:8px; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  /* Notice */
+  .notice { background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.3); border-radius:8px; padding:10px 12px; font-size:12px; color:#93c5fd; margin-bottom:12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="logo">dk <span>投資雷達</span></div>
+    <div id="header-badge"></div>
+  </div>
+  <div class="update-time" id="update-time">載入中...</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('holdings',this)">📊 持倉</div>
+  <div class="tab" onclick="switchTab('signals',this)">🎯 訊號</div>
+  <div class="tab" onclick="switchTab('revenue',this)">📈 營收</div>
+  <div class="tab" onclick="switchTab('manage',this)">⚙️ 自選</div>
+</div>
+
+<div class="content">
+
+  <!-- 持倉 Tab -->
+  <div class="section active" id="tab-holdings">
+    <div class="loading" id="holdings-loading">
+      <div class="spinner"></div><br>載入中...
+    </div>
+    <div id="holdings-content" style="display:none"></div>
+  </div>
+
+  <!-- 訊號 Tab -->
+  <div class="section" id="tab-signals">
+    <div class="loading" id="signals-loading">
+      <div class="spinner"></div><br>載入中...
+    </div>
+    <div id="signals-content" style="display:none"></div>
+  </div>
+
+  <!-- 營收 Tab -->
+  <div class="section" id="tab-revenue">
+    <div class="loading" id="revenue-loading">
+      <div class="spinner"></div><br>載入中...
+    </div>
+    <div id="revenue-content" style="display:none"></div>
+  </div>
+
+  <!-- 自選管理 Tab -->
+  <div class="section" id="tab-manage">
+    <div class="notice">💡 新增或刪除後按「儲存清單」，下次 Python 跑分析時會自動讀取新清單</div>
+    <div id="manage-content"></div>
+    <div class="add-form">
+      <h4>➕ 新增自選股</h4>
+      <div class="form-row">
+        <input class="form-input" id="add-code" placeholder="股票代號（如 2330）" maxlength="6">
+        <input class="form-input" id="add-name" placeholder="公司名稱">
+      </div>
+      <div class="form-row">
+        <select class="form-select" id="add-group">
+          <option>半導體</option>
+          <option>傳產電子</option>
+          <option>多元</option>
+          <option>消費電信</option>
+          <option>其他</option>
+        </select>
+        <button class="btn-add" onclick="addStock()">新增</button>
+      </div>
+    </div>
+    <button class="btn-save" onclick="saveWatchlist()">💾 儲存清單（產生下載檔案）</button>
+  </div>
+
+</div>
+
+<script>
+const REPO = "dksbluesky/dk_stock_watch_claude";
+const RAW  = `https://raw.githubusercontent.com/${REPO}/main`;
+
+let watchlist = { holdings: [], watchlist: [] };
+let washData  = null;
+let revData   = null;
+
+// ── 載入資料 ────────────────────────────────────────────────
+async function loadAll() {
+  try {
+    // 1. watchlist
+    const wlRes = await fetch(`${RAW}/watchlist.json?t=${Date.now()}`);
+    watchlist = await wlRes.json();
+  } catch(e) {
+    console.warn("watchlist 載入失敗:", e);
+  }
+
+  try {
+    // 2. 洗籌碼結果
+    const wrRes = await fetch(`${RAW}/data/wash_radar.json?t=${Date.now()}`);
+    washData = await wrRes.json();
+  } catch(e) {
+    washData = null;
+  }
+
+  try {
+    // 3. 月營收結果
+    const rvRes = await fetch(`${RAW}/data/revenue.json?t=${Date.now()}`);
+    revData = await rvRes.json();
+  } catch(e) {
+    revData = null;
+  }
+
+  renderAll();
+}
+
+function renderAll() {
+  renderHoldings();
+  renderSignals();
+  renderRevenue();
+  renderManage();
+
+  const t = washData?.generated || revData?.generated || "尚未更新";
+  document.getElementById("update-time").textContent = `更新：${t}`;
+}
+
+// ── 持倉 ────────────────────────────────────────────────────
+function renderHoldings() {
+  document.getElementById("holdings-loading").style.display = "none";
+  const el = document.getElementById("holdings-content");
+  el.style.display = "block";
+
+  if (!washData) {
+    el.innerHTML = `<div class="empty">尚未有分析資料<br>請先執行 wash_radar.py</div>`;
+    return;
+  }
+
+  const results = washData.results || [];
+  const holdings = watchlist.holdings.map(h => {
+    const r = results.find(x => x.code === h.code) || {};
+    return { ...h, ...r };
+  });
+
+  el.innerHTML = holdings.map(h => holdingCard(h)).join("");
+}
+
+function holdingCard(h) {
+  const score  = h.score || 0;
+  const status = h.status || "—";
+  const close  = h.close ? h.close.toFixed(1) : "—";
+  const signals = (h.signals || []).map(s => `<div class="signal-item">${s}</div>`).join("");
+  const isEtf  = h.is_etf;
+
+  return `<div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">${h.code} ${h.name} ${isEtf ? '<span class="holding-badge">ETF</span>' : ''}</div>
+        <div class="card-sub">收盤 ${close}｜${status}</div>
+      </div>
+      ${scoreBadge(score)}
+    </div>
+    ${signals ? `<div class="card-body">${signals}</div>` : ''}
+  </div>`;
+}
+
+// ── 訊號 ────────────────────────────────────────────────────
+function renderSignals() {
+  document.getElementById("signals-loading").style.display = "none";
+  const el = document.getElementById("signals-content");
+  el.style.display = "block";
+
+  if (!washData) {
+    el.innerHTML = `<div class="empty">尚未有分析資料<br>請先執行 wash_radar.py</div>`;
+    return;
+  }
+
+  const results = (washData.results || [])
+    .filter(r => !watchlist.holdings.find(h => h.code === r.code))
+    .filter(r => r.score >= 3)
+    .sort((a,b) => b.score - a.score);
+
+  if (!results.length) {
+    el.innerHTML = `<div class="empty">今日自選股無洗籌碼/突破訊號</div>`;
+    return;
+  }
+
+  // Stats
+  const hot = results.filter(r => r.score >= 7).length;
+  const statsHtml = `<div class="stats">
+    <div class="stat-card"><div class="stat-label">有訊號標的</div><div class="stat-value green">${results.length}</div></div>
+    <div class="stat-card"><div class="stat-label">強烈突破</div><div class="stat-value orange">${hot}</div></div>
+  </div>`;
+
+  const rows = results.map(r => {
+    const signals = (r.signals || []).map(s => `<div class="signal-item">${s}</div>`).join("");
+    return `<div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">${r.code} ${r.name}</div>
+          <div class="card-sub">收盤 ${r.close?.toFixed(1) || '—'}｜${r.status}</div>
+        </div>
+        ${scoreBadge(r.score)}
+      </div>
+      ${signals ? `<div class="card-body">${signals}</div>` : ''}
+    </div>`;
+  }).join("");
+
+  el.innerHTML = statsHtml + rows;
+}
+
+// ── 月營收 ───────────────────────────────────────────────────
+function renderRevenue() {
+  document.getElementById("revenue-loading").style.display = "none";
+  const el = document.getElementById("revenue-content");
+  el.style.display = "block";
+
+  if (!revData) {
+    el.innerHTML = `<div class="empty">尚未有營收資料<br>請先執行 radar.py</div>`;
+    return;
+  }
+
+  const stocks = revData.stocks || [];
+
+  // 先顯示自選股的營收
+  const allCodes = [
+    ...watchlist.holdings.map(h => h.code),
+    ...watchlist.watchlist.map(w => w.code)
+  ];
+  const myStocks = stocks.filter(s => allCodes.includes(s.code));
+  const others   = stocks.filter(s => !allCodes.includes(s.code));
+
+  const renderRows = (list) => list.map(s => {
+    const yoy = s.yoy || 0;
+    const icon = yoy >= 50 ? "🔴" : yoy >= 30 ? "🟠" : yoy >= 20 ? "🟡" : "⚪";
+    const rev  = s.rev_m ? (s.rev_m / 100000).toFixed(2) : "—";
+    return `<div class="stock-row">
+      <div class="stock-code">${s.code}</div>
+      <div class="stock-name">
+        <div>${s.name}</div>
+        <div class="stock-group">${s.market || ""}</div>
+      </div>
+      <div class="stock-score">
+        <div style="font-size:12px;font-family:monospace">${rev}億</div>
+        <div style="font-size:12px;color:${yoy>=20?'#fbbf24':'#94a3b8'}">${icon} ${yoy.toFixed(1)}%</div>
+      </div>
+    </div>`;
+  }).join("");
+
+  let html = "";
+  if (myStocks.length) {
+    html += `<div class="card"><div class="card-header"><div class="card-title">⭐ 我的自選股</div></div>
+      <div class="card-body">${renderRows(myStocks)}</div></div>`;
+  }
+  if (others.length) {
+    html += `<div class="card"><div class="card-header"><div class="card-title">📋 其他高成長標的 (YoY>20%)</div></div>
+      <div class="card-body">${renderRows(others.slice(0,20))}</div></div>`;
+  }
+
+  el.innerHTML = html || `<div class="empty">無資料</div>`;
+}
+
+// ── 自選管理 ─────────────────────────────────────────────────
+function renderManage() {
+  const el = document.getElementById("manage-content");
+  const groups = {};
+
+  // 持倉區
+  let html = `<div class="wl-group">
+    <div class="wl-group-title"><span>📊 持倉</span></div>`;
+  watchlist.holdings.forEach((h, i) => {
+    html += `<div class="wl-item">
+      <div class="wl-code">${h.code}</div>
+      <div class="wl-name">${h.name} ${h.is_etf ? '<span class="holding-badge">ETF</span>' : ''}</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // 自選股按分組
+  watchlist.watchlist.forEach(w => {
+    if (!groups[w.group]) groups[w.group] = [];
+    groups[w.group].push(w);
+  });
+
+  for (const [grp, stocks] of Object.entries(groups)) {
+    html += `<div class="wl-group">
+      <div class="wl-group-title"><span>${grp}</span><span style="color:var(--muted)">${stocks.length} 支</span></div>`;
+    stocks.forEach((s, i) => {
+      const idx = watchlist.watchlist.findIndex(x => x.code === s.code);
+      html += `<div class="wl-item">
+        <div class="wl-code">${s.code}</div>
+        <div class="wl-name">${s.name}</div>
+        <button class="btn-del" onclick="removeStock(${idx})">刪除</button>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  el.innerHTML = html;
+}
+
+function addStock() {
+  const code = document.getElementById("add-code").value.trim();
+  const name = document.getElementById("add-name").value.trim();
+  const group= document.getElementById("add-group").value;
+  if (!code || !name) { alert("請填入代號和名稱"); return; }
+  if (watchlist.watchlist.find(s => s.code === code)) { alert("已在清單中"); return; }
+  watchlist.watchlist.push({ code, name, group });
+  document.getElementById("add-code").value = "";
+  document.getElementById("add-name").value = "";
+  renderManage();
+}
+
+function removeStock(idx) {
+  watchlist.watchlist.splice(idx, 1);
+  renderManage();
+}
+
+function saveWatchlist() {
+  watchlist.updated = new Date().toISOString().split("T")[0];
+  const json = JSON.stringify(watchlist, null, 2);
+  const blob = new Blob([json], { type: "application/json" });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
+  a.href = url;
+  a.download = "watchlist.json";
+  a.click();
+  URL.revokeObjectURL(url);
+  alert("已下載 watchlist.json\n請上傳到 GitHub repo 的根目錄取代舊檔案");
+}
+
+// ── 工具 ────────────────────────────────────────────────────
+function scoreBadge(score) {
+  if (score >= 7) return `<div class="score-badge score-hot">🔥 ${score}分</div>`;
+  if (score >= 5) return `<div class="score-badge score-signal">⚡ ${score}分</div>`;
+  if (score >= 3) return `<div class="score-badge score-watch">🌀 ${score}分</div>`;
+  return `<div class="score-badge score-none">— ${score}分</div>`;
+}
+
+function switchTab(id, el) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  el.classList.add("active");
+  document.getElementById("tab-" + id).classList.add("active");
+}
+
+// 啟動
+loadAll();
+</script>
+</body>
+</html>
