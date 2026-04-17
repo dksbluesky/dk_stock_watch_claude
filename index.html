@@ -170,34 +170,38 @@
 
 <script>
 const REPO = "dksbluesky/dk_stock_watch_claude";
-const RAW  = `https://raw.githubusercontent.com/${REPO}/main`;
+// 用 GitHub API 抓資料，繞過 CDN 快取
+const API  = `https://api.github.com/repos/${REPO}/contents`;
 
 let watchlist = { holdings: [], watchlist: [] };
 let washData  = null;
 let revData   = null;
 
+async function fetchGitHub(path) {
+  const res = await fetch(`${API}/${path}`, {
+    headers: { "Accept": "application/vnd.github.v3.raw" },
+    cache: "no-store"
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
 // ── 載入資料 ────────────────────────────────────────────────
 async function loadAll() {
   try {
-    // 1. watchlist
-    const wlRes = await fetch(`${RAW}/watchlist.json?t=${Date.now()}`);
-    watchlist = await wlRes.json();
+    watchlist = await fetchGitHub("watchlist.json");
   } catch(e) {
     console.warn("watchlist 載入失敗:", e);
   }
 
   try {
-    // 2. 洗籌碼結果
-    const wrRes = await fetch(`${RAW}/data/wash_radar.json?t=${Date.now()}`);
-    washData = await wrRes.json();
+    washData = await fetchGitHub("data/wash_radar.json");
   } catch(e) {
     washData = null;
   }
 
   try {
-    // 3. 月營收結果
-    const rvRes = await fetch(`${RAW}/data/revenue.json?t=${Date.now()}`);
-    revData = await rvRes.json();
+    revData = await fetchGitHub("data/revenue.json");
   } catch(e) {
     revData = null;
   }
