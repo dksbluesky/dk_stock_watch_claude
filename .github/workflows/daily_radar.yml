@@ -2,14 +2,15 @@ name: Daily Stock Radar
 
 on:
   schedule:
-    - cron: '30 8 * * 1-5'
-  workflow_dispatch:
+    # 台灣時間 15:00 = UTC 07:00（收盤後，避開繁忙時段）
+    - cron: '0 7 * * 1-5'
+  workflow_dispatch:  # 允許手動觸發
 
 jobs:
   run-radar:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write  # 允許寫入 repo
 
     steps:
       - name: Checkout repo
