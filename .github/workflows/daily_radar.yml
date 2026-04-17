@@ -2,15 +2,15 @@ name: Daily Stock Radar
 
 on:
   schedule:
-    # 台灣時間 15:00 = UTC 07:00（收盤後，避開繁忙時段）
+    # 台灣時間 15:00 = UTC 07:00
     - cron: '0 7 * * 1-5'
-  workflow_dispatch:  # 允許手動觸發
+  workflow_dispatch:
 
 jobs:
   run-radar:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # 允許寫入 repo
+      contents: write
 
     steps:
       - name: Checkout repo
@@ -36,10 +36,18 @@ jobs:
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python radar.py
 
+      - name: Move JSON to data folder
+        run: |
+          mkdir -p data
+          [ -f wash_radar.json ] && mv wash_radar.json data/wash_radar.json || echo "wash_radar.json not found"
+          [ -f revenue.json ] && mv revenue.json data/revenue.json || echo "revenue.json not found"
+          ls -la data/
+
       - name: Commit updated JSON files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/wash_radar.json data/revenue.json
+          git status
           git diff --staged --quiet || git commit -m "Auto update: $(date '+%Y-%m-%d %H:%M') CST"
           git push
