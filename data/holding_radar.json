@@ -1,5 +1,5 @@
 {
-  "generated": "2026/04/18 02:20",
+  "generated": "2026/04/18 10:42",
   "date": "20260417",
   "holdings": [
     {
@@ -11,8 +11,8 @@
       "total_net": 812,
       "broker_net": -9383,
       "broker_diff": 0,
-      "conc_5d": -23899.06,
-      "conc_20d": -23899.06,
+      "conc_5d": -23.9,
+      "conc_20d": -23.9,
       "streak": -1,
       "signals": {
         "foreign_flip": false,
@@ -26,7 +26,7 @@
       "history_5d": [
         {
           "date": "20260417",
-          "foreign_net": -9382771
+          "foreign_net": -9383
         }
       ]
     },
@@ -37,10 +37,10 @@
       "date": "20260417",
       "foreign_net": -252,
       "total_net": 20,
-      "broker_net": 0,
+      "broker_net": -252,
       "broker_diff": 0,
-      "conc_5d": -6728.39,
-      "conc_20d": -6728.39,
+      "conc_5d": -6.75,
+      "conc_20d": -6.75,
       "streak": -1,
       "signals": {
         "foreign_flip": false,
@@ -54,7 +54,7 @@
       "history_5d": [
         {
           "date": "20260417",
-          "foreign_net": -251238
+          "foreign_net": -252
         }
       ]
     },
@@ -63,26 +63,26 @@
       "name": "國泰高股息",
       "is_etf": true,
       "date": "20260417",
-      "foreign_net": 0,
+      "foreign_net": 57645,
       "total_net": 0,
       "broker_net": 57645,
       "broker_diff": 0,
-      "conc_5d": 38484.98,
-      "conc_20d": 38484.98,
-      "streak": 0,
+      "conc_5d": 38.48,
+      "conc_20d": 38.48,
+      "streak": 1,
       "signals": {
-        "foreign_flip": false,
+        "foreign_flip": true,
         "total_positive": false,
         "conc5_rising": false,
         "conc20_positive": true,
         "broker_diff_neg": false,
         "price_support": true
       },
-      "exhaustion": 2,
+      "exhaustion": 3,
       "history_5d": [
         {
           "date": "20260417",
-          "foreign_net": 57645107
+          "foreign_net": 57645
         }
       ]
     }
