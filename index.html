@@ -213,6 +213,12 @@ async function loadAll() {
     revData = null;
   }
 
+  try {
+    holdingData = await fetchGitHub("data/holding_radar.json");
+  } catch(e) {
+    holdingData = null;
+  }
+
   renderAll();
 }
 
