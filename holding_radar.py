@@ -20,9 +20,10 @@ CHAT_ID        = os.environ.get("CHAT_ID", "8695864227")
 
 # 持倉清單（可新增/刪除）
 HOLDINGS = [
-    {"code": "2330", "name": "台積電",     "is_etf": False},
-    {"code": "006208", "name": "富邦台50", "is_etf": True},
-    {"code": "00878", "name": "國泰高股息","is_etf": True},
+    {"code": "2330",   "name": "台積電",     "is_etf": False, "stop_loss": 1700, "dca": None},
+    {"code": "006208", "name": "富邦台50",   "is_etf": True,  "stop_loss": None, "dca": None},
+    {"code": "00878",  "name": "國泰高股息", "is_etf": True,  "stop_loss": None,
+     "dca": {"amount": 40000, "day": 6}},  # 每月6日扣款 40,000元
 ]
 
 HISTORY_FILE = "data/holding_history.json"  # 累積歷史資料
@@ -333,10 +334,114 @@ def format_telegram(results: list, date: str) -> str:
     return "\n".join(lines)
 
 
+def check_dca_reminder(holdings_config: list):
+    """ETF 定期定額提醒（每月扣款日前一天提醒）"""
+    today = datetime.now()
+    alerts = []
+    for h in holdings_config:
+        dca = h.get("dca")
+        if not dca:
+            continue
+        day    = dca.get("day", 1)
+        amount = dca.get("amount", 0)
+        code   = h["code"]
+        name   = h["name"]
+
+        # 扣款日或前一天推提醒
+        if today.day not in [day - 1, day]:
+            continue
+
+        # 抓最新價格
+        price = None
+        for suffix in [".TW", ".TWO"]:
+            try:
+                r = requests.get(
+                    f"https://query1.finance.yahoo.com/v8/finance/chart/{code}{suffix}?interval=1d&range=5d",
+                    headers=HEADERS, timeout=10, verify=False
+                )
+                result = r.json().get("chart", {}).get("result", [])
+                if result:
+                    closes = result[0].get("indicators", {}).get("quote", [{}])[0].get("close", [])
+                    closes = [c for c in closes if c]
+                    if closes:
+                        price = closes[-1]
+                        break
+            except: continue
+
+        day_label = "明天" if today.day == day - 1 else "今天"
+        shares = int(amount / price / 1000) if price else 0
+        price_str = f"現價 {price:.2f}，本次約買 {shares} 張" if price else "無法取得價格"
+        alerts.append(
+            f"📅 <b>定期定額提醒｜{code} {name}</b>
+"
+            f"   {day_label}（{today.month}/{day}）扣款 NT${amount:,}
+"
+            f"   {price_str}"
+        )
+
+    if alerts:
+        send_telegram("
+
+".join(alerts))
+        print(f"DCA 提醒已推送：{len(alerts)} 筆")
+
+
+def check_stop_loss(holdings_config: list):
+    """檢查止損價格，若觸碰立刻推警報"""
+    alerts = []
+    for h in holdings_config:
+        sl = h.get("stop_loss")
+        if not sl:
+            continue
+        code = h["code"]
+        name = h["name"]
+        # 抓最新價格
+        price = None
+        for suffix in [".TW", ".TWO"]:
+            try:
+                r = requests.get(
+                    f"https://query1.finance.yahoo.com/v8/finance/chart/{code}{suffix}?interval=1d&range=5d",
+                    headers=HEADERS, timeout=10, verify=False
+                )
+                result = r.json().get("chart", {}).get("result", [])
+                if result:
+                    closes = result[0].get("indicators", {}).get("quote", [{}])[0].get("close", [])
+                    closes = [c for c in closes if c]
+                    if closes:
+                        price = closes[-1]
+                        break
+            except: continue
+
+        if price and price <= sl:
+            alerts.append(
+                f"🚨 <b>止損警報！{code} {name}</b>
+"
+                f"   現價 {price:.1f} ≤ 止損價 {sl}
+"
+                f"   ⚠️ 請立即確認是否執行止損！"
+            )
+            print(f"  ⚠️ {code} 觸碰止損！現價 {price:.1f} ≤ {sl}")
+        elif price:
+            pct = (price - sl) / sl * 100
+            print(f"  {code} 現價 {price:.1f}，距止損 {sl} 還有 {pct:.1f}%")
+
+    if alerts:
+        send_telegram("
+
+".join(alerts))
+
+
 def main():
     print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M')}] 持倉籌碼雷達啟動...")
     date = get_trading_date()
     print(f"交易日：{date}")
+
+    # 止損檢查（優先執行）
+    print("檢查止損價格...")
+    check_stop_loss(HOLDINGS)
+
+    # 定期定額提醒
+    check_dca_reminder(HOLDINGS)
 
     # 載入歷史
     history = load_history()
