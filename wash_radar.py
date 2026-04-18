@@ -24,25 +24,34 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8225398265:AAF8uJObOAfElE789AQPu6p7v6Y7XzbGFjk")
 CHAT_ID        = os.environ.get("CHAT_ID", "8695864227")
 
-# 持倉（置頂顯示，2330 用洗籌碼邏輯，ETF 用加碼邏輯）
-HOLDINGS = ["2330", "006208", "00878"]
-ETF_CODES = {"006208", "00878"}  # ETF 用不同邏輯
+# 從 watchlist.json 讀取清單（與網頁同步）
+def load_watchlist():
+    """讀取 watchlist.json，回傳 holdings 和 watchlist"""
+    wl_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "watchlist.json")
+    try:
+        with open(wl_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        holdings = [h["code"] for h in data.get("holdings", [])]
+        etf_codes = {h["code"] for h in data.get("holdings", []) if h.get("is_etf")}
+        watchlist = [s["code"] for s in data.get("watchlist", [])]
+        print(f"watchlist.json 載入：持倉 {len(holdings)} 支，自選 {len(watchlist)} 支")
+        return holdings, etf_codes, watchlist
+    except Exception as e:
+        print(f"watchlist.json 載入失敗: {e}，使用預設清單")
+        # 備用清單
+        return (
+            ["2330", "006208", "00878"],
+            {"006208", "00878"},
+            ["2317", "2303", "3006", "3034", "3545", "8016", "4961",
+             "2454", "6196", "3037", "8046", "3189", "2049", "2634",
+             "3005", "2376", "3231", "1326", "1301", "2327", "2308",
+             "2054", "2002", "2027", "2014", "1504", "1513", "1503",
+             "9941", "5871", "8436", "1707", "2379", "3558", "2618",
+             "2610", "2603", "2385", "1477", "4164", "1720", "1752",
+             "4114", "1216", "2357", "2412"]
+        )
 
-# 自選股（個股）
-WATCHLIST = [
-    # 組合1 半導體
-    "2317", "2303", "3006", "3034", "3545", "8016", "4961",
-    "2454", "6196", "3037", "8046", "3189",
-    # 組合2 傳產/電子
-    "2049", "2634", "3005", "2376", "3231", "1326", "1301",
-    "2327", "2308", "2054", "2002", "2027", "2014",
-    # 組合3 多元
-    "1504", "1513", "1503", "9941", "5871", "8436",
-    "1707", "2379", "3558", "2618", "2610", "2603",
-    # 組合5 消費/電信
-    "2385", "1477", "4164", "1720", "1752", "4114",
-    "1216", "2357", "2412",
-]
+HOLDINGS, ETF_CODES, WATCHLIST = load_watchlist()
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
@@ -314,18 +323,18 @@ def analyze_etf(code: str, history: list) -> dict:
 
 
 def fetch_name_map(codes: list) -> dict:
-    """抓股票名稱"""
+    """抓股票名稱，優先從 watchlist.json 取"""
     name_map = {}
+
+    # 先從 watchlist.json 取名稱
+    wl_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "watchlist.json")
     try:
-        r = requests.get(
-            "https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?response=json&type=ALLBUT0999",
-            headers=HEADERS, timeout=15, verify=False
-        )
-        data = r.json()
-        for table in data.get("tables", []):
-            for row in table.get("data", []):
-                if len(row) >= 2:
-                    name_map[str(row[0]).strip()] = str(row[1]).strip()
+        with open(wl_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        for h in data.get("holdings", []):
+            name_map[h["code"]] = h["name"]
+        for s in data.get("watchlist", []):
+            name_map[s["code"]] = s["name"]
     except: pass
 
     # 補上常見名稱
