@@ -184,18 +184,19 @@ def update_history(history: dict, code: str, date: str, day_data: dict) -> dict:
     return history
 
 
-def calc_concentration(history_list: list, days: int, total_vol_key: str = "volume") -> float:
+def calc_concentration(history_list: list, days: int) -> float:
     """
-    計算集中度
-    = 近N日累計外資買賣超 / 近N日總成交量
+    計算集中度（%）
+    = 近N日累計外資買賣超(張) / 近N日總成交量(張) * 100
     """
     recent = history_list[-days:] if len(history_list) >= days else history_list
     if not recent:
         return 0.0
     net_sum = sum(d.get("foreign_net", 0) for d in recent)
-    vol_sum = sum(d.get("volume", 1) for d in recent)
+    vol_sum = sum(d.get("volume", 0) for d in recent)
     if vol_sum == 0:
         return 0.0
+    # 兩者單位都是張，直接除
     return round(net_sum / vol_sum * 100, 2)
 
 
