@@ -1,0 +1,90 @@
+{
+  "generated": "2026/04/18 02:08",
+  "date": "20260417",
+  "holdings": [
+    {
+      "code": "2330",
+      "name": "台積電",
+      "is_etf": false,
+      "date": "20260417",
+      "foreign_net": -9382771,
+      "total_net": 812000,
+      "broker_net": 0,
+      "broker_diff": 0,
+      "conc_5d": -23899.06,
+      "conc_20d": -23899.06,
+      "streak": -1,
+      "signals": {
+        "foreign_flip": false,
+        "total_positive": true,
+        "conc5_rising": false,
+        "conc20_positive": false,
+        "broker_diff_neg": false,
+        "price_support": true
+      },
+      "exhaustion": 2,
+      "history_5d": [
+        {
+          "date": "20260417",
+          "foreign_net": -9382771
+        }
+      ]
+    },
+    {
+      "code": "006208",
+      "name": "富邦台50",
+      "is_etf": true,
+      "date": "20260417",
+      "foreign_net": -251238,
+      "total_net": 20000,
+      "broker_net": 0,
+      "broker_diff": 0,
+      "conc_5d": -6728.39,
+      "conc_20d": -6728.39,
+      "streak": -1,
+      "signals": {
+        "foreign_flip": false,
+        "total_positive": true,
+        "conc5_rising": false,
+        "conc20_positive": false,
+        "broker_diff_neg": false,
+        "price_support": true
+      },
+      "exhaustion": 2,
+      "history_5d": [
+        {
+          "date": "20260417",
+          "foreign_net": -251238
+        }
+      ]
+    },
+    {
+      "code": "00878",
+      "name": "國泰高股息",
+      "is_etf": true,
+      "date": "20260417",
+      "foreign_net": 57645107,
+      "total_net": 0,
+      "broker_net": 0,
+      "broker_diff": 0,
+      "conc_5d": 38484.98,
+      "conc_20d": 38484.98,
+      "streak": 1,
+      "signals": {
+        "foreign_flip": true,
+        "total_positive": false,
+        "conc5_rising": false,
+        "conc20_positive": true,
+        "broker_diff_neg": false,
+        "price_support": true
+      },
+      "exhaustion": 3,
+      "history_5d": [
+        {
+          "date": "20260417",
+          "foreign_net": 57645107
+        }
+      ]
+    }
+  ]
+}
