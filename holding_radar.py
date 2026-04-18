@@ -23,7 +23,7 @@ HOLDINGS = [
     {"code": "2330",   "name": "台積電",     "is_etf": False, "stop_loss": 1700, "dca": None},
     {"code": "006208", "name": "富邦台50",   "is_etf": True,  "stop_loss": None, "dca": None},
     {"code": "00878",  "name": "國泰高股息", "is_etf": True,  "stop_loss": None,
-     "dca": {"amount": 40000, "day": 6}},  # 每月6日扣款 40,000元
+     "dca": {"amount": 40000, "day": 24}},  # 每月24日扣款 40,000元
 ]
 
 HISTORY_FILE = "data/holding_history.json"  # 累積歷史資料
