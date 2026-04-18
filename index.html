@@ -95,6 +95,12 @@
   .spinner { display:inline-block; width:20px; height:20px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin .8s linear infinite; margin-bottom:8px; }
   @keyframes spin { to { transform:rotate(360deg); } }
 
+  /* Chip grid */
+  .chip-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px; }
+  .chip-cell { background:var(--surface2); border-radius:6px; padding:8px; }
+  .chip-label { font-size:10px; color:var(--muted); margin-bottom:2px; }
+  .chip-val { font-size:13px; font-weight:600; }
+
   /* Notice */
   .notice { background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.3); border-radius:8px; padding:10px 12px; font-size:12px; color:#93c5fd; margin-bottom:12px; }
 </style>
@@ -173,9 +179,10 @@ const REPO = "dksbluesky/dk_stock_watch_claude";
 // 用 GitHub API 抓資料，繞過 CDN 快取
 const API  = `https://api.github.com/repos/${REPO}/contents`;
 
-let watchlist = { holdings: [], watchlist: [] };
-let washData  = null;
-let revData   = null;
+let watchlist   = { holdings: [], watchlist: [] };
+let washData    = null;
+let revData     = null;
+let holdingData = null;
 
 async function fetchGitHub(path) {
   const res = await fetch(`${API}/${path}`, {
@@ -215,7 +222,7 @@ function renderAll() {
   renderRevenue();
   renderManage();
 
-  const t = washData?.generated || revData?.generated || "尚未更新";
+  const t = holdingData?.generated || washData?.generated || revData?.generated || "尚未更新";
   document.getElementById("update-time").textContent = `更新：${t}`;
 }
 
@@ -225,36 +232,135 @@ function renderHoldings() {
   const el = document.getElementById("holdings-content");
   el.style.display = "block";
 
-  if (!washData) {
-    el.innerHTML = `<div class="empty">尚未有分析資料<br>請先執行 wash_radar.py</div>`;
+  const hData = holdingData?.holdings || [];
+  const wData = washData?.results || [];
+
+  if (!holdingData && !washData) {
+    el.innerHTML = `<div class="empty">尚未有分析資料<br>請等待每日自動更新</div>`;
     return;
   }
 
-  const results = washData.results || [];
   const holdings = watchlist.holdings.map(h => {
-    const r = results.find(x => x.code === h.code) || {};
-    return { ...h, ...r };
+    const chip  = hData.find(x => x.code === h.code) || {};
+    const wash  = wData.find(x => x.code === h.code) || {};
+    return { ...h, ...chip, wash };
   });
 
   el.innerHTML = holdings.map(h => holdingCard(h)).join("");
 }
 
+function fmt(v) {
+  if (v === undefined || v === null) return "—";
+  return (v > 0 ? "+" : "") + v.toLocaleString();
+}
+function arrow(v) {
+  if (v > 0) return "🟢";
+  if (v < 0) return "🔴";
+  return "⚪";
+}
+
 function holdingCard(h) {
-  const score  = h.score || 0;
-  const status = h.status || "—";
-  const close  = h.close ? h.close.toFixed(1) : "—";
-  const signals = (h.signals || []).map(s => `<div class="signal-item">${s}</div>`).join("");
-  const isEtf  = h.is_etf;
+  const isEtf = h.is_etf;
+  const fn    = h.foreign_net;
+  const tn    = h.total_net;
+  const c5    = h.conc_5d;
+  const c20   = h.conc_20d;
+  const bd    = h.broker_diff;
+  const exh   = h.exhaustion || 0;
+  const sigs  = h.signals || {};
+  const streak= h.streak || 0;
+  const hist5 = h.history_5d || [];
+  const wash  = h.wash || {};
+
+  // 洗籌碼分數（來自wash_radar）
+  const wscore = wash.score || 0;
+  const wstatus= wash.status || "—";
+  const wclose = wash.close ? wash.close.toFixed(1) : "—";
+
+  // 耗盡badge
+  let exhBadge = "";
+  if (fn !== undefined) {
+    if (exh >= 5) exhBadge = `<span style="color:#f87171;font-size:11px">🔥 ${exh}/6 強烈訊號</span>`;
+    else if (exh >= 3) exhBadge = `<span style="color:#fbbf24;font-size:11px">⚡ ${exh}/6 觀察中</span>`;
+    else exhBadge = `<span style="color:#64748b;font-size:11px">❌ ${exh}/6 未確認</span>`;
+  }
+
+  // 近5日外資趨勢
+  let trendHtml = "";
+  if (hist5.length >= 2) {
+    const trend = hist5.map(d => {
+      const v = d.foreign_net || 0;
+      const col = v > 0 ? "#10b981" : v < 0 ? "#ef4444" : "#64748b";
+      return `<span style="color:${col}">${fmt(v)}</span>`;
+    }).join(" → ");
+    trendHtml = `<div style="font-size:11px;color:#94a3b8;padding:4px 0">外資趨勢：${trend}</div>`;
+  }
+
+  if (isEtf) {
+    return `<div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">${h.code} ${h.name} <span class="holding-badge">ETF</span></div>
+          <div class="card-sub">收盤 ${wclose}｜${wstatus}</div>
+        </div>
+        ${wscore >= 3 ? scoreBadge(wscore) : '<div></div>'}
+      </div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+          <div style="background:var(--surface2);border-radius:6px;padding:8px">
+            <div style="font-size:10px;color:var(--muted)">外資動向</div>
+            <div style="font-size:13px;font-weight:600;color:${(fn||0)>0?'#10b981':'#ef4444'}">${arrow(fn)} ${fmt(fn)}張</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px">
+            <div style="font-size:10px;color:var(--muted)">三大法人</div>
+            <div style="font-size:13px;font-weight:600;color:${(tn||0)>0?'#10b981':'#ef4444'}">${arrow(tn)} ${fmt(tn)}張</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px">
+            <div style="font-size:10px;color:var(--muted)">5日集中度</div>
+            <div style="font-size:13px;font-weight:600;color:${(c5||0)>0?'#10b981':'#ef4444'}">${c5 !== undefined ? (c5>0?"+":"")+c5+"%" : "—"}</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px">
+            <div style="font-size:10px;color:var(--muted)">加碼訊號</div>
+            <div style="font-size:13px">${wstatus}</div>
+          </div>
+        </div>
+        ${trendHtml}
+      </div>
+    </div>`;
+  }
+
+  // 個股：完整六訊號
+  const sigItems = [
+    { label:"① 外資買賣超", val: fn !== undefined ? `${arrow(fn)} ${fmt(fn)}張` : "—", ok: sigs.foreign_flip },
+    { label:"② 三大法人",   val: tn !== undefined ? `${arrow(tn)} ${fmt(tn)}張` : "—", ok: sigs.total_positive },
+    { label:"③ 5日集中度",  val: c5 !== undefined ? (c5>0?"+":"")+c5+"%" : "—",       ok: sigs.conc5_rising },
+    { label:"④ 20日集中度", val: c20 !== undefined ? (c20>0?"+":"")+c20+"%" : "—",     ok: sigs.conc20_positive },
+    { label:"⑤ 家數差",     val: bd !== undefined ? fmt(bd) : "—",                      ok: sigs.broker_diff_neg },
+    { label:"⑥ 守支撐",     val: wscore >= 1 ? "✅" : "—",                              ok: sigs.price_support },
+  ];
+
+  const streakStr = streak < 0 ? `連續賣超 ${Math.abs(streak)} 天` :
+                    streak > 0 ? `連續買超 ${streak} 天` : "今日翻轉";
+
+  const sigHtml = sigItems.map(s =>
+    `<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px">
+      <span style="color:var(--muted)">${s.label}</span>
+      <span>${s.val} ${s.ok !== undefined ? (s.ok ? "✅" : "❌") : ""}</span>
+    </div>`
+  ).join("");
 
   return `<div class="card">
     <div class="card-header">
       <div>
-        <div class="card-title">${h.code} ${h.name} ${isEtf ? '<span class="holding-badge">ETF</span>' : ''}</div>
-        <div class="card-sub">收盤 ${close}｜${status}</div>
+        <div class="card-title">${h.code} ${h.name}</div>
+        <div class="card-sub">收盤 ${wclose}｜${streakStr}</div>
       </div>
-      ${scoreBadge(score)}
+      ${exhBadge}
     </div>
-    ${signals ? `<div class="card-body">${signals}</div>` : ''}
+    <div class="card-body">
+      ${sigHtml}
+      ${trendHtml}
+    </div>
   </div>`;
 }
 
