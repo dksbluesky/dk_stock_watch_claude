@@ -77,15 +77,18 @@ def fetch_institutional(code: str, date: str) -> dict:
                 def sf(v):
                     try: return int(str(v).replace(",","").strip())
                     except: return 0
+                def st(v):  # 股→張
+                    try: return int(str(v).replace(",","").strip()) // 1000
+                    except: return 0
                 return {
-                    "foreign_buy":    sf(row[2]),
-                    "foreign_sell":   sf(row[3]),
-                    "foreign_net":    sf(row[4]),   # 外資買賣超（張）
-                    "trust_buy":      sf(row[6]),
-                    "trust_sell":     sf(row[7]),
-                    "trust_net":      sf(row[8]),   # 投信買賣超
-                    "dealer_net":     sf(row[11]),  # 自營商買賣超
-                    "total_net":      sf(row[13]),  # 三大法人合計
+                    "foreign_buy":    st(row[2]),
+                    "foreign_sell":   st(row[3]),
+                    "foreign_net":    st(row[4]),   # 外資買賣超（張）
+                    "trust_buy":      st(row[6]),
+                    "trust_sell":     st(row[7]),
+                    "trust_net":      st(row[8]),   # 投信買賣超
+                    "dealer_net":     st(row[11]),  # 自營商買賣超
+                    "total_net":      st(row[13]),  # 三大法人合計
                 }
     except Exception as e:
         print(f"  三大法人抓取失敗: {e}")
@@ -94,8 +97,9 @@ def fetch_institutional(code: str, date: str) -> dict:
 
 def fetch_broker(code: str, date: str) -> dict:
     """
-    抓分點買賣資料（TWT38U）- 外資券商前15大
-    計算：買賣超、家數差
+    TWT38U 回傳全市場外資買賣資料，找到指定代號那行
+    欄位：[0]空白 [1]代號 [2]名稱 [3]買進股數 [4]賣出股數 [5]買賣超股數 ...
+    家數差目前無法從此 API 取得，暫時省略
     """
     url = f"https://www.twse.com.tw/rwd/zh/fund/TWT38U?response=json&date={date}&stockNo={code}"
     try:
@@ -106,35 +110,24 @@ def fetch_broker(code: str, date: str) -> dict:
         if data.get("stat") != "OK":
             return {}
         rows = data.get("data", [])
-
-        total_buy  = 0
-        total_sell = 0
-        buy_count  = 0
-        sell_count = 0
-
         for row in rows:
-            if len(row) < 4: continue
-            # 跳過合計行
-            if not str(row[0]).strip() or str(row[1]).strip() in ["合計", ""]:
-                continue
-            try:
-                buy  = int(str(row[2]).replace(",","").strip() or 0)
-                sell = int(str(row[3]).replace(",","").strip() or 0)
-                net  = int(str(row[4]).replace(",","").strip() or 0) if len(row) > 4 else buy - sell
-                total_buy  += buy
-                total_sell += sell
-                if net > 0: buy_count  += 1
-                if net < 0: sell_count += 1
-            except: continue
-
-        return {
-            "broker_buy":    total_buy,
-            "broker_sell":   total_sell,
-            "broker_net":    total_buy - total_sell,  # 買賣超（張）
-            "buy_brokers":   buy_count,
-            "sell_brokers":  sell_count,
-            "broker_diff":   buy_count - sell_count,  # 家數差
-        }
+            if len(row) < 6: continue
+            row_code = str(row[1]).strip()
+            if row_code != code: continue
+            def st(v):
+                try: return int(str(v).replace(",","").strip()) // 1000
+                except: return 0
+            buy = st(row[3])
+            sell= st(row[4])
+            net = st(row[5])
+            return {
+                "broker_buy":  buy,
+                "broker_sell": sell,
+                "broker_net":  net,
+                "buy_brokers": 0,   # 需要分點明細，此API無法計算
+                "sell_brokers":0,
+                "broker_diff": 0,
+            }
     except Exception as e:
         print(f"  分點資料抓取失敗: {e}")
     return {}
@@ -142,18 +135,20 @@ def fetch_broker(code: str, date: str) -> dict:
 
 def fetch_volume(code: str, date: str) -> int:
     """抓當日總成交量（張）"""
-    try:
-        r = requests.get(
-            f"https://query1.finance.yahoo.com/v8/finance/chart/{code}.TW?interval=1d&range=5d",
-            headers=HEADERS, timeout=15, verify=False
-        )
-        data = r.json()
-        result = data.get("chart", {}).get("result", [])
-        if result:
-            vols = result[0].get("indicators", {}).get("quote", [{}])[0].get("volume", [])
-            if vols:
-                return int((vols[-1] or 0) / 1000)  # 股 → 張
-    except: pass
+    for suffix in [".TW", ".TWO"]:
+        try:
+            r = requests.get(
+                f"https://query1.finance.yahoo.com/v8/finance/chart/{code}{suffix}?interval=1d&range=5d",
+                headers=HEADERS, timeout=15, verify=False
+            )
+            data = r.json()
+            result = data.get("chart", {}).get("result", [])
+            if result:
+                vols = result[0].get("indicators", {}).get("quote", [{}])[0].get("volume", [])
+                vols = [v for v in vols if v]
+                if vols:
+                    return int(vols[-1] / 1000)  # 股 → 張
+        except: continue
     return 0
 
 
