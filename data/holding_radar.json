@@ -1,5 +1,5 @@
 {
-  "generated": "2026/04/22 00:05",
+  "generated": "2026/04/22 00:25",
   "date": "20260421",
   "holdings": [
     {
@@ -12,23 +12,19 @@
       "total_net": 112,
       "broker_net": 2210,
       "broker_diff": 0,
-      "conc_5d": -14422.09,
-      "conc_20d": -14422.09,
+      "conc_5d": 8.57,
+      "conc_20d": 8.57,
       "streak": 1,
       "signals": {
         "foreign_flip": true,
         "total_positive": true,
-        "conc5_rising": true,
-        "conc20_positive": false,
+        "conc5_rising": false,
+        "conc20_positive": true,
         "broker_diff_neg": false,
         "price_support": true
       },
       "exhaustion": 4,
       "history_5d": [
-        {
-          "date": "20260417",
-          "foreign_net": -9382771
-        },
         {
           "date": "20260421",
           "foreign_net": 2210
@@ -45,23 +41,19 @@
       "total_net": 0,
       "broker_net": 391,
       "broker_diff": 0,
-      "conc_5d": -3228.82,
-      "conc_20d": -3228.82,
+      "conc_5d": 9.69,
+      "conc_20d": 9.69,
       "streak": 1,
       "signals": {
         "foreign_flip": true,
         "total_positive": false,
-        "conc5_rising": true,
-        "conc20_positive": false,
+        "conc5_rising": false,
+        "conc20_positive": true,
         "broker_diff_neg": false,
         "price_support": true
       },
       "exhaustion": 3,
       "history_5d": [
-        {
-          "date": "20260417",
-          "foreign_net": -251238
-        },
         {
           "date": "20260421",
           "foreign_net": 391
@@ -78,9 +70,9 @@
       "total_net": 0,
       "broker_net": 26364,
       "broker_diff": 0,
-      "conc_5d": 23567.75,
-      "conc_20d": 23567.75,
-      "streak": 2,
+      "conc_5d": 27.78,
+      "conc_20d": 27.78,
+      "streak": 1,
       "signals": {
         "foreign_flip": true,
         "total_positive": false,
@@ -91,10 +83,6 @@
       },
       "exhaustion": 3,
       "history_5d": [
-        {
-          "date": "20260417",
-          "foreign_net": 57645107
-        },
         {
           "date": "20260421",
           "foreign_net": 26364
