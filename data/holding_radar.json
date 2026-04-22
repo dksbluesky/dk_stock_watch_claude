@@ -1,5 +1,5 @@
 {
-  "generated": "2026/04/22 00:25",
+  "generated": "2026/04/22 08:24",
   "date": "20260421",
   "holdings": [
     {
@@ -36,7 +36,7 @@
       "name": "FTW50",
       "is_etf": true,
       "date": "20260421",
-      "close": 196.0,
+      "close": 199.9,
       "foreign_net": 391,
       "total_net": 0,
       "broker_net": 391,
@@ -65,23 +65,23 @@
       "name": "CTBC-Div",
       "is_etf": true,
       "date": "20260421",
-      "close": 24.5,
-      "foreign_net": 26364,
+      "close": 25.1,
+      "foreign_net": 0,
       "total_net": 0,
       "broker_net": 26364,
       "broker_diff": 0,
       "conc_5d": 27.78,
       "conc_20d": 27.78,
-      "streak": 1,
+      "streak": 0,
       "signals": {
-        "foreign_flip": true,
+        "foreign_flip": false,
         "total_positive": false,
         "conc5_rising": false,
         "conc20_positive": true,
         "broker_diff_neg": false,
         "price_support": true
       },
-      "exhaustion": 3,
+      "exhaustion": 2,
       "history_5d": [
         {
           "date": "20260421",
