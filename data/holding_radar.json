@@ -1,33 +1,37 @@
 {
-  "generated": "2026/04/22 08:24",
-  "date": "20260421",
+  "generated": "2026/04/23 08:29",
+  "date": "20260422",
   "holdings": [
     {
       "code": "2330",
       "name": "TSMC",
       "is_etf": false,
-      "date": "20260421",
-      "close": 2050.0,
-      "foreign_net": 2210,
-      "total_net": 112,
-      "broker_net": 2210,
+      "date": "20260422",
+      "close": 2080.0,
+      "foreign_net": -2133,
+      "total_net": 315,
+      "broker_net": -2133,
       "broker_diff": 0,
-      "conc_5d": 8.57,
-      "conc_20d": 8.57,
-      "streak": 1,
+      "conc_5d": 0.1,
+      "conc_20d": 0.1,
+      "streak": -1,
       "signals": {
-        "foreign_flip": true,
+        "foreign_flip": false,
         "total_positive": true,
         "conc5_rising": false,
         "conc20_positive": true,
         "broker_diff_neg": false,
         "price_support": true
       },
-      "exhaustion": 4,
+      "exhaustion": 3,
       "history_5d": [
         {
           "date": "20260421",
           "foreign_net": 2210
+        },
+        {
+          "date": "20260422",
+          "foreign_net": -2133
         }
       ]
     },
@@ -35,15 +39,15 @@
       "code": "006208",
       "name": "FTW50",
       "is_etf": true,
-      "date": "20260421",
-      "close": 199.9,
-      "foreign_net": 391,
+      "date": "20260422",
+      "close": 200.1,
+      "foreign_net": 300,
       "total_net": 0,
-      "broker_net": 391,
+      "broker_net": 300,
       "broker_diff": 0,
-      "conc_5d": 9.69,
-      "conc_20d": 9.69,
-      "streak": 1,
+      "conc_5d": 6.85,
+      "conc_20d": 6.85,
+      "streak": 2,
       "signals": {
         "foreign_flip": true,
         "total_positive": false,
@@ -57,6 +61,10 @@
         {
           "date": "20260421",
           "foreign_net": 391
+        },
+        {
+          "date": "20260422",
+          "foreign_net": 300
         }
       ]
     },
@@ -64,28 +72,32 @@
       "code": "00878",
       "name": "CTBC-Div",
       "is_etf": true,
-      "date": "20260421",
-      "close": 25.1,
-      "foreign_net": 0,
+      "date": "20260422",
+      "close": 24.7,
+      "foreign_net": 24355,
       "total_net": 0,
-      "broker_net": 26364,
+      "broker_net": 24355,
       "broker_diff": 0,
-      "conc_5d": 27.78,
-      "conc_20d": 27.78,
-      "streak": 0,
+      "conc_5d": 23.09,
+      "conc_20d": 23.09,
+      "streak": 2,
       "signals": {
-        "foreign_flip": false,
+        "foreign_flip": true,
         "total_positive": false,
         "conc5_rising": false,
         "conc20_positive": true,
         "broker_diff_neg": false,
         "price_support": true
       },
-      "exhaustion": 2,
+      "exhaustion": 3,
       "history_5d": [
         {
           "date": "20260421",
           "foreign_net": 26364
+        },
+        {
+          "date": "20260422",
+          "foreign_net": 24355
         }
       ]
     }
