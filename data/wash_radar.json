@@ -1,132 +1,109 @@
 {
-  "generated": "2026/04/23 08:29",
+  "generated": "2026/04/24 08:55",
   "results": [
     {
       "code": "2330",
       "name": "台積電",
       "score": 5,
       "status": "⚡ 突破訊號",
-      "close": 2080.0,
+      "close": 2185.0,
       "signals": [
-        "💥 今日爆量（1.6x 均量）",
-        "⚡ 逼近近20日高點（2100.0）",
-        "✅ 守住 MA20（1932.5）"
+        "🕯️ 收盤強勢（收在高點 94%）",
+        "🚀 突破近20日高點（2135.0）",
+        "✅ 守住 MA20（1946.0）"
       ],
-      "vol_ratio": 1.61,
-      "ma20": 1932.5,
+      "vol_ratio": 1.47,
+      "ma20": 1946.0,
       "is_etf": false
     },
     {
       "code": "006208",
       "name": "富邦台50",
-      "score": 1,
+      "score": 2,
       "status": "—",
-      "close": 200.10000610351562,
+      "close": 208.9499969482422,
       "signals": [
-        "✅ MA5 > MA20（趨勢向上）"
+        "✅ MA5 > MA20（趨勢向上）",
+        "🕯️ 今日收紅"
       ],
-      "vol_ratio": 1.59,
-      "ma20": 183.86,
+      "vol_ratio": 1.95,
+      "ma20": 185.22,
       "is_etf": true
     },
     {
       "code": "00878",
       "name": "國泰高股息",
-      "score": 1,
+      "score": 2,
       "status": "—",
-      "close": 24.65999984741211,
+      "close": 25.0,
       "signals": [
-        "✅ MA5 > MA20（趨勢向上）"
+        "✅ MA5 > MA20（趨勢向上）",
+        "🕯️ 今日收紅"
       ],
-      "vol_ratio": 1.78,
-      "ma20": 23.03,
+      "vol_ratio": 1.12,
+      "ma20": 23.16,
       "is_etf": true
     },
     {
-      "code": "2317",
-      "name": "鴻海",
-      "score": 6,
-      "status": "⚡ 突破訊號",
-      "close": 225.0,
+      "code": "2454",
+      "name": "聯發科",
+      "score": 8,
+      "status": "🔥 強烈突破訊號",
+      "close": 2435.0,
       "signals": [
-        "💥 今日爆量（3.3x 均量）",
-        "🚀 突破近20日高點（223.5）",
-        "✅ 守住 MA20（201.4）"
+        "💥 今日爆量（1.9x 均量）",
+        "🕯️ 收盤強勢（收在高點 100%）",
+        "🚀 突破近20日高點（2335.0）",
+        "✅ 守住 MA20（1718.8）"
       ],
-      "vol_ratio": 3.26,
-      "ma20": 201.4,
+      "vol_ratio": 1.89,
+      "ma20": 1718.75,
       "is_etf": false
     },
     {
-      "code": "2385",
-      "name": "群光",
-      "score": 5,
-      "status": "⚡ 突破訊號",
-      "close": 126.0,
-      "signals": [
-        "💥 今日爆量（2.0x 均量）",
-        "⚡ 逼近近20日高點（127.5）",
-        "✅ 守住 MA20（123.1）"
-      ],
-      "vol_ratio": 1.98,
-      "ma20": 123.1,
-      "is_etf": false
-    },
-    {
-      "code": "2357",
-      "name": "華碩",
-      "score": 5,
-      "status": "⚡ 突破訊號",
-      "close": 598.0,
-      "signals": [
-        "💥 今日爆量（1.6x 均量）",
-        "⚡ 逼近近20日高點（609.0）",
-        "✅ 守住 MA20（575.8）"
-      ],
-      "vol_ratio": 1.61,
-      "ma20": 575.75,
-      "is_etf": false
-    },
-    {
-      "code": "2303",
-      "name": "聯電",
-      "score": 4,
-      "status": "🌀 洗籌碼整理中",
-      "close": 73.5999984741211,
-      "signals": [
-        "💥 今日爆量（1.5x 均量）",
-        "✅ 守住 MA20（62.6）"
-      ],
-      "vol_ratio": 1.52,
-      "ma20": 62.58,
-      "is_etf": false
-    },
-    {
-      "code": "3034",
-      "name": "聯詠",
-      "score": 4,
-      "status": "🌀 洗籌碼整理中",
-      "close": 406.0,
+      "code": "3189",
+      "name": "景碩",
+      "score": 8,
+      "status": "🔥 強烈突破訊號",
+      "close": 526.0,
       "signals": [
         "💥 今日爆量（2.4x 均量）",
-        "✅ 守住 MA20（397.0）"
+        "🕯️ 收盤強勢（收在高點 100%）",
+        "🚀 突破近20日高點（509.0）",
+        "✅ 守住 MA20（384.2）"
       ],
       "vol_ratio": 2.37,
-      "ma20": 397.0,
+      "ma20": 384.18,
       "is_etf": false
     },
     {
-      "code": "3545",
-      "name": "敦泰",
-      "score": 4,
-      "status": "🌀 洗籌碼整理中",
-      "close": 52.099998474121094,
+      "code": "3037",
+      "name": "欣興",
+      "score": 5,
+      "status": "⚡ 突破訊號",
+      "close": 790.0,
       "signals": [
-        "💥 今日爆量（4.9x 均量）",
-        "✅ 守住 MA20（48.5）"
+        "🕯️ 收盤強勢（收在高點 100%）",
+        "🚀 突破近20日高點（749.0）",
+        "✅ 守住 MA20（593.3）"
       ],
-      "vol_ratio": 4.94,
-      "ma20": 48.46,
+      "vol_ratio": 0.56,
+      "ma20": 593.33,
+      "is_etf": false
+    },
+    {
+      "code": "8046",
+      "name": "南電",
+      "score": 5,
+      "status": "⚡ 突破訊號",
+      "close": 874.0,
+      "signals": [
+        "🕯️ 收盤強勢（收在高點 100%）",
+        "🚀 突破近20日高點（865.0）",
+        "✅ 守住 MA20（654.8）"
+      ],
+      "vol_ratio": 1.0,
+      "ma20": 654.8,
       "is_etf": false
     },
     {
@@ -134,112 +111,13 @@
       "name": "矽創",
       "score": 4,
       "status": "🌀 洗籌碼整理中",
-      "close": 224.5,
+      "close": 229.5,
       "signals": [
-        "💥 今日爆量（5.8x 均量）",
-        "✅ 守住 MA20（204.2）"
+        "💥 今日爆量（1.9x 均量）",
+        "✅ 守住 MA20（205.7）"
       ],
-      "vol_ratio": 5.82,
-      "ma20": 204.2,
-      "is_etf": false
-    },
-    {
-      "code": "4961",
-      "name": "天鈺",
-      "score": 4,
-      "status": "🌀 洗籌碼整理中",
-      "close": 162.0,
-      "signals": [
-        "💥 今日爆量（5.3x 均量）",
-        "✅ 守住 MA20（151.2）"
-      ],
-      "vol_ratio": 5.29,
-      "ma20": 151.2,
-      "is_etf": false
-    },
-    {
-      "code": "2454",
-      "name": "聯發科",
-      "score": 4,
-      "status": "🌀 洗籌碼整理中",
-      "close": 2215.0,
-      "signals": [
-        "💥 今日爆量（2.7x 均量）",
-        "✅ 守住 MA20（1689.0）"
-      ],
-      "vol_ratio": 2.69,
-      "ma20": 1689.0,
-      "is_etf": false
-    },
-    {
-      "code": "3037",
-      "name": "欣興",
-      "score": 4,
-      "status": "🌀 洗籌碼整理中",
-      "close": 728.0,
-      "signals": [
-        "🕯️ 收盤強勢（收在高點 76%）",
-        "⚡ 逼近近20日高點（730.0）",
-        "✅ 守住 MA20（579.9）"
-      ],
-      "vol_ratio": 0.47,
-      "ma20": 579.92,
-      "is_etf": false
-    },
-    {
-      "code": "3189",
-      "name": "景碩",
-      "score": 4,
-      "status": "🌀 洗籌碼整理中",
-      "close": 479.0,
-      "signals": [
-        "💥 今日爆量（2.7x 均量）",
-        "✅ 守住 MA20（376.2）"
-      ],
-      "vol_ratio": 2.71,
-      "ma20": 376.25,
-      "is_etf": false
-    },
-    {
-      "code": "2049",
-      "name": "上銀",
-      "score": 4,
-      "status": "🌀 洗籌碼整理中",
-      "close": 302.0,
-      "signals": [
-        "💥 今日爆量（1.7x 均量）",
-        "✅ 守住 MA20（255.8）"
-      ],
-      "vol_ratio": 1.71,
-      "ma20": 255.75,
-      "is_etf": false
-    },
-    {
-      "code": "3231",
-      "name": "緯創",
-      "score": 4,
-      "status": "🌀 洗籌碼整理中",
-      "close": 139.5,
-      "signals": [
-        "💥 今日爆量（1.7x 均量）",
-        "✅ 守住 MA20（131.8）"
-      ],
-      "vol_ratio": 1.74,
-      "ma20": 131.82,
-      "is_etf": false
-    },
-    {
-      "code": "2327",
-      "name": "國巨",
-      "score": 4,
-      "status": "🌀 洗籌碼整理中",
-      "close": 295.0,
-      "signals": [
-        "💥 今日爆量（1.8x 均量）",
-        "✅ 守住 MA20（283.1）"
-      ],
-      "vol_ratio": 1.77,
-      "ma20": 283.12,
+      "vol_ratio": 1.9,
+      "ma20": 205.7,
       "is_etf": false
     },
     {
@@ -247,224 +125,56 @@
       "name": "台達電",
       "score": 4,
       "status": "🌀 洗籌碼整理中",
-      "close": 1980.0,
+      "close": 2075.0,
       "signals": [
-        "💥 今日爆量（1.6x 均量）",
-        "✅ 守住 MA20（1660.5）"
+        "🕯️ 收盤強勢（收在高點 85%）",
+        "⚡ 逼近近20日高點（2115.0）",
+        "✅ 守住 MA20（1688.8）"
       ],
-      "vol_ratio": 1.55,
-      "ma20": 1660.5,
+      "vol_ratio": 1.03,
+      "ma20": 1688.75,
+      "is_etf": false
+    },
+    {
+      "code": "3231",
+      "name": "緯創",
+      "score": 3,
+      "status": "🌀 洗籌碼整理中",
+      "close": 141.5,
+      "signals": [
+        "🕯️ 收盤強勢（收在高點 100%）",
+        "✅ 守住 MA20（132.3）"
+      ],
+      "vol_ratio": 1.08,
+      "ma20": 132.35,
+      "is_etf": false
+    },
+    {
+      "code": "2327",
+      "name": "國巨",
+      "score": 3,
+      "status": "🌀 洗籌碼整理中",
+      "close": 297.0,
+      "signals": [
+        "🕯️ 收盤強勢（收在高點 64%）",
+        "✅ 守住 MA20（285.4）"
+      ],
+      "vol_ratio": 0.92,
+      "ma20": 285.35,
       "is_etf": false
     },
     {
       "code": "5871",
       "name": "中租-KY",
-      "score": 4,
-      "status": "🌀 洗籌碼整理中",
-      "close": 121.0,
-      "signals": [
-        "🕯️ 收盤強勢（收在高點 100%）",
-        "⚡ 逼近近20日高點（121.0）",
-        "✅ 守住 MA20（111.8）"
-      ],
-      "vol_ratio": 1.28,
-      "ma20": 111.83,
-      "is_etf": false
-    },
-    {
-      "code": "2379",
-      "name": "瑞昱",
-      "score": 4,
-      "status": "🌀 洗籌碼整理中",
-      "close": 542.0,
-      "signals": [
-        "💥 今日爆量（2.1x 均量）",
-        "✅ 守住 MA20（510.8）"
-      ],
-      "vol_ratio": 2.09,
-      "ma20": 510.82,
-      "is_etf": false
-    },
-    {
-      "code": "3006",
-      "name": "晶豪科",
       "score": 3,
       "status": "🌀 洗籌碼整理中",
-      "close": 155.5,
+      "close": 121.5,
       "signals": [
-        "💥 今日爆量（2.6x 均量）"
+        "🚀 突破近20日高點（121.0）",
+        "✅ 守住 MA20（112.7）"
       ],
-      "vol_ratio": 2.57,
-      "ma20": 159.85,
-      "is_etf": false
-    },
-    {
-      "code": "2634",
-      "name": "漢翔",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 49.5,
-      "signals": [
-        "💥 今日爆量（1.5x 均量）"
-      ],
-      "vol_ratio": 1.54,
-      "ma20": 48.33,
-      "is_etf": false
-    },
-    {
-      "code": "2002",
-      "name": "中鋼",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 19.149999618530273,
-      "signals": [
-        "💥 今日爆量（1.6x 均量）"
-      ],
-      "vol_ratio": 1.63,
-      "ma20": 19.73,
-      "is_etf": false
-    },
-    {
-      "code": "1504",
-      "name": "東元",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 61.29999923706055,
-      "signals": [
-        "💥 今日爆量（1.8x 均量）"
-      ],
-      "vol_ratio": 1.76,
-      "ma20": 62.16,
-      "is_etf": false
-    },
-    {
-      "code": "1513",
-      "name": "中興電",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 151.5,
-      "signals": [
-        "💥 今日爆量（2.1x 均量）"
-      ],
-      "vol_ratio": 2.05,
-      "ma20": 151.03,
-      "is_etf": false
-    },
-    {
-      "code": "1503",
-      "name": "士電",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 192.0,
-      "signals": [
-        "💥 今日爆量（2.2x 均量）"
-      ],
-      "vol_ratio": 2.18,
-      "ma20": 189.7,
-      "is_etf": false
-    },
-    {
-      "code": "8436",
-      "name": "大江",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 120.5,
-      "signals": [
-        "💥 今日爆量（1.6x 均量）"
-      ],
-      "vol_ratio": 1.65,
-      "ma20": 124.35,
-      "is_etf": false
-    },
-    {
-      "code": "1707",
-      "name": "葡萄王",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 116.5,
-      "signals": [
-        "💥 今日爆量（3.1x 均量）"
-      ],
-      "vol_ratio": 3.09,
-      "ma20": 119.85,
-      "is_etf": false
-    },
-    {
-      "code": "3558",
-      "name": "神準",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 113.0,
-      "signals": [
-        "💥 今日爆量（2.0x 均量）"
-      ],
-      "vol_ratio": 1.99,
-      "ma20": 112.75,
-      "is_etf": false
-    },
-    {
-      "code": "2618",
-      "name": "長榮航",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 33.75,
-      "signals": [
-        "💥 今日爆量（3.3x 均量）"
-      ],
-      "vol_ratio": 3.29,
-      "ma20": 35.04,
-      "is_etf": false
-    },
-    {
-      "code": "2610",
-      "name": "華航",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 17.899999618530273,
-      "signals": [
-        "💥 今日爆量（1.8x 均量）"
-      ],
-      "vol_ratio": 1.85,
-      "ma20": 18.34,
-      "is_etf": false
-    },
-    {
-      "code": "4164",
-      "name": "承業醫",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 30.700000762939453,
-      "signals": [
-        "💥 今日爆量（1.8x 均量）"
-      ],
-      "vol_ratio": 1.76,
-      "ma20": 31.14,
-      "is_etf": false
-    },
-    {
-      "code": "1720",
-      "name": "生達",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 61.0,
-      "signals": [
-        "💥 今日爆量（2.6x 均量）"
-      ],
-      "vol_ratio": 2.59,
-      "ma20": 63.12,
-      "is_etf": false
-    },
-    {
-      "code": "1752",
-      "name": "南光",
-      "score": 3,
-      "status": "🌀 洗籌碼整理中",
-      "close": 34.95000076293945,
-      "signals": [
-        "💥 今日爆量（1.6x 均量）"
-      ],
-      "vol_ratio": 1.6,
-      "ma20": 35.79,
+      "vol_ratio": 1.4,
+      "ma20": 112.65,
       "is_etf": false
     },
     {
@@ -472,12 +182,25 @@
       "name": "健喬",
       "score": 3,
       "status": "🌀 洗籌碼整理中",
-      "close": 31.399999618530273,
+      "close": 31.0,
       "signals": [
-        "💥 今日爆量（2.3x 均量）"
+        "💥 今日爆量（1.6x 均量）"
       ],
-      "vol_ratio": 2.3,
-      "ma20": 31.32,
+      "vol_ratio": 1.55,
+      "ma20": 31.35,
+      "is_etf": false
+    },
+    {
+      "code": "2027",
+      "name": "大成鋼",
+      "score": 2,
+      "status": "—",
+      "close": 36.349998474121094,
+      "signals": [
+        "🕯️ 收盤強勢（收在高點 90%）"
+      ],
+      "vol_ratio": 0.46,
+      "ma20": 37.4,
       "is_etf": false
     },
     {
@@ -485,39 +208,13 @@
       "name": "裕融",
       "score": 2,
       "status": "—",
-      "close": 79.0,
+      "close": 78.0,
       "signals": [
-        "⚡ 逼近近20日高點（79.3）",
-        "✅ 守住 MA20（77.1）"
+        "⚡ 逼近近20日高點（79.5）",
+        "✅ 守住 MA20（77.2）"
       ],
-      "vol_ratio": 1.05,
-      "ma20": 77.14,
-      "is_etf": false
-    },
-    {
-      "code": "1477",
-      "name": "聚陽",
-      "score": 2,
-      "status": "—",
-      "close": 220.0,
-      "signals": [
-        "🕯️ 收盤強勢（收在高點 62%）"
-      ],
-      "vol_ratio": 1.02,
-      "ma20": 228.47,
-      "is_etf": false
-    },
-    {
-      "code": "1216",
-      "name": "統一",
-      "score": 2,
-      "status": "—",
-      "close": 71.9000015258789,
-      "signals": [
-        "🕯️ 收盤強勢（收在高點 67%）"
-      ],
-      "vol_ratio": 1.45,
-      "ma20": 72.03,
+      "vol_ratio": 0.98,
+      "ma20": 77.19,
       "is_etf": false
     },
     {
@@ -525,13 +222,78 @@
       "name": "中華電",
       "score": 2,
       "status": "—",
-      "close": 136.0,
+      "close": 135.5,
       "signals": [
         "⚡ 逼近近20日高點（138.0）",
-        "✅ 守住 MA20（135.0）"
+        "✅ 守住 MA20（135.1）"
       ],
-      "vol_ratio": 0.62,
-      "ma20": 135.03,
+      "vol_ratio": 1.03,
+      "ma20": 135.12,
+      "is_etf": false
+    },
+    {
+      "code": "2317",
+      "name": "鴻海",
+      "score": 1,
+      "status": "—",
+      "close": 221.5,
+      "signals": [
+        "✅ 守住 MA20（202.9）"
+      ],
+      "vol_ratio": 1.31,
+      "ma20": 202.9,
+      "is_etf": false
+    },
+    {
+      "code": "2303",
+      "name": "聯電",
+      "score": 1,
+      "status": "—",
+      "close": 74.5,
+      "signals": [
+        "✅ 守住 MA20（63.4）"
+      ],
+      "vol_ratio": 1.11,
+      "ma20": 63.43,
+      "is_etf": false
+    },
+    {
+      "code": "3034",
+      "name": "聯詠",
+      "score": 1,
+      "status": "—",
+      "close": 418.0,
+      "signals": [
+        "✅ 守住 MA20（398.8）"
+      ],
+      "vol_ratio": 1.5,
+      "ma20": 398.8,
+      "is_etf": false
+    },
+    {
+      "code": "3545",
+      "name": "敦泰",
+      "score": 1,
+      "status": "—",
+      "close": 53.0,
+      "signals": [
+        "✅ 守住 MA20（48.9）"
+      ],
+      "vol_ratio": 1.04,
+      "ma20": 48.94,
+      "is_etf": false
+    },
+    {
+      "code": "4961",
+      "name": "天鈺",
+      "score": 1,
+      "status": "—",
+      "close": 160.0,
+      "signals": [
+        "✅ 守住 MA20（152.2）"
+      ],
+      "vol_ratio": 1.08,
+      "ma20": 152.25,
       "is_etf": false
     },
     {
@@ -539,25 +301,38 @@
       "name": "帆宣",
       "score": 1,
       "status": "—",
-      "close": 376.0,
+      "close": 386.0,
       "signals": [
-        "✅ 守住 MA20（320.2）"
+        "✅ 守住 MA20（325.0）"
       ],
-      "vol_ratio": 1.33,
-      "ma20": 320.2,
+      "vol_ratio": 0.89,
+      "ma20": 324.98,
       "is_etf": false
     },
     {
-      "code": "8046",
-      "name": "南電",
+      "code": "2049",
+      "name": "上銀",
       "score": 1,
       "status": "—",
-      "close": 795.0,
+      "close": 293.5,
       "signals": [
-        "✅ 守住 MA20（639.6）"
+        "✅ 守住 MA20（259.6）"
       ],
-      "vol_ratio": 1.34,
-      "ma20": 639.6,
+      "vol_ratio": 0.67,
+      "ma20": 259.57,
+      "is_etf": false
+    },
+    {
+      "code": "2634",
+      "name": "漢翔",
+      "score": 1,
+      "status": "—",
+      "close": 48.79999923706055,
+      "signals": [
+        "✅ 守住 MA20（48.3）"
+      ],
+      "vol_ratio": 0.79,
+      "ma20": 48.35,
       "is_etf": false
     },
     {
@@ -565,12 +340,12 @@
       "name": "技嘉",
       "score": 1,
       "status": "—",
-      "close": 275.0,
+      "close": 278.0,
       "signals": [
-        "✅ 守住 MA20（252.5）"
+        "✅ 守住 MA20（254.5）"
       ],
-      "vol_ratio": 1.01,
-      "ma20": 252.5,
+      "vol_ratio": 0.55,
+      "ma20": 254.5,
       "is_etf": false
     },
     {
@@ -578,25 +353,62 @@
       "name": "台化",
       "score": 1,
       "status": "—",
-      "close": 49.400001525878906,
+      "close": 49.349998474121094,
       "signals": [
-        "✅ 守住 MA20（47.5）"
+        "✅ 守住 MA20（47.8）"
       ],
-      "vol_ratio": 0.81,
-      "ma20": 47.52,
+      "vol_ratio": 0.38,
+      "ma20": 47.84,
       "is_etf": false
     },
     {
-      "code": "1301",
-      "name": "台塑",
+      "code": "2379",
+      "name": "瑞昱",
       "score": 1,
       "status": "—",
-      "close": 51.0,
+      "close": 539.0,
       "signals": [
-        "✅ 守住 MA20（49.2）"
+        "✅ 守住 MA20（513.9）"
       ],
+      "vol_ratio": 1.09,
+      "ma20": 513.9,
+      "is_etf": false
+    },
+    {
+      "code": "2385",
+      "name": "群光",
+      "score": 1,
+      "status": "—",
+      "close": 125.0,
+      "signals": [
+        "✅ 守住 MA20（123.4）"
+      ],
+      "vol_ratio": 0.94,
+      "ma20": 123.4,
+      "is_etf": false
+    },
+    {
+      "code": "2357",
+      "name": "華碩",
+      "score": 1,
+      "status": "—",
+      "close": 585.0,
+      "signals": [
+        "✅ 守住 MA20（577.4）"
+      ],
+      "vol_ratio": 1.38,
+      "ma20": 577.4,
+      "is_etf": false
+    },
+    {
+      "code": "3006",
+      "name": "晶豪科",
+      "score": 0,
+      "status": "—",
+      "close": 154.5,
+      "signals": [],
       "vol_ratio": 0.81,
-      "ma20": 49.15,
+      "ma20": 159.53,
       "is_etf": false
     },
     {
@@ -604,21 +416,32 @@
       "name": "神基",
       "score": 0,
       "status": "—",
-      "close": 98.0,
+      "close": 96.5999984741211,
       "signals": [],
-      "vol_ratio": 1.35,
-      "ma20": 102.26,
+      "vol_ratio": 0.82,
+      "ma20": 100.81,
       "is_etf": false
     },
     {
-      "code": "2027",
-      "name": "大成鋼",
+      "code": "1301",
+      "name": "台塑",
       "score": 0,
       "status": "—",
-      "close": 36.25,
+      "close": 50.20000076293945,
+      "signals": [],
+      "vol_ratio": 0.72,
+      "ma20": 49.45,
+      "is_etf": false
+    },
+    {
+      "code": "2002",
+      "name": "中鋼",
+      "score": 0,
+      "status": "—",
+      "close": 19.0,
       "signals": [],
       "vol_ratio": 1.03,
-      "ma20": 37.42,
+      "ma20": 19.73,
       "is_etf": false
     },
     {
@@ -626,10 +449,98 @@
       "name": "中鴻",
       "score": 0,
       "status": "—",
-      "close": 17.350000381469727,
+      "close": 17.149999618530273,
       "signals": [],
-      "vol_ratio": 1.27,
-      "ma20": 18.49,
+      "vol_ratio": 0.54,
+      "ma20": 18.44,
+      "is_etf": false
+    },
+    {
+      "code": "1504",
+      "name": "東元",
+      "score": 0,
+      "status": "—",
+      "close": 61.0,
+      "signals": [],
+      "vol_ratio": 0.58,
+      "ma20": 62.0,
+      "is_etf": false
+    },
+    {
+      "code": "1513",
+      "name": "中興電",
+      "score": 0,
+      "status": "—",
+      "close": 149.5,
+      "signals": [],
+      "vol_ratio": 1.35,
+      "ma20": 150.78,
+      "is_etf": false
+    },
+    {
+      "code": "1503",
+      "name": "士電",
+      "score": 0,
+      "status": "—",
+      "close": 191.0,
+      "signals": [],
+      "vol_ratio": 0.8,
+      "ma20": 189.72,
+      "is_etf": false
+    },
+    {
+      "code": "8436",
+      "name": "大江",
+      "score": 0,
+      "status": "—",
+      "close": 119.5,
+      "signals": [],
+      "vol_ratio": 0.74,
+      "ma20": 124.2,
+      "is_etf": false
+    },
+    {
+      "code": "1707",
+      "name": "葡萄王",
+      "score": 0,
+      "status": "—",
+      "close": 116.5,
+      "signals": [],
+      "vol_ratio": 0.89,
+      "ma20": 119.67,
+      "is_etf": false
+    },
+    {
+      "code": "3558",
+      "name": "神準",
+      "score": 0,
+      "status": "—",
+      "close": 112.0,
+      "signals": [],
+      "vol_ratio": 0.76,
+      "ma20": 112.4,
+      "is_etf": false
+    },
+    {
+      "code": "2618",
+      "name": "長榮航",
+      "score": 0,
+      "status": "—",
+      "close": 33.75,
+      "signals": [],
+      "vol_ratio": 1.13,
+      "ma20": 34.96,
+      "is_etf": false
+    },
+    {
+      "code": "2610",
+      "name": "華航",
+      "score": 0,
+      "status": "—",
+      "close": 17.850000381469727,
+      "signals": [],
+      "vol_ratio": 0.78,
+      "ma20": 18.29,
       "is_etf": false
     },
     {
@@ -637,10 +548,65 @@
       "name": "長榮",
       "score": 0,
       "status": "—",
-      "close": 201.0,
+      "close": 201.5,
       "signals": [],
-      "vol_ratio": 1.5,
-      "ma20": 201.88,
+      "vol_ratio": 1.06,
+      "ma20": 201.78,
+      "is_etf": false
+    },
+    {
+      "code": "1477",
+      "name": "聚陽",
+      "score": 0,
+      "status": "—",
+      "close": 217.0,
+      "signals": [],
+      "vol_ratio": 0.93,
+      "ma20": 225.97,
+      "is_etf": false
+    },
+    {
+      "code": "4164",
+      "name": "承業醫",
+      "score": 0,
+      "status": "—",
+      "close": 30.5,
+      "signals": [],
+      "vol_ratio": 1.03,
+      "ma20": 31.15,
+      "is_etf": false
+    },
+    {
+      "code": "1720",
+      "name": "生達",
+      "score": 0,
+      "status": "—",
+      "close": 60.900001525878906,
+      "signals": [],
+      "vol_ratio": 0.91,
+      "ma20": 63.04,
+      "is_etf": false
+    },
+    {
+      "code": "1752",
+      "name": "南光",
+      "score": 0,
+      "status": "—",
+      "close": 35.0,
+      "signals": [],
+      "vol_ratio": 0.72,
+      "ma20": 35.73,
+      "is_etf": false
+    },
+    {
+      "code": "1216",
+      "name": "統一",
+      "score": 0,
+      "status": "—",
+      "close": 71.5,
+      "signals": [],
+      "vol_ratio": 1.14,
+      "ma20": 72.12,
       "is_etf": false
     }
   ]
