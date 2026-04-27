@@ -47,6 +47,22 @@
       "broker_diff": 0,
       "volume": 49171,
       "date": "20260423"
+    },
+    {
+      "foreign_buy": 29417,
+      "foreign_sell": 21111,
+      "foreign_net": 8305,
+      "trust_net": 1792,
+      "dealer_net": 255,
+      "total_net": 303,
+      "broker_buy": 29417,
+      "broker_sell": 21111,
+      "broker_net": 8305,
+      "buy_brokers": 0,
+      "sell_brokers": 0,
+      "broker_diff": 0,
+      "volume": 76616,
+      "date": "20260424"
     }
   ],
   "006208": [
@@ -97,6 +113,22 @@
       "broker_diff": 0,
       "volume": 7728,
       "date": "20260423"
+    },
+    {
+      "foreign_buy": 1719,
+      "foreign_sell": 906,
+      "foreign_net": 812,
+      "trust_net": 0,
+      "dealer_net": 3293,
+      "total_net": 0,
+      "broker_buy": 1719,
+      "broker_sell": 906,
+      "broker_net": 812,
+      "buy_brokers": 0,
+      "sell_brokers": 0,
+      "broker_diff": 0,
+      "volume": 10490,
+      "date": "20260424"
     }
   ],
   "00878": [
@@ -141,6 +173,22 @@
       "broker_diff": 0,
       "volume": 83150,
       "date": "20260423"
+    },
+    {
+      "foreign_buy": 8491,
+      "foreign_sell": 5400,
+      "foreign_net": 3091,
+      "trust_net": 0,
+      "dealer_net": 39422,
+      "total_net": 708,
+      "broker_buy": 8491,
+      "broker_sell": 5400,
+      "broker_net": 3091,
+      "buy_brokers": 0,
+      "sell_brokers": 0,
+      "broker_diff": 0,
+      "volume": 119763,
+      "date": "20260424"
     }
   ]
 }
