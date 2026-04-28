@@ -1,29 +1,29 @@
 {
-  "generated": "2026/04/27 09:13",
-  "date": "20260424",
+  "generated": "2026/04/28 09:14",
+  "date": "20260427",
   "holdings": [
     {
       "code": "2330",
       "name": "TSMC",
       "is_etf": false,
-      "date": "20260424",
-      "close": 2265.0,
-      "foreign_net": 8305,
-      "total_net": 303,
-      "broker_net": 8305,
+      "date": "20260427",
+      "close": 2215.0,
+      "foreign_net": -18941,
+      "total_net": 366,
+      "broker_net": -18941,
       "broker_diff": 0,
-      "conc_5d": 7.64,
-      "conc_20d": 7.64,
-      "streak": 2,
+      "conc_5d": -1.31,
+      "conc_20d": -1.31,
+      "streak": -1,
       "signals": {
-        "foreign_flip": true,
+        "foreign_flip": false,
         "total_positive": true,
-        "conc5_rising": true,
-        "conc20_positive": true,
+        "conc5_rising": false,
+        "conc20_positive": false,
         "broker_diff_neg": false,
         "price_support": true
       },
-      "exhaustion": 5,
+      "exhaustion": 2,
       "history_5d": [
         {
           "date": "20260421",
@@ -40,6 +40,10 @@
         {
           "date": "20260424",
           "foreign_net": 8305
+        },
+        {
+          "date": "20260427",
+          "foreign_net": -18941
         }
       ]
     },
@@ -47,15 +51,15 @@
       "code": "006208",
       "name": "FTW50",
       "is_etf": true,
-      "date": "20260424",
-      "close": 215.4,
-      "foreign_net": 812,
+      "date": "20260427",
+      "close": 213.1,
+      "foreign_net": 341,
       "total_net": 0,
-      "broker_net": 812,
+      "broker_net": 341,
       "broker_diff": 0,
-      "conc_5d": 8.76,
-      "conc_20d": 8.76,
-      "streak": 4,
+      "conc_5d": 8.21,
+      "conc_20d": 8.21,
+      "streak": 5,
       "signals": {
         "foreign_flip": true,
         "total_positive": false,
@@ -81,6 +85,10 @@
         {
           "date": "20260424",
           "foreign_net": 812
+        },
+        {
+          "date": "20260427",
+          "foreign_net": 341
         }
       ]
     },
@@ -88,24 +96,24 @@
       "code": "00878",
       "name": "CTBC-Div",
       "is_etf": true,
-      "date": "20260424",
-      "close": 25.0,
-      "foreign_net": 3091,
-      "total_net": 708,
-      "broker_net": 3091,
+      "date": "20260427",
+      "close": 25.3,
+      "foreign_net": 27017,
+      "total_net": 94,
+      "broker_net": 27017,
       "broker_diff": 0,
-      "conc_5d": 12.73,
-      "conc_20d": 12.73,
-      "streak": 1,
+      "conc_5d": 15.28,
+      "conc_20d": 15.28,
+      "streak": 2,
       "signals": {
         "foreign_flip": true,
         "total_positive": true,
-        "conc5_rising": false,
+        "conc5_rising": true,
         "conc20_positive": true,
         "broker_diff_neg": false,
         "price_support": true
       },
-      "exhaustion": 4,
+      "exhaustion": 5,
       "history_5d": [
         {
           "date": "20260421",
@@ -122,6 +130,10 @@
         {
           "date": "20260424",
           "foreign_net": 3091
+        },
+        {
+          "date": "20260427",
+          "foreign_net": 27017
         }
       ]
     }
