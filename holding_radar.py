@@ -270,7 +270,7 @@ def calc_concentration(history_list: list, days: int) -> float:
     recent = [d for d in recent if d.get("volume", 0) > 0]
     if not recent:
         return 0.0
-    net_sum = sum(d.get("total_net", d.get("foreign_net", 0)) for d in recent)
+    net_sum = sum((d.get("total_net") or d.get("foreign_net") or 0) for d in recent)
     vol_sum = sum(d.get("volume", 0) for d in recent)
     if vol_sum == 0:
         return 0.0
@@ -291,11 +291,29 @@ def analyze_holding(code: str, name: str, is_etf: bool, history: dict) -> dict:
 
     # 載入 / 補充歷史
     h_list = history.get(code, [])
+
+    # 清除 total_net 明顯錯誤的舊記錄（舊 T86 欄位映射 row[13] 殘留的垃圾值）
+    # 判斷：total_net 存在但絕對值 < foreign_net 的 30%，且 foreign_net > 500 張
+    def is_bad_total_net(entry: dict) -> bool:
+        tn = entry.get("total_net")
+        fn = entry.get("foreign_net")
+        if tn is None or fn is None:
+            return False
+        if abs(fn) < 500:
+            return False
+        return abs(tn) < abs(fn) * 0.3
+
+    bad_dates = {d["date"] for d in h_list if is_bad_total_net(d)}
+    if bad_dates:
+        print(f"  清除 {len(bad_dates)} 筆錯誤 total_net 記錄：{sorted(bad_dates)}")
+        h_list = [d for d in h_list if d["date"] not in bad_dates]
+
     existing_dates = {d["date"] for d in h_list}
 
-    # 若歷史 < 20 筆，從 FinMind 補充
-    if len([d for d in h_list if d.get("volume", 0) > 0]) < 20:
-        print(f"  歷史不足 20 日，從 FinMind 補充...")
+    # 若歷史有效筆數 < 20，或剛清除了錯誤記錄，從 FinMind 補充
+    valid_count = len([d for d in h_list if d.get("volume", 0) > 0 and d.get("total_net") is not None])
+    if valid_count < 20:
+        print(f"  有效歷史 {valid_count} 日，從 FinMind 補充...")
         fin_records = fetch_finmind_history(code)
         vol_map     = fetch_volume_history(code) if fin_records else {}
         for rec in fin_records:
