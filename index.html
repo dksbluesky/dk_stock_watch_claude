@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
@@ -295,11 +295,11 @@ function holdingCard(h) {
   let trendHtml = "";
   if (hist5.length >= 2) {
     const trend = hist5.map(d => {
-      const v = d.foreign_net || 0;
+      const v = d.total_net !== undefined ? d.total_net : (d.foreign_net || 0);
       const col = v > 0 ? "#10b981" : v < 0 ? "#ef4444" : "#64748b";
       return `<span style="color:${col}">${fmt(v)}</span>`;
     }).join(" → ");
-    trendHtml = `<div style="font-size:11px;color:#94a3b8;padding:4px 0">外資趨勢：${trend}</div>`;
+    trendHtml = `<div style="font-size:11px;color:#94a3b8;padding:4px 0">近期三法人：${trend}</div>`;
   }
 
   if (isEtf) {
@@ -555,3 +555,4 @@ loadAll();
 </script>
 </body>
 </html>
+
