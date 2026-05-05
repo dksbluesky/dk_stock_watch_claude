@@ -1,139 +1,148 @@
 {
-  "generated": "2026/04/30 09:07",
-  "date": "20260429",
+  "generated": "2026/05/05 07:02",
+  "date": "20260504",
   "holdings": [
     {
       "code": "2330",
-      "name": "TSMC",
+      "name": "台積電",
       "is_etf": false,
-      "date": "20260429",
-      "close": 2135.0,
-      "foreign_net": -15783,
-      "total_net": 350,
-      "broker_net": -15783,
+      "date": "20260504",
+      "foreign_net": 9111,
+      "total_net": 10298,
       "broker_diff": 0,
-      "conc_5d": -6.88,
-      "conc_20d": -5.36,
-      "streak": -3,
-      "signals": {
-        "foreign_flip": false,
-        "total_positive": true,
-        "conc5_rising": false,
-        "conc20_positive": false,
-        "broker_diff_neg": false,
-        "price_support": true
-      },
-      "exhaustion": 2,
-      "history_5d": [
-        {
-          "date": "20260423",
-          "foreign_net": 7193
-        },
-        {
-          "date": "20260424",
-          "foreign_net": 8305
-        },
-        {
-          "date": "20260427",
-          "foreign_net": -18941
-        },
-        {
-          "date": "20260428",
-          "foreign_net": 0
-        },
-        {
-          "date": "20260429",
-          "foreign_net": -15783
-        }
-      ]
-    },
-    {
-      "code": "006208",
-      "name": "FTW50",
-      "is_etf": true,
-      "date": "20260429",
-      "close": 209.8,
-      "foreign_net": 870,
-      "total_net": 0,
-      "broker_net": 870,
-      "broker_diff": 0,
-      "conc_5d": 4.74,
-      "conc_20d": 5.23,
+      "conc_5d": -3.93,
+      "conc_20d": 2.77,
       "streak": 1,
       "signals": {
         "foreign_flip": true,
-        "total_positive": false,
+        "total_positive": true,
         "conc5_rising": true,
         "conc20_positive": true,
         "broker_diff_neg": false,
         "price_support": true
       },
-      "exhaustion": 4,
+      "exhaustion": 5,
       "history_5d": [
         {
-          "date": "20260423",
-          "foreign_net": 978
-        },
-        {
-          "date": "20260424",
-          "foreign_net": 812
-        },
-        {
           "date": "20260427",
-          "foreign_net": 341
+          "foreign_net": -18941,
+          "total_net": 366
         },
         {
           "date": "20260428",
-          "foreign_net": -1446
+          "foreign_net": 0,
+          "total_net": 0
         },
         {
           "date": "20260429",
-          "foreign_net": 870
+          "foreign_net": -15783,
+          "total_net": 350
+        },
+        {
+          "date": "20260430",
+          "foreign_net": -21183,
+          "total_net": -20473
+        },
+        {
+          "date": "20260504",
+          "foreign_net": 9111,
+          "total_net": 10297
+        }
+      ]
+    },
+    {
+      "code": "006208",
+      "name": "富邦台50",
+      "is_etf": true,
+      "date": "20260504",
+      "foreign_net": 1954,
+      "total_net": 3983,
+      "broker_diff": 0,
+      "conc_5d": 16.29,
+      "conc_20d": 19.84,
+      "streak": 3,
+      "signals": {
+        "foreign_flip": true,
+        "total_positive": true,
+        "conc5_rising": true,
+        "conc20_positive": true,
+        "broker_diff_neg": false,
+        "price_support": true
+      },
+      "exhaustion": 5,
+      "history_5d": [
+        {
+          "date": "20260427",
+          "foreign_net": 341,
+          "total_net": 0
+        },
+        {
+          "date": "20260428",
+          "foreign_net": -1446,
+          "total_net": 79
+        },
+        {
+          "date": "20260429",
+          "foreign_net": 870,
+          "total_net": 0
+        },
+        {
+          "date": "20260430",
+          "foreign_net": 292,
+          "total_net": -47
+        },
+        {
+          "date": "20260504",
+          "foreign_net": 1954,
+          "total_net": 3982
         }
       ]
     },
     {
       "code": "00878",
-      "name": "CTBC-Div",
+      "name": "國泰高股息",
       "is_etf": true,
-      "date": "20260429",
-      "close": 25.4,
-      "foreign_net": 10487,
-      "total_net": 140,
-      "broker_net": 10487,
+      "date": "20260504",
+      "foreign_net": 664,
+      "total_net": 1419,
       "broker_diff": 0,
-      "conc_5d": 14.59,
-      "conc_20d": 17.41,
-      "streak": 4,
+      "conc_5d": 10.33,
+      "conc_20d": 36.21,
+      "streak": 6,
       "signals": {
         "foreign_flip": true,
         "total_positive": true,
-        "conc5_rising": false,
+        "conc5_rising": true,
         "conc20_positive": true,
         "broker_diff_neg": false,
         "price_support": true
       },
-      "exhaustion": 4,
+      "exhaustion": 5,
       "history_5d": [
         {
-          "date": "20260423",
-          "foreign_net": 0
-        },
-        {
-          "date": "20260424",
-          "foreign_net": 3091
-        },
-        {
           "date": "20260427",
-          "foreign_net": 27017
+          "foreign_net": 27017,
+          "total_net": 94
         },
         {
           "date": "20260428",
-          "foreign_net": 23896
+          "foreign_net": 23896,
+          "total_net": 30
         },
         {
           "date": "20260429",
-          "foreign_net": 10487
+          "foreign_net": 10487,
+          "total_net": 140
+        },
+        {
+          "date": "20260430",
+          "foreign_net": 19683,
+          "total_net": 40232
+        },
+        {
+          "date": "20260504",
+          "foreign_net": 664,
+          "total_net": 1418
         }
       ]
     }
