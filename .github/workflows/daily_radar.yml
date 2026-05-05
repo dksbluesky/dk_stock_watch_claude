@@ -28,6 +28,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
           CNYES_TOKEN: ${{ secrets.CNYES_TOKEN }}
+          CNYES_REFRESH_TOKEN: ${{ secrets.CNYES_REFRESH_TOKEN }}
         run: python holding_radar.py
 
       - name: Run Wash Radar

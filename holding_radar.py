@@ -18,7 +18,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # ============================================================
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8225398265:AAF8uJObOAfElE789AQPu6p7v6Y7XzbGFjk")
 CHAT_ID        = os.environ.get("CHAT_ID", "8695864227")
-CNYES_TOKEN    = os.environ.get("CNYES_TOKEN", "")   # GitHub Secret → 家數差來源
+CNYES_TOKEN         = os.environ.get("CNYES_TOKEN", "")          # short-lived Bearer token (1h)
+CNYES_REFRESH_TOKEN = os.environ.get("CNYES_REFRESH_TOKEN", "")  # permanent refresh token (preferred)
+FIREBASE_API_KEY    = "AIzaSyDSF5-ONm9E98aycx06u6HxpPyxfAWHTUo"
 
 HOLDINGS = [
     {"code": "2330", "name": "台積電",     "is_etf": False},
@@ -142,31 +144,49 @@ def fetch_finmind_history(code: str, days: int = 35) -> list:
         return []
 
 
-# ── cnyes：家數差（需 CNYES_TOKEN GitHub Secret） ──────────────
+# ── cnyes：家數差（需 CNYES_TOKEN 或 CNYES_REFRESH_TOKEN） ───────
+def get_cnyes_token() -> str:
+    """從 refresh token 取得短期 Bearer token，或直接用 CNYES_TOKEN"""
+    if CNYES_REFRESH_TOKEN:
+        try:
+            r = requests.post(
+                f"https://securetoken.googleapis.com/v1/token?key={FIREBASE_API_KEY}",
+                json={"grant_type": "refresh_token", "refresh_token": CNYES_REFRESH_TOKEN},
+                headers={"Referer": "https://www.cnyes.com/", "Origin": "https://www.cnyes.com"},
+                timeout=10, verify=False
+            )
+            data = r.json()
+            token = data.get("id_token") or data.get("idToken", "")
+            if token:
+                print("  cnyes: 已用 refresh token 取得新 Bearer token")
+                return token
+        except Exception as e:
+            print(f"  cnyes token refresh 失敗: {e}")
+    return CNYES_TOKEN  # fallback to direct token if provided
+
+
 def fetch_broker_diff_cnyes(code: str, date: str) -> int:
     """
     openapi.api.cnyes.com /mi/api/v1/chipsObserve/10mainForce/{symbol}
-    需要 Authorization: Bearer <CNYES_TOKEN>
+    需要 Authorization: Bearer token（從 CNYES_REFRESH_TOKEN 自動取得，或用 CNYES_TOKEN）
     回傳 家數差（買超家數 - 賣超家數）
     """
-    if not CNYES_TOKEN:
+    token = get_cnyes_token()
+    if not token:
         return 0
     d = datetime.strptime(date, "%Y%m%d")
     from_ts = int(d.timestamp() * 1000)
     to_ts   = int((d + timedelta(days=1)).timestamp() * 1000)
     url = f"https://openapi.api.cnyes.com/mi/api/v1/chipsObserve/10mainForce/{code}"
     params = {"from": from_ts, "to": to_ts}
-    h = {**HEADERS, "Authorization": f"Bearer {CNYES_TOKEN}",
-         "Referer": "https://www.cnyes.com/"}
+    h = {**HEADERS, "Authorization": f"Bearer {token}", "Referer": "https://www.cnyes.com/"}
     try:
         r = requests.get(url, params=params, headers=h, timeout=15, verify=False)
         data = r.json()
         if data.get("statusCode") != 200 or not data.get("data"):
+            print(f"  cnyes 家數差: statusCode={data.get('statusCode')}")
             return 0
         items = data["data"].get("items", [])
-        if not items:
-            return 0
-        # 找到對應日期的資料
         date_str = d.strftime("%Y-%m-%d")
         for item in items:
             if item.get("date", "").startswith(date_str):
