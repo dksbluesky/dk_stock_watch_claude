@@ -271,7 +271,9 @@ def analyze_holding(code: str, name: str, is_etf: bool, history: dict) -> dict:
         "streak":        streak,
         "signals":       signals,
         "exhaustion":    exhaustion_count,
-        "history_5d":    [{"date": d["date"], "foreign_net": d.get("foreign_net", 0)}
+        "history_5d":    [{"date": d["date"],
+                           "foreign_net": d.get("foreign_net", 0),
+                           "total_net":   d.get("total_net", 0)}
                           for d in h_list_new[-5:]],
     }
 
@@ -323,12 +325,12 @@ def format_telegram(results: list, date: str) -> str:
             else:
                 lines.append(f"❌ 賣壓耗盡訊號：{exh}/6 尚未確認")
 
-            # 近5日外資趨勢
+            # 近5日三大法人趨勢（買賣超合計）
             hist5 = r.get("history_5d", [])
             if len(hist5) >= 2:
-                trend = [d["foreign_net"] for d in hist5]
+                trend = [d.get("total_net", d.get("foreign_net", 0)) for d in hist5]
                 trend_str = " → ".join([fmt_num(v) for v in trend])
-                lines.append(f"近期外資：{trend_str}")
+                lines.append(f"近期三法人：{trend_str}")
 
     lines.append(f"\n{'─'*20}")
     lines.append("⚠️ 僅供參考，請自行判斷")
