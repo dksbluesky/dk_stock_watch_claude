@@ -1,5 +1,5 @@
 {
-  "generated": "2026/05/05 07:27",
+  "generated": "2026/05/05 07:46",
   "date": "20260504",
   "holdings": [
     {
@@ -10,33 +10,33 @@
       "foreign_net": 9111,
       "total_net": 10298,
       "broker_diff": 0,
-      "conc_5d": -3.93,
-      "conc_20d": 2.77,
+      "conc_5d": -12.27,
+      "conc_20d": -2.86,
       "streak": 1,
       "signals": {
         "foreign_flip": true,
         "total_positive": true,
         "conc5_rising": true,
-        "conc20_positive": true,
+        "conc20_positive": false,
         "broker_diff_neg": false,
         "price_support": true
       },
-      "exhaustion": 5,
+      "exhaustion": 4,
       "history_5d": [
         {
-          "date": "20260427",
-          "foreign_net": -18941,
-          "total_net": 366
+          "date": "20260417",
+          "foreign_net": -9383,
+          "total_net": -11839
+        },
+        {
+          "date": "20260420",
+          "foreign_net": -3033,
+          "total_net": -2444
         },
         {
           "date": "20260428",
           "foreign_net": 0,
           "total_net": 0
-        },
-        {
-          "date": "20260429",
-          "foreign_net": -15783,
-          "total_net": 350
         },
         {
           "date": "20260430",
@@ -58,9 +58,9 @@
       "foreign_net": 1954,
       "total_net": 3983,
       "broker_diff": 0,
-      "conc_5d": 16.29,
-      "conc_20d": 19.84,
-      "streak": 3,
+      "conc_5d": 18.96,
+      "conc_20d": 16.52,
+      "streak": 5,
       "signals": {
         "foreign_flip": true,
         "total_positive": true,
@@ -72,18 +72,18 @@
       "exhaustion": 5,
       "history_5d": [
         {
-          "date": "20260427",
-          "foreign_net": 341,
+          "date": "20260421",
+          "foreign_net": 391,
           "total_net": 0
         },
         {
-          "date": "20260428",
-          "foreign_net": -1446,
-          "total_net": 79
+          "date": "20260422",
+          "foreign_net": 300,
+          "total_net": 0
         },
         {
-          "date": "20260429",
-          "foreign_net": 870,
+          "date": "20260427",
+          "foreign_net": 341,
           "total_net": 0
         },
         {
@@ -106,33 +106,33 @@
       "foreign_net": 664,
       "total_net": 1419,
       "broker_diff": 0,
-      "conc_5d": 10.33,
-      "conc_20d": 36.21,
-      "streak": 6,
+      "conc_5d": 50.81,
+      "conc_20d": 42.3,
+      "streak": 2,
       "signals": {
         "foreign_flip": true,
         "total_positive": true,
-        "conc5_rising": true,
+        "conc5_rising": false,
         "conc20_positive": true,
         "broker_diff_neg": false,
         "price_support": true
       },
-      "exhaustion": 5,
+      "exhaustion": 4,
       "history_5d": [
         {
-          "date": "20260427",
-          "foreign_net": 27017,
-          "total_net": 94
+          "date": "20260417",
+          "foreign_net": 57645,
+          "total_net": 134639
         },
         {
-          "date": "20260428",
-          "foreign_net": 23896,
-          "total_net": 30
+          "date": "20260420",
+          "foreign_net": 42028,
+          "total_net": 95036
         },
         {
-          "date": "20260429",
-          "foreign_net": 10487,
-          "total_net": 140
+          "date": "20260423",
+          "foreign_net": 0,
+          "total_net": 0
         },
         {
           "date": "20260430",
