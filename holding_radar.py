@@ -410,7 +410,10 @@ def format_telegram(results: list, date: str) -> str:
             lines.append(f"② 三大法人：{arrow(tn)} {fmt(tn)} 張 {'✅' if sigs['total_positive'] else '❌'}")
             lines.append(f"③ 5日集中：{c5:+.2f}% {'✅' if sigs['conc5_rising'] else '❌'}")
             lines.append(f"④ 20日集中：{c20:+.2f}% {'✅' if sigs['conc20_positive'] else '❌'}")
-            lines.append(f"⑤ 家數差：{fmt(bd)} {'✅' if sigs['broker_diff_neg'] else '❌'}")
+            has_token = bool(CNYES_TOKEN or CNYES_REFRESH_TOKEN)
+            bd_str = fmt(bd) if has_token else "--（需 cnyes 授權）"
+            bd_sig = f"{'✅' if sigs['broker_diff_neg'] else '❌'}" if has_token else "➖"
+            lines.append(f"⑤ 家數差：{bd_str} {bd_sig}")
             lines.append(f"⑥ 守支撐：{'✅' if sigs['price_support'] else '❌'}")
 
             streak_str = (f"連續賣超 {abs(streak)} 天" if streak < 0 else
