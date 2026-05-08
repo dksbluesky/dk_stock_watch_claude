@@ -184,35 +184,52 @@ def fetch_margin(code: str, date: str) -> dict:
     """
     TWSE MI_MARGN 融資融券餘額
     欄位：[5]融資前日餘額 [6]融資今日餘額 [11]融券前日餘額 [12]融券今日餘額
-    回傳 margin_balance(今), margin_prev(昨), short_balance(今), margin_shrink(bool)
+    MI_MARGN 約下午 5-6 時才更新；若當日無資料自動退一交易日。
     """
-    url = f"https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?response=json&date={date}&selectType=ALL"
-    try:
-        r = requests.get(url, headers=HEADERS, timeout=20, verify=False)
-        if r.status_code != 200:
-            return {}
-        data = r.json()
-        if data.get("stat") != "OK":
-            return {}
-        def si(v):
-            try: return int(str(v).replace(",", "").strip())
-            except: return 0
-        for row in data.get("data", []):
-            if len(row) < 13:
-                continue
-            if str(row[0]).strip() == code:
-                margin_prev  = si(row[5])
-                margin_today = si(row[6])
-                short_today  = si(row[12])
-                return {
-                    "margin_balance": margin_today,
-                    "margin_prev":    margin_prev,
-                    "short_balance":  short_today,
-                    "margin_shrink":  margin_today < margin_prev and margin_prev > 0,
-                }
-    except Exception as e:
-        print(f"  融資融券抓取失敗: {e}")
-    return {}
+    def si(v):
+        try: return int(str(v).replace(",", "").strip())
+        except: return 0
+
+    def try_date(d_str: str) -> dict:
+        url = f"https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?response=json&date={d_str}&selectType=ALL"
+        try:
+            r = requests.get(url, headers=HEADERS, timeout=20, verify=False)
+            if r.status_code != 200:
+                return {}
+            data = r.json()
+            if data.get("stat") != "OK":
+                return {}
+            # API returns {"tables": [{summary}, {stocks}]} structure
+            all_rows = []
+            for tbl in data.get("tables", []):
+                all_rows.extend(tbl.get("data", []))
+            # Also check top-level "data" key for compatibility
+            all_rows.extend(data.get("data", []))
+            for row in all_rows:
+                if len(row) < 13:
+                    continue
+                if str(row[0]).strip() == code:
+                    margin_prev  = si(row[5])
+                    margin_today = si(row[6])
+                    short_today  = si(row[12])
+                    return {
+                        "margin_balance": margin_today,
+                        "margin_prev":    margin_prev,
+                        "short_balance":  short_today,
+                        "margin_shrink":  margin_today < margin_prev and margin_prev > 0,
+                    }
+        except Exception as e:
+            print(f"  融資融券抓取失敗 ({d_str}): {e}")
+        return {}
+
+    result = try_date(date)
+    if result:
+        return result
+    # 退一交易日再試（TWSE 當日資料延遲發布）
+    prev = datetime.strptime(date, "%Y%m%d") - timedelta(days=1)
+    while prev.weekday() >= 5:
+        prev -= timedelta(days=1)
+    return try_date(prev.strftime("%Y%m%d"))
 
 
 # ── Yahoo Finance：當日成交量 ────────────────────────────────
