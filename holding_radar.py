@@ -18,10 +18,6 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # ============================================================
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8225398265:AAF8uJObOAfElE789AQPu6p7v6Y7XzbGFjk")
 CHAT_ID        = os.environ.get("CHAT_ID", "8695864227")
-CNYES_TOKEN         = os.environ.get("CNYES_TOKEN", "")          # short-lived Bearer token (1h)
-CNYES_REFRESH_TOKEN = os.environ.get("CNYES_REFRESH_TOKEN", "")  # permanent refresh token (preferred)
-FIREBASE_API_KEY    = "AIzaSyDSF5-ONm9E98aycx06u6HxpPyxfAWHTUo"
-
 HOLDINGS = [
     {"code": "2330", "name": "台積電",     "is_etf": False},
     {"code": "006208", "name": "富邦台50", "is_etf": True},
@@ -144,58 +140,40 @@ def fetch_finmind_history(code: str, days: int = 35) -> list:
         return []
 
 
-# ── cnyes：家數差（需 CNYES_TOKEN 或 CNYES_REFRESH_TOKEN） ───────
-def get_cnyes_token() -> str:
-    """從 refresh token 取得短期 Bearer token，或直接用 CNYES_TOKEN"""
-    if CNYES_REFRESH_TOKEN:
-        try:
-            r = requests.post(
-                f"https://securetoken.googleapis.com/v1/token?key={FIREBASE_API_KEY}",
-                json={"grant_type": "refresh_token", "refresh_token": CNYES_REFRESH_TOKEN},
-                headers={"Referer": "https://www.cnyes.com/", "Origin": "https://www.cnyes.com"},
-                timeout=10, verify=False
-            )
-            data = r.json()
-            token = data.get("id_token") or data.get("idToken", "")
-            if token:
-                print("  cnyes: 已用 refresh token 取得新 Bearer token")
-                return token
-        except Exception as e:
-            print(f"  cnyes token refresh 失敗: {e}")
-    return CNYES_TOKEN  # fallback to direct token if provided
-
-
-def fetch_broker_diff_cnyes(code: str, date: str) -> int:
+# ── TWSE MI_MARGN：融資融券（免費，無需授權） ──────────────────
+def fetch_margin(code: str, date: str) -> dict:
     """
-    openapi.api.cnyes.com /mi/api/v1/chipsObserve/10mainForce/{symbol}
-    需要 Authorization: Bearer token（從 CNYES_REFRESH_TOKEN 自動取得，或用 CNYES_TOKEN）
-    回傳 家數差（買超家數 - 賣超家數）
+    TWSE MI_MARGN 融資融券餘額
+    欄位：[5]融資前日餘額 [6]融資今日餘額 [11]融券前日餘額 [12]融券今日餘額
+    回傳 margin_balance(今), margin_prev(昨), short_balance(今), margin_shrink(bool)
     """
-    token = get_cnyes_token()
-    if not token:
-        return 0
-    d = datetime.strptime(date, "%Y%m%d")
-    from_ts = int(d.timestamp() * 1000)
-    to_ts   = int((d + timedelta(days=1)).timestamp() * 1000)
-    url = f"https://openapi.api.cnyes.com/mi/api/v1/chipsObserve/10mainForce/{code}"
-    params = {"from": from_ts, "to": to_ts}
-    h = {**HEADERS, "Authorization": f"Bearer {token}", "Referer": "https://www.cnyes.com/"}
+    url = f"https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?response=json&date={date}&selectType=ALL"
     try:
-        r = requests.get(url, params=params, headers=h, timeout=15, verify=False)
+        r = requests.get(url, headers=HEADERS, timeout=20, verify=False)
+        if r.status_code != 200:
+            return {}
         data = r.json()
-        if data.get("statusCode") != 200 or not data.get("data"):
-            print(f"  cnyes 家數差: statusCode={data.get('statusCode')}")
-            return 0
-        items = data["data"].get("items", [])
-        date_str = d.strftime("%Y-%m-%d")
-        for item in items:
-            if item.get("date", "").startswith(date_str):
-                buy_cnt  = item.get("buyCount",  item.get("buy_count",  0))
-                sell_cnt = item.get("sellCount", item.get("sell_count", 0))
-                return buy_cnt - sell_cnt
+        if data.get("stat") != "OK":
+            return {}
+        def si(v):
+            try: return int(str(v).replace(",", "").strip())
+            except: return 0
+        for row in data.get("data", []):
+            if len(row) < 13:
+                continue
+            if str(row[0]).strip() == code:
+                margin_prev  = si(row[5])
+                margin_today = si(row[6])
+                short_today  = si(row[12])
+                return {
+                    "margin_balance": margin_today,
+                    "margin_prev":    margin_prev,
+                    "short_balance":  short_today,
+                    "margin_shrink":  margin_today < margin_prev and margin_prev > 0,
+                }
     except Exception as e:
-        print(f"  cnyes 家數差抓取失敗: {e}")
-    return 0
+        print(f"  融資融券抓取失敗: {e}")
+    return {}
 
 
 # ── Yahoo Finance：當日成交量 ────────────────────────────────
@@ -284,10 +262,10 @@ def analyze_holding(code: str, name: str, is_etf: bool, history: dict) -> dict:
 
     inst   = fetch_institutional(code, date)
     vol    = fetch_volume(code, date)
-    broker_diff = fetch_broker_diff_cnyes(code, date)  # 0 if no CNYES_TOKEN
+    margin = fetch_margin(code, date)
 
     has_data  = bool(inst)
-    today_data = {**inst, "broker_diff": broker_diff, "volume": vol, "date": date}
+    today_data = {**inst, **margin, "volume": vol, "date": date}
 
     # 載入 / 補充歷史
     h_list = history.get(code, [])
@@ -334,10 +312,13 @@ def analyze_holding(code: str, name: str, is_etf: bool, history: dict) -> dict:
     history[code] = h_list
 
     # 指標
-    foreign_net = today_data.get("foreign_net", 0)
-    total_net   = today_data.get("total_net",   0)
-    conc_5d     = calc_concentration(h_list, 5)
-    conc_20d    = calc_concentration(h_list, 20)
+    foreign_net    = today_data.get("foreign_net", 0)
+    total_net      = today_data.get("total_net",   0)
+    margin_balance = today_data.get("margin_balance")
+    margin_shrink  = today_data.get("margin_shrink", False)
+    short_balance  = today_data.get("short_balance")
+    conc_5d        = calc_concentration(h_list, 5)
+    conc_20d       = calc_concentration(h_list, 20)
 
     # 連續買超/賣超天數
     streak = 0
@@ -356,27 +337,30 @@ def analyze_holding(code: str, name: str, is_etf: bool, history: dict) -> dict:
         "conc5_rising":    len(h_list) >= 2 and
                            conc_5d > calc_concentration(h_list[:-1], 5),
         "conc20_positive": conc_20d > 0,
-        "broker_diff_neg": broker_diff < 0,
+        "margin_shrink":   margin_shrink,   # 融資餘額下降 = 散戶放棄（替代家數差）
         "price_support":   vol > 0,
     }
 
     return {
-        "code":       code,
-        "name":       name,
-        "is_etf":     is_etf,
-        "date":       date,
-        "foreign_net": foreign_net,
-        "total_net":   total_net,
-        "broker_diff": broker_diff,
-        "conc_5d":     conc_5d,
-        "conc_20d":    conc_20d,
-        "streak":      streak,
-        "signals":     signals,
-        "exhaustion":  sum(signals.values()),
-        "history_5d":  [{"date": d["date"],
-                          "foreign_net": d.get("foreign_net", 0),
-                          "total_net":   d.get("total_net", 0)}
-                         for d in h_list[-5:]],
+        "code":           code,
+        "name":           name,
+        "is_etf":         is_etf,
+        "date":           date,
+        "foreign_net":    foreign_net,
+        "total_net":      total_net,
+        "margin_balance": margin_balance,
+        "short_balance":  short_balance,
+        "margin_shrink":  margin_shrink,
+        "conc_5d":        conc_5d,
+        "conc_20d":       conc_20d,
+        "streak":         streak,
+        "signals":        signals,
+        "exhaustion":     sum(signals.values()),
+        "history_5d":     [{"date": d["date"],
+                            "foreign_net":    d.get("foreign_net", 0),
+                            "total_net":      d.get("total_net", 0),
+                            "margin_balance": d.get("margin_balance")}
+                           for d in h_list[-5:]],
     }
 
 
@@ -387,7 +371,8 @@ def format_telegram(results: list, date: str) -> str:
     for r in results:
         fn   = r["foreign_net"]
         tn   = r["total_net"]
-        bd   = r["broker_diff"]
+        mb   = r.get("margin_balance")
+        sb   = r.get("short_balance")
         c5   = r["conc_5d"]
         c20  = r["conc_20d"]
         exh  = r["exhaustion"]
@@ -410,10 +395,9 @@ def format_telegram(results: list, date: str) -> str:
             lines.append(f"② 三大法人：{arrow(tn)} {fmt(tn)} 張 {'✅' if sigs['total_positive'] else '❌'}")
             lines.append(f"③ 5日集中：{c5:+.2f}% {'✅' if sigs['conc5_rising'] else '❌'}")
             lines.append(f"④ 20日集中：{c20:+.2f}% {'✅' if sigs['conc20_positive'] else '❌'}")
-            has_token = bool(CNYES_TOKEN or CNYES_REFRESH_TOKEN)
-            bd_str = fmt(bd) if has_token else "--（需 cnyes 授權）"
-            bd_sig = f"{'✅' if sigs['broker_diff_neg'] else '❌'}" if has_token else "➖"
-            lines.append(f"⑤ 家數差：{bd_str} {bd_sig}")
+            mb_str = f"{mb:,}" if mb is not None else "--"
+            sb_str = f"{sb:,}" if sb is not None else "--"
+            lines.append(f"⑤ 融資餘額：{mb_str}張（融券{sb_str}）{'✅' if sigs['margin_shrink'] else '❌'}")
             lines.append(f"⑥ 守支撐：{'✅' if sigs['price_support'] else '❌'}")
 
             streak_str = (f"連續賣超 {abs(streak)} 天" if streak < 0 else
@@ -441,7 +425,7 @@ def format_telegram(results: list, date: str) -> str:
 def main():
     print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M')}] 持倉籌碼雷達啟動...")
     date = get_trading_date()
-    print(f"交易日：{date}，CNYES_TOKEN={'有' if CNYES_TOKEN else '無（家數差=0）'}")
+    print(f"交易日：{date}")
 
     history = load_history()
 
