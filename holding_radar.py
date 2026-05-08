@@ -16,8 +16,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # ============================================================
 # 設定區
 # ============================================================
-TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8225398265:AAF8uJObOAfElE789AQPu6p7v6Y7XzbGFjk")
-CHAT_ID        = os.environ.get("CHAT_ID", "8695864227")
+TELEGRAM_TOKEN  = os.environ.get("TELEGRAM_TOKEN", "8225398265:AAF8uJObOAfElE789AQPu6p7v6Y7XzbGFjk")
+CHAT_ID         = os.environ.get("CHAT_ID", "8695864227")
+FINMIND_TOKEN   = os.environ.get("FINMIND_TOKEN", "")
 HOLDINGS = [
     {"code": "2330", "name": "台積電",     "is_etf": False},
     {"code": "006208", "name": "富邦台50", "is_etf": True},
@@ -112,6 +113,8 @@ def fetch_finmind_history(code: str, days: int = 35) -> list:
         "start_date": start.strftime("%Y-%m-%d"),
         "end_date":   end.strftime("%Y-%m-%d"),
     }
+    if FINMIND_TOKEN:
+        params["token"] = FINMIND_TOKEN
     try:
         r = requests.get(url, params=params, headers=HEADERS, timeout=20, verify=False)
         data = r.json()
@@ -138,6 +141,42 @@ def fetch_finmind_history(code: str, days: int = 35) -> list:
     except Exception as e:
         print(f"  FinMind 歷史抓取失敗: {e}")
         return []
+
+
+# ── FinMind：融資融券歷史（免費，補充歷史融資餘額） ──────────────
+def fetch_margin_history_finmind(code: str, days: int = 35) -> dict:
+    """
+    FinMind TaiwanStockMarginPurchaseShortSale（免費）
+    回傳 {date_str: {"margin_balance": int, "short_balance": int}}
+    """
+    from datetime import date as date_cls
+    end   = date_cls.today()
+    start = end - timedelta(days=days + 10)
+    url   = "https://api.finmindtrade.com/api/v4/data"
+    params = {
+        "dataset":    "TaiwanStockMarginPurchaseShortSale",
+        "data_id":    code,
+        "start_date": start.strftime("%Y-%m-%d"),
+        "end_date":   end.strftime("%Y-%m-%d"),
+    }
+    if FINMIND_TOKEN:
+        params["token"] = FINMIND_TOKEN
+    try:
+        r = requests.get(url, params=params, headers=HEADERS, timeout=20, verify=False)
+        data = r.json()
+        if data.get("status") != 200:
+            return {}
+        result = {}
+        for rec in data.get("data", []):
+            d = rec["date"].replace("-", "")
+            result[d] = {
+                "margin_balance": rec.get("MarginPurchaseBalance", 0),
+                "short_balance":  rec.get("ShortSaleBalance", 0),
+            }
+        return result
+    except Exception as e:
+        print(f"  FinMind 融資歷史抓取失敗: {e}")
+        return {}
 
 
 # ── TWSE MI_MARGN：融資融券（免費，無需授權） ──────────────────
@@ -303,6 +342,15 @@ def analyze_holding(code: str, name: str, is_etf: bool, history: dict) -> dict:
                 })
                 existing_dates.add(d)
         print(f"  FinMind 補充後歷史筆數: {len(h_list)}")
+
+    # 補充歷史融資餘額（FinMind 免費，有助於計算融資趨勢）
+    missing_margin = [d for d in h_list if d.get("margin_balance") is None]
+    if missing_margin:
+        margin_hist = fetch_margin_history_finmind(code)
+        if margin_hist:
+            for entry in h_list:
+                if entry.get("margin_balance") is None and entry["date"] in margin_hist:
+                    entry.update(margin_hist[entry["date"]])
 
     # 加入今日（有效資料才寫入，避免休市日空記錄）
     if has_data and date not in existing_dates:
