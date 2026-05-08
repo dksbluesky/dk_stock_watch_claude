@@ -271,7 +271,9 @@ function holdingCard(h) {
   const tn    = h.total_net;
   const c5    = h.conc_5d;
   const c20   = h.conc_20d;
-  const bd    = h.broker_diff;
+  const mb    = h.margin_balance;
+  const sb    = h.short_balance;
+  const ms    = h.margin_shrink;
   const exh   = h.exhaustion || 0;
   const sigs  = h.signals || {};
   const streak= h.streak || 0;
@@ -341,7 +343,7 @@ function holdingCard(h) {
     { label:"② 三大法人",   val: tn !== undefined ? `${arrow(tn)} ${fmt(tn)}張` : "—", ok: sigs.total_positive },
     { label:"③ 5日集中度",  val: c5 !== undefined ? (c5>0?"+":"")+c5+"%" : "—",       ok: sigs.conc5_rising },
     { label:"④ 20日集中度", val: c20 !== undefined ? (c20>0?"+":"")+c20+"%" : "—",     ok: sigs.conc20_positive },
-    { label:"⑤ 家數差",     val: bd !== undefined ? fmt(bd) : "—",                      ok: sigs.broker_diff_neg },
+    { label:"⑤ 融資餘額",   val: mb != null ? mb.toLocaleString()+"張"+(sb!=null?" (融券"+sb.toLocaleString()+")" :"") : "—", ok: sigs.margin_shrink },
     { label:"⑥ 守支撐",     val: wscore >= 1 ? "✅" : "—",                              ok: sigs.price_support },
   ];
 
