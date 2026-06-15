@@ -1,0 +1,51 @@
+name: Cleanup Workflow Runs
+
+on:
+  workflow_run:
+    workflows: ["Daily Stock Radar"]
+    types: [completed]
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+
+    steps:
+      - name: Delete old workflow runs (keep latest 3)
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const workflow_id = 'daily_radar.yml';
+            const keep = 3;
+
+            const runs = await github.paginate(
+              github.rest.actions.listWorkflowRuns,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id,
+                per_page: 100,
+              }
+            );
+
+            // Newest first
+            runs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+            const toDelete = runs.slice(keep);
+            console.log(`Found ${runs.length} runs, deleting ${toDelete.length} (keeping newest ${keep}).`);
+
+            for (const run of toDelete) {
+              console.log(`Deleting run ${run.id} (created ${run.created_at}, status ${run.status})`);
+              try {
+                await github.rest.actions.deleteWorkflowRun({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  run_id: run.id,
+                });
+              } catch (e) {
+                console.log(`  Failed to delete ${run.id}: ${e.message}`);
+              }
+            }
