@@ -292,7 +292,6 @@ function holdingCard(h) {
 
   // 洗籌碼分數（來自wash_radar）
   const wscore = wash.score || 0;
-  const wstatus= wash.status || "—";
   const wclose = wash.close ? wash.close.toFixed(1) : "—";
 
   // 耗盡badge
@@ -314,40 +313,7 @@ function holdingCard(h) {
     trendHtml = `<div style="font-size:11px;color:#64748b;padding:4px 0">近期三法人：${trend}</div>`;
   }
 
-  if (isEtf) {
-    return `<div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">${h.code} ${h.name} <span class="holding-badge">ETF</span></div>
-          <div class="card-sub">收盤 ${wclose}｜${wstatus}</div>
-        </div>
-        ${wscore >= 3 ? scoreBadge(wscore) : '<div></div>'}
-      </div>
-      <div class="card-body">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
-          <div style="background:var(--surface2);border-radius:6px;padding:8px">
-            <div style="font-size:10px;color:var(--muted)">外資動向</div>
-            <div style="font-size:13px;font-weight:600;color:${(fn||0)>0?'#10b981':'#ef4444'}">${arrow(fn)} ${fmt(fn)}張</div>
-          </div>
-          <div style="background:var(--surface2);border-radius:6px;padding:8px">
-            <div style="font-size:10px;color:var(--muted)">三大法人</div>
-            <div style="font-size:13px;font-weight:600;color:${(tn||0)>0?'#10b981':'#ef4444'}">${arrow(tn)} ${fmt(tn)}張</div>
-          </div>
-          <div style="background:var(--surface2);border-radius:6px;padding:8px">
-            <div style="font-size:10px;color:var(--muted)">5日集中度</div>
-            <div style="font-size:13px;font-weight:600;color:${(c5||0)>0?'#10b981':'#ef4444'}">${c5 !== undefined ? (c5>0?"+":"")+c5+"%" : "—"}</div>
-          </div>
-          <div style="background:var(--surface2);border-radius:6px;padding:8px">
-            <div style="font-size:10px;color:var(--muted)">加碼訊號</div>
-            <div style="font-size:13px">${wstatus}</div>
-          </div>
-        </div>
-        ${trendHtml}
-      </div>
-    </div>`;
-  }
-
-  // 個股：完整六訊號
+  // 完整六訊號（個股與 ETF 共用）
   const sigItems = [
     { label:"① 外資買賣超", val: fn !== undefined ? `${arrow(fn)} ${fmt(fn)}張` : "—", ok: sigs.foreign_flip },
     { label:"② 三大法人",   val: tn !== undefined ? `${arrow(tn)} ${fmt(tn)}張` : "—", ok: sigs.total_positive },
@@ -370,7 +336,7 @@ function holdingCard(h) {
   return `<div class="card">
     <div class="card-header">
       <div>
-        <div class="card-title">${h.code} ${h.name}</div>
+        <div class="card-title">${h.code} ${h.name} ${isEtf ? '<span class="holding-badge">ETF</span>' : ''}</div>
         <div class="card-sub">收盤 ${wclose}｜${streakStr}</div>
       </div>
       ${exhBadge}
