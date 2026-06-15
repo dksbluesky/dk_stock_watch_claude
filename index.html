@@ -330,8 +330,8 @@ function holdingCard(h) {
   const sigItems = [
     { label:"① 外資買賣超", val: fn !== undefined ? `${arrow(fn)} ${fmt(fn)}張` : "—", ok: sigs.foreign_flip },
     { label:"② 三大法人",   val: tn !== undefined ? `${arrow(tn)} ${fmt(tn)}張` : "—", ok: sigs.total_positive },
-    { label:"③ 5日集中度",  val: c5 !== undefined ? (c5>0?"+":"")+c5+"%" : "—",       ok: sigs.conc5_rising },
-    { label:"④ 20日集中度", val: c20 !== undefined ? (c20>0?"+":"")+c20+"%" : "—",     ok: sigs.conc20_positive },
+    { label:"③ 三大法人5日集中度",  val: c5 !== undefined ? (c5>0?"+":"")+c5+"%" : "—",       ok: sigs.conc5_rising },
+    { label:"④ 三大法人20日集中度", val: c20 !== undefined ? (c20>0?"+":"")+c20+"%" : "—",     ok: sigs.conc20_positive },
     { label:"⑤ 融資餘額",   val: mb != null ? mb.toLocaleString()+"張"+(sb!=null?" (融券"+sb.toLocaleString()+")" :"") : "—", ok: sigs.margin_shrink },
     { label:"⑥ 守支撐",     val: wscore >= 1 ? "✅" : "—",                              ok: sigs.price_support },
   ];
