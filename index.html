@@ -4,11 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>dk 投資雷達</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#3b82f6">
+<link rel="apple-touch-icon" sizes="512x512"
+      href="https://raw.githubusercontent.com/dksbluesky/dk_stock_watch_claude/main/static/icon.png">
+<link rel="apple-touch-icon" sizes="180x180"
+      href="https://raw.githubusercontent.com/dksbluesky/dk_stock_watch_claude/main/static/icon.png">
+<link rel="shortcut icon" type="image/png"
+      href="https://raw.githubusercontent.com/dksbluesky/dk_stock_watch_claude/main/static/icon.png">
+
 <style>
   :root {
-    --bg: #0d0f14; --surface: #141720; --surface2: #1a1e2a;
-    --border: #252b3b; --accent: #3b82f6; --green: #10b981;
-    --orange: #f59e0b; --red: #ef4444; --text: #e2e8f0; --muted: #64748b;
+    --bg: #f5f7fa; --surface: #ffffff; --surface2: #eef1f5;
+    --border: #e2e8f0; --accent: #3b82f6; --green: #10b981;
+    --orange: #f59e0b; --red: #ef4444; --text: #1e293b; --muted: #64748b;
   }
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   body { background:var(--bg); color:var(--text); font-family:'Microsoft JhengHei',sans-serif; font-size:14px; max-width:600px; margin:0 auto; }
@@ -45,14 +55,14 @@
   .stock-group { font-size:10px; color:var(--muted); }
   .stock-score { text-align:right; flex-shrink:0; }
   .score-badge { display:inline-block; padding:3px 8px; border-radius:20px; font-size:12px; font-weight:700; }
-  .score-hot    { background:rgba(239,68,68,.2);  color:#f87171; }
-  .score-signal { background:rgba(245,158,11,.2); color:#fbbf24; }
-  .score-watch  { background:rgba(59,130,246,.2); color:#60a5fa; }
+  .score-hot    { background:rgba(239,68,68,.15);  color:#dc2626; }
+  .score-signal { background:rgba(245,158,11,.15); color:#d97706; }
+  .score-watch  { background:rgba(59,130,246,.15); color:#2563eb; }
   .score-none   { background:var(--surface2); color:var(--muted); }
 
   /* Status */
   .status-row { font-size:12px; color:var(--muted); padding:4px 0 0; }
-  .signal-item { font-size:11px; color:#94a3b8; padding:2px 0; }
+  .signal-item { font-size:11px; color:#64748b; padding:2px 0; }
 
   /* Holding special */
   .holding-badge { font-size:10px; background:rgba(16,185,129,.15); color:var(--green); padding:2px 6px; border-radius:4px; }
@@ -72,7 +82,7 @@
   .wl-item:last-child { border-bottom:none; }
   .wl-code { font-family:monospace; color:var(--accent); font-size:13px; font-weight:700; width:42px; }
   .wl-name { flex:1; font-size:13px; }
-  .btn-del { background:rgba(239,68,68,.15); border:none; color:#f87171; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; }
+  .btn-del { background:rgba(239,68,68,.15); border:none; color:#dc2626; border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; }
   .btn-del:active { background:rgba(239,68,68,.3); }
 
   /* Add form */
@@ -102,7 +112,7 @@
   .chip-val { font-size:13px; font-weight:600; }
 
   /* Notice */
-  .notice { background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.3); border-radius:8px; padding:10px 12px; font-size:12px; color:#93c5fd; margin-bottom:12px; }
+  .notice { background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.3); border-radius:8px; padding:10px 12px; font-size:12px; color:#1d4ed8; margin-bottom:12px; }
 </style>
 </head>
 <body>
@@ -288,8 +298,8 @@ function holdingCard(h) {
   // 耗盡badge
   let exhBadge = "";
   if (fn !== undefined) {
-    if (exh >= 5) exhBadge = `<span style="color:#f87171;font-size:11px">🔥 ${exh}/6 強烈訊號</span>`;
-    else if (exh >= 3) exhBadge = `<span style="color:#fbbf24;font-size:11px">⚡ ${exh}/6 觀察中</span>`;
+    if (exh >= 5) exhBadge = `<span style="color:#dc2626;font-size:11px">🔥 ${exh}/6 強烈訊號</span>`;
+    else if (exh >= 3) exhBadge = `<span style="color:#d97706;font-size:11px">⚡ ${exh}/6 觀察中</span>`;
     else exhBadge = `<span style="color:#64748b;font-size:11px">❌ ${exh}/6 未確認</span>`;
   }
 
@@ -301,7 +311,7 @@ function holdingCard(h) {
       const col = v > 0 ? "#10b981" : v < 0 ? "#ef4444" : "#64748b";
       return `<span style="color:${col}">${fmt(v)}</span>`;
     }).join(" → ");
-    trendHtml = `<div style="font-size:11px;color:#94a3b8;padding:4px 0">近期三法人：${trend}</div>`;
+    trendHtml = `<div style="font-size:11px;color:#64748b;padding:4px 0">近期三法人：${trend}</div>`;
   }
 
   if (isEtf) {
@@ -450,7 +460,7 @@ function renderRevenue() {
       </div>
       <div class="stock-score">
         <div style="font-size:12px;font-family:monospace">${rev}億</div>
-        <div style="font-size:12px;color:${yoy>=20?'#fbbf24':'#94a3b8'}">${icon} ${yoy.toFixed(1)}%</div>
+        <div style="font-size:12px;color:${yoy>=20?'#d97706':'#64748b'}">${icon} ${yoy.toFixed(1)}%</div>
       </div>
     </div>`;
   }).join("");

@@ -1,0 +1,20 @@
+{
+  "name": "dk 投資雷達",
+  "short_name": "投資雷達",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f5f7fa",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "static/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "static/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
