@@ -75,6 +75,19 @@ def get_stock_name(code: str, name_map: dict) -> str:
     return name_map.get(code, code)
 
 
+def get_trading_date():
+    """取得最近交易日（台灣時間 UTC+8），與 holding_radar.py 一致，
+    避免在台股收盤前抓到當日（未完成）的盤中報價。"""
+    from datetime import timezone
+    tw_now = datetime.now(timezone(timedelta(hours=8))).replace(tzinfo=None)
+    d = tw_now
+    if d.hour < 16:          # 台灣 4PM 前用前一交易日
+        d -= timedelta(days=1)
+    while d.weekday() >= 5:
+        d -= timedelta(days=1)
+    return d.strftime("%Y%m%d")
+
+
 def fetch_twse_daily(date_str: str) -> dict:
     """抓 TWSE 當日所有上市股票收盤資料"""
     url = f"https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?response=json&date={date_str}&type=ALLBUT0999"
@@ -140,7 +153,10 @@ def fetch_tpex_daily(date_str: str) -> dict:
 
 
 def fetch_history(code: str, days: int = 25) -> list:
-    """用 Yahoo Finance 抓個股日線（台股加.TW，上櫃加.TWO）"""
+    """用 Yahoo Finance 抓個股日線（台股加.TW，上櫃加.TWO）。
+    丟棄收盤前的當日（未完成）報價，確保「今日」對應 get_trading_date()。"""
+    from datetime import timezone
+    as_of = get_trading_date()
     # 先試上市 .TW，失敗再試上櫃 .TWO
     for suffix in [".TW", ".TWO"]:
         url = f"https://query1.finance.yahoo.com/v8/finance/chart/{code}{suffix}?interval=1d&range=3mo"
@@ -152,6 +168,7 @@ def fetch_history(code: str, days: int = 25) -> list:
             result_list = data.get("chart", {}).get("result", [])
             if not result_list:
                 continue
+            timestamps = result_list[0].get("timestamp", [])
             quotes = result_list[0].get("indicators", {}).get("quote", [{}])[0]
             closes = quotes.get("close", [])
             opens  = quotes.get("open",  [])
@@ -161,7 +178,11 @@ def fetch_history(code: str, days: int = 25) -> list:
             result = []
             for i in range(len(closes)):
                 if closes[i] is None: continue
+                d = (datetime.utcfromtimestamp(timestamps[i]) + timedelta(hours=8)).strftime("%Y%m%d")
+                if d > as_of:
+                    continue
                 result.append({
+                    "date":  d,
                     "close": closes[i] or 0,
                     "open":  opens[i]  or 0,
                     "high":  highs[i]  or 0,

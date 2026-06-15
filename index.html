@@ -160,8 +160,21 @@
 
   <!-- 自選管理 Tab -->
   <div class="section" id="tab-manage">
-    <div class="notice">💡 新增或刪除後按「儲存清單」，下次 Python 跑分析時會自動讀取新清單</div>
+    <div class="notice">💡 新增或刪除（持倉或自選股）後按「儲存清單」，下載 watchlist.json 並上傳到 GitHub repo 根目錄，下次 Python 跑分析時會自動讀取新清單</div>
     <div id="manage-content"></div>
+    <div class="add-form">
+      <h4>➕ 新增持倉</h4>
+      <div class="form-row">
+        <input class="form-input" id="add-holding-code" placeholder="股票代號（如 2330）" maxlength="6">
+        <input class="form-input" id="add-holding-name" placeholder="公司名稱">
+      </div>
+      <div class="form-row">
+        <label style="display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px">
+          <input type="checkbox" id="add-holding-etf"> ETF
+        </label>
+        <button class="btn-add" onclick="addHolding()">新增</button>
+      </div>
+    </div>
     <div class="add-form">
       <h4>➕ 新增自選股</h4>
       <div class="form-row">
@@ -456,6 +469,7 @@ function renderManage() {
     html += `<div class="wl-item">
       <div class="wl-code">${h.code}</div>
       <div class="wl-name">${h.name} ${h.is_etf ? '<span class="holding-badge">ETF</span>' : ''}</div>
+      <button class="btn-del" onclick="removeHolding(${i})">刪除</button>
     </div>`;
   });
   html += `</div>`;
@@ -497,6 +511,25 @@ function addStock() {
 
 function removeStock(idx) {
   watchlist.watchlist.splice(idx, 1);
+  renderManage();
+}
+
+function addHolding() {
+  const code = document.getElementById("add-holding-code").value.trim();
+  const name = document.getElementById("add-holding-name").value.trim();
+  const isEtf = document.getElementById("add-holding-etf").checked;
+  if (!code || !name) { alert("請填入代號和名稱"); return; }
+  if (watchlist.holdings.find(h => h.code === code)) { alert("已在持倉中"); return; }
+  watchlist.holdings.push({ code, name, note: isEtf ? "持倉ETF" : "持倉", ...(isEtf ? { is_etf: true } : {}) });
+  document.getElementById("add-holding-code").value = "";
+  document.getElementById("add-holding-name").value = "";
+  document.getElementById("add-holding-etf").checked = false;
+  renderManage();
+}
+
+function removeHolding(idx) {
+  if (watchlist.holdings.length <= 1) { alert("至少需保留 1 筆持倉"); return; }
+  watchlist.holdings.splice(idx, 1);
   renderManage();
 }
 

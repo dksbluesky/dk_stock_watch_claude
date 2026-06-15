@@ -19,11 +19,31 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 TELEGRAM_TOKEN  = os.environ.get("TELEGRAM_TOKEN", "8225398265:AAF8uJObOAfElE789AQPu6p7v6Y7XzbGFjk")
 CHAT_ID         = os.environ.get("CHAT_ID", "8695864227")
 FINMIND_TOKEN   = os.environ.get("FINMIND_TOKEN", "")
-HOLDINGS = [
-    {"code": "2330", "name": "台積電",     "is_etf": False},
-    {"code": "006208", "name": "富邦台50", "is_etf": True},
-    {"code": "00878", "name": "國泰高股息","is_etf": True},
-]
+
+
+def load_holdings():
+    """讀取 watchlist.json 的 holdings 清單"""
+    wl_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "watchlist.json")
+    try:
+        with open(wl_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        holdings = [
+            {"code": h["code"], "name": h.get("name", h["code"]), "is_etf": h.get("is_etf", False)}
+            for h in data.get("holdings", [])
+        ]
+        if holdings:
+            print(f"watchlist.json 載入：持倉 {len(holdings)} 支")
+            return holdings
+    except Exception as e:
+        print(f"watchlist.json 載入失敗: {e}，使用預設清單")
+    return [
+        {"code": "2330", "name": "台積電",     "is_etf": False},
+        {"code": "006208", "name": "富邦台50", "is_etf": True},
+        {"code": "00878", "name": "國泰高股息","is_etf": True},
+    ]
+
+
+HOLDINGS = load_holdings()
 
 HISTORY_FILE = "data/holding_history.json"
 OUTPUT_FILE  = "data/holding_radar.json"
@@ -268,27 +288,16 @@ def fetch_margin(code: str, date: str) -> dict:
 
 
 # ── Yahoo Finance：當日成交量 ────────────────────────────────
-def fetch_volume(code: str, date: str) -> int:
-    for suffix in [".TW", ".TWO"]:
-        try:
-            r = requests.get(
-                f"https://query1.finance.yahoo.com/v8/finance/chart/{code}{suffix}?interval=1d&range=5d",
-                headers=HEADERS, timeout=15, verify=False
-            )
-            result = r.json().get("chart", {}).get("result", [])
-            if result:
-                vols = result[0].get("indicators", {}).get("quote", [{}])[0].get("volume", [])
-                vols = [v for v in vols if v]
-                if vols:
-                    return int(vols[-1] / 1000)
-        except:
-            continue
-    return 0
+def fetch_volume(code: str, date: str, vol_map: dict = None) -> int:
+    """回傳指定交易日的成交量（張）。日期對應修正後的 fetch_volume_history。"""
+    if vol_map is None:
+        vol_map = fetch_volume_history(code)
+    return vol_map.get(date, 0)
 
 
 # ── Yahoo Finance：歷史成交量（補充 FinMind 歷史記錄） ────────
 def fetch_volume_history(code: str) -> dict:
-    """回傳 {date_str: volume_張} for last 3 months"""
+    """回傳 {date_str: volume_張} for last 3 months（以台灣時間對齊交易日）"""
     vol_map = {}
     for suffix in [".TW", ".TWO"]:
         try:
@@ -303,7 +312,7 @@ def fetch_volume_history(code: str) -> dict:
             vols = result[0].get("indicators", {}).get("quote", [{}])[0].get("volume", [])
             for ts, v in zip(timestamps, vols):
                 if v:
-                    d = datetime.utcfromtimestamp(ts).strftime("%Y%m%d")
+                    d = (datetime.utcfromtimestamp(ts) + timedelta(hours=8)).strftime("%Y%m%d")
                     vol_map[d] = int(v / 1000)
             if vol_map:
                 break
@@ -355,8 +364,10 @@ def analyze_holding(code: str, name: str, is_etf: bool, history: dict) -> dict:
     if not inst:
         print(f"  T86 無資料（可能被雲端 IP 擋掉），改用 FinMind 補抓 {date}...")
         inst = fetch_institutional_finmind(code, date)
-    vol    = fetch_volume(code, date)
     margin = fetch_margin(code, date)
+
+    vol_map = fetch_volume_history(code)
+    vol     = fetch_volume(code, date, vol_map)
 
     has_data  = bool(inst)
     today_data = {**inst, **margin, "volume": vol, "date": date}
@@ -382,12 +393,18 @@ def analyze_holding(code: str, name: str, is_etf: bool, history: dict) -> dict:
 
     existing_dates = {d["date"] for d in h_list}
 
-    # 若歷史有效筆數 < 20，或剛清除了錯誤記錄，從 FinMind 補充
-    valid_count = len([d for d in h_list if d.get("volume", 0) > 0 and d.get("total_net") is not None])
+    # 修正既有記錄中因舊版日期偏移造成的 volume=0
+    for entry in h_list:
+        if not entry.get("volume") and entry["date"] in vol_map:
+            entry["volume"] = vol_map[entry["date"]]
+
+    # 若近 30 天有效筆數 < 20，或剛清除了錯誤記錄，從 FinMind 補充
+    cutoff = (datetime.strptime(date, "%Y%m%d") - timedelta(days=30)).strftime("%Y%m%d")
+    valid_count = len([d for d in h_list
+                        if d["date"] >= cutoff and d.get("volume", 0) > 0 and d.get("total_net") is not None])
     if valid_count < 20:
-        print(f"  有效歷史 {valid_count} 日，從 FinMind 補充...")
+        print(f"  近 30 天有效歷史 {valid_count} 日，從 FinMind 補充...")
         fin_records = fetch_finmind_history(code)
-        vol_map     = fetch_volume_history(code) if fin_records else {}
         for rec in fin_records:
             d = rec["date"]
             if d not in existing_dates:
