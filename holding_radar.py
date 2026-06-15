@@ -96,6 +96,41 @@ def fetch_institutional(code: str, date: str) -> dict:
     return {}
 
 
+# ── FinMind：當日三大法人（T86 被擋時的備援） ───────────────
+def fetch_institutional_finmind(code: str, date: str) -> dict:
+    """TWSE T86 在雲端 IP（如 GitHub Actions）常回傳空陣列，改用 FinMind 補抓當日資料。"""
+    d_str = f"{date[:4]}-{date[4:6]}-{date[6:]}"
+    url = "https://api.finmindtrade.com/api/v4/data"
+    params = {
+        "dataset":    "TaiwanStockInstitutionalInvestorsBuySell",
+        "data_id":    code,
+        "start_date": d_str,
+        "end_date":   d_str,
+    }
+    if FINMIND_TOKEN:
+        params["token"] = FINMIND_TOKEN
+    try:
+        r = requests.get(url, params=params, headers=HEADERS, timeout=20, verify=False)
+        data = r.json()
+        if data.get("status") != 200 or not data.get("data"):
+            return {}
+        result = {"foreign_net": 0, "trust_net": 0, "dealer_net": 0, "total_net": 0}
+        for rec in data["data"]:
+            net  = (rec.get("buy", 0) - rec.get("sell", 0)) // 1000
+            name = rec.get("name", "")
+            if name in ("Foreign_Investor", "Foreign_Dealer_Self"):
+                result["foreign_net"] += net
+            elif name == "Investment_Trust":
+                result["trust_net"] += net
+            elif name in ("Dealer_self", "Dealer_Hedging"):
+                result["dealer_net"] += net
+            result["total_net"] += net
+        return result
+    except Exception as e:
+        print(f"  FinMind 當日三大法人抓取失敗: {e}")
+        return {}
+
+
 # ── FinMind：30 日歷史三大法人（補充 20 日集中度） ───────────
 def fetch_finmind_history(code: str, days: int = 35) -> list:
     """
@@ -317,6 +352,9 @@ def analyze_holding(code: str, name: str, is_etf: bool, history: dict) -> dict:
     print(f"  抓取 {code} {name} ({date})...")
 
     inst   = fetch_institutional(code, date)
+    if not inst:
+        print(f"  T86 無資料（可能被雲端 IP 擋掉），改用 FinMind 補抓 {date}...")
+        inst = fetch_institutional_finmind(code, date)
     vol    = fetch_volume(code, date)
     margin = fetch_margin(code, date)
 
