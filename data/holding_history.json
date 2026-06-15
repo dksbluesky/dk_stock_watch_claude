@@ -220,7 +220,9 @@
       "dealer_net": 107,
       "total_net": 518,
       "volume": 29164,
-      "date": "20260508"
+      "date": "20260508",
+      "margin_balance": 0,
+      "short_balance": 0
     }
   ],
   "006208": [
@@ -496,7 +498,9 @@
       "dealer_net": -235,
       "total_net": 778,
       "volume": 6071,
-      "date": "20260508"
+      "date": "20260508",
+      "margin_balance": 0,
+      "short_balance": 0
     }
   ],
   "00878": [
@@ -730,7 +734,9 @@
       "dealer_net": 15932,
       "total_net": 13337,
       "volume": 114765,
-      "date": "20260508"
+      "date": "20260508",
+      "margin_balance": 0,
+      "short_balance": 0
     }
   ]
 }
