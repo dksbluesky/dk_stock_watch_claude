@@ -1,5 +1,5 @@
 {
-  "generated": "2026/06/15 08:57",
+  "generated": "2026/06/15 14:27",
   "date": "20260615",
   "holdings": [
     {
@@ -8,10 +8,10 @@
       "is_etf": false,
       "date": "20260615",
       "foreign_net": 9646,
-      "total_net": 9833,
-      "margin_balance": 27421,
-      "short_balance": 13,
-      "margin_shrink": true,
+      "total_net": 9839,
+      "margin_balance": 27593,
+      "short_balance": 21,
+      "margin_shrink": false,
       "conc_5d": -11.4,
       "conc_20d": -9.92,
       "streak": 2,
@@ -20,10 +20,10 @@
         "total_positive": true,
         "conc5_rising": true,
         "conc20_positive": false,
-        "margin_shrink": true,
+        "margin_shrink": false,
         "price_support": true
       },
-      "exhaustion": 5,
+      "exhaustion": 4,
       "history_5d": [
         {
           "date": "20260609",
@@ -53,7 +53,7 @@
           "date": "20260615",
           "foreign_net": 9646,
           "total_net": 9832,
-          "margin_balance": null
+          "margin_balance": 0
         }
       ]
     },
@@ -64,7 +64,7 @@
       "date": "20260615",
       "foreign_net": 2091,
       "total_net": 1900,
-      "margin_balance": 246,
+      "margin_balance": 240,
       "short_balance": 27,
       "margin_shrink": true,
       "conc_5d": -7.83,
@@ -118,12 +118,12 @@
       "is_etf": true,
       "date": "20260615",
       "foreign_net": 7335,
-      "total_net": 22730,
-      "margin_balance": 3709,
-      "short_balance": 31,
+      "total_net": 22729,
+      "margin_balance": 3688,
+      "short_balance": 34,
       "margin_shrink": true,
       "conc_5d": 35.95,
-      "conc_20d": 39.68,
+      "conc_20d": 35.23,
       "streak": 3,
       "signals": {
         "foreign_flip": true,
@@ -163,7 +163,7 @@
           "date": "20260615",
           "foreign_net": 7335,
           "total_net": 22729,
-          "margin_balance": null
+          "margin_balance": 0
         }
       ]
     }
