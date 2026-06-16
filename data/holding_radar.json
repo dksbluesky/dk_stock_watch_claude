@@ -1,5 +1,5 @@
 {
-  "generated": "2026/06/16 11:41",
+  "generated": "2026/06/16 12:58",
   "date": "20260616",
   "holdings": [
     {
@@ -8,33 +8,33 @@
       "is_etf": false,
       "date": "20260616",
       "foreign_net": -383,
-      "total_net": 3296,
-      "margin_balance": 27593,
-      "short_balance": 21,
-      "margin_shrink": false,
-      "conc_5d": -0.61,
-      "conc_20d": -7.51,
+      "total_net": 3295,
+      "margin_balance": 27470,
+      "short_balance": 61,
+      "margin_shrink": true,
+      "conc_5d": -8.61,
+      "conc_20d": -9.26,
       "streak": -1,
       "signals": {
         "foreign_flip": false,
         "total_positive": true,
         "conc5_rising": true,
         "conc20_positive": false,
-        "margin_shrink": false,
+        "margin_shrink": true,
         "price_support": true
       },
-      "exhaustion": 3,
+      "exhaustion": 4,
       "history_5d": [
+        {
+          "date": "20260609",
+          "foreign_net": -15009,
+          "total_net": -13603,
+          "margin_balance": 0
+        },
         {
           "date": "20260610",
           "foreign_net": -15543,
           "total_net": -16279,
-          "margin_balance": 0
-        },
-        {
-          "date": "20260611",
-          "foreign_net": -4905,
-          "total_net": -1384,
           "margin_balance": 0
         },
         {
@@ -53,7 +53,7 @@
           "date": "20260616",
           "foreign_net": -383,
           "total_net": 3295,
-          "margin_balance": null
+          "margin_balance": 0
         }
       ]
     },
@@ -63,8 +63,8 @@
       "is_etf": true,
       "date": "20260616",
       "foreign_net": 459,
-      "total_net": 1193,
-      "margin_balance": 240,
+      "total_net": 1192,
+      "margin_balance": 223,
       "short_balance": 27,
       "margin_shrink": true,
       "conc_5d": -3.34,
@@ -119,8 +119,8 @@
       "date": "20260616",
       "foreign_net": 3640,
       "total_net": 13873,
-      "margin_balance": 3688,
-      "short_balance": 34,
+      "margin_balance": 3616,
+      "short_balance": 41,
       "margin_shrink": true,
       "conc_5d": 31.56,
       "conc_20d": 41.12,
