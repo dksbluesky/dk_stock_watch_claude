@@ -2,8 +2,10 @@ name: Daily Stock Radar
 
 on:
   schedule:
-    - cron: '0 8 * * 1-5'
-    - cron: '30 9 * * 1-5'
+    - cron: '0 8 * * 1-5'   # 16:00 TW
+    - cron: '0 9 * * 1-5'   # 17:00 TW
+    - cron: '0 10 * * 1-5'  # 18:00 TW
+    - cron: '0 11 * * 1-5'  # 19:00 TW
   workflow_dispatch:
 
 jobs:
@@ -16,15 +18,44 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Check if today already ran
+        id: check
+        run: |
+          python3 -c "
+          import json, os
+          from datetime import datetime, timedelta, timezone
+          tw = datetime.now(timezone(timedelta(hours=8)))
+          d = tw
+          if d.hour < 16:
+              d -= timedelta(days=1)
+          while d.weekday() >= 5:
+              d -= timedelta(days=1)
+          today = d.strftime('%Y%m%d')
+          try:
+              data = json.load(open('data/holding_radar.json'))
+              existing = data.get('date', '')
+              if existing == today:
+                  print(f'Data for {today} already exists — skipping.')
+                  with open(os.environ['GITHUB_ENV'], 'a') as f:
+                      f.write('SKIP=true\n')
+              else:
+                  print(f'Need update: last={existing}, today={today}')
+          except Exception as e:
+              print(f'No existing data ({e}) — will run.')
+          "
+
       - name: Set up Python
+        if: env.SKIP != 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
+        if: env.SKIP != 'true'
         run: pip install -r requirements.txt
 
       - name: Run Holding Radar
+        if: env.SKIP != 'true'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
@@ -32,18 +63,21 @@ jobs:
         run: python holding_radar.py
 
       - name: Run Wash Radar
+        if: env.SKIP != 'true'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python wash_radar.py
 
       - name: Run Revenue Radar
+        if: env.SKIP != 'true'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python radar.py
 
       - name: Move JSON to data folder
+        if: env.SKIP != 'true'
         run: |
           mkdir -p data
           [ -f wash_radar.json ] && mv wash_radar.json data/wash_radar.json || echo "wash_radar.json not found"
@@ -51,6 +85,7 @@ jobs:
           ls -la data/
 
       - name: Commit updated JSON files
+        if: env.SKIP != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
