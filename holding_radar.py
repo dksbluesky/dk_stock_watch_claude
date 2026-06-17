@@ -506,36 +506,33 @@ def format_telegram(results: list, date: str) -> str:
         lines.append(f"<b>{r['code']} {r['name']}</b>")
 
         if r["is_etf"]:
-            lines.append("（ETF — 追蹤大盤，無主力洗盤邏輯）")
-            lines.append(f"外資動向：{arrow(fn)} {fmt(fn)} 張")
-            lines.append(f"三大法人：{arrow(tn)} {fmt(tn)} 張")
-            lines.append(f"5日集中：{c5:+.2f}%")
+            lines.append("（ETF）")
+
+        lines.append(f"① 外資買賣超：{arrow(fn)} {fmt(fn)} 張 {'✅' if sigs['foreign_flip'] else '❌'}")
+        lines.append(f"② 三大法人：{arrow(tn)} {fmt(tn)} 張 {'✅' if sigs['total_positive'] else '❌'}")
+        lines.append(f"③ 5日集中：{c5:+.2f}% {'✅' if sigs['conc5_rising'] else '❌'}")
+        lines.append(f"④ 20日集中：{c20:+.2f}% {'✅' if sigs['conc20_positive'] else '❌'}")
+        mb_str = f"{mb:,}" if mb is not None else "--"
+        sb_str = f"{sb:,}" if sb is not None else "--"
+        lines.append(f"⑤ 融資餘額：{mb_str}張（融券{sb_str}）{'✅' if sigs['margin_shrink'] else '❌'}")
+        lines.append(f"⑥ 守支撐：{'✅' if sigs['price_support'] else '❌'}")
+
+        streak_str = (f"連續賣超 {abs(streak)} 天" if streak < 0 else
+                      f"連續買超 {streak} 天" if streak > 0 else "今日翻轉")
+        lines.append(f"外資：{streak_str}")
+
+        if exh >= 5:
+            lines.append(f"🔥 <b>賣壓耗盡訊號：{exh}/6 強烈確認</b>")
+        elif exh >= 3:
+            lines.append(f"⚡ 賣壓耗盡訊號：{exh}/6 觀察中")
         else:
-            lines.append(f"① 外資買賣超：{arrow(fn)} {fmt(fn)} 張 {'✅' if sigs['foreign_flip'] else '❌'}")
-            lines.append(f"② 三大法人：{arrow(tn)} {fmt(tn)} 張 {'✅' if sigs['total_positive'] else '❌'}")
-            lines.append(f"③ 5日集中：{c5:+.2f}% {'✅' if sigs['conc5_rising'] else '❌'}")
-            lines.append(f"④ 20日集中：{c20:+.2f}% {'✅' if sigs['conc20_positive'] else '❌'}")
-            mb_str = f"{mb:,}" if mb is not None else "--"
-            sb_str = f"{sb:,}" if sb is not None else "--"
-            lines.append(f"⑤ 融資餘額：{mb_str}張（融券{sb_str}）{'✅' if sigs['margin_shrink'] else '❌'}")
-            lines.append(f"⑥ 守支撐：{'✅' if sigs['price_support'] else '❌'}")
+            lines.append(f"❌ 賣壓耗盡訊號：{exh}/6 尚未確認")
 
-            streak_str = (f"連續賣超 {abs(streak)} 天" if streak < 0 else
-                          f"連續買超 {streak} 天" if streak > 0 else "今日翻轉")
-            lines.append(f"外資：{streak_str}")
-
-            if exh >= 5:
-                lines.append(f"🔥 <b>賣壓耗盡訊號：{exh}/6 強烈確認</b>")
-            elif exh >= 3:
-                lines.append(f"⚡ 賣壓耗盡訊號：{exh}/6 觀察中")
-            else:
-                lines.append(f"❌ 賣壓耗盡訊號：{exh}/6 尚未確認")
-
-            hist5 = r.get("history_5d", [])
-            if len(hist5) >= 2:
-                trend = [d.get("total_net", d.get("foreign_net", 0)) for d in hist5]
-                trend_str = " → ".join([fmt(v) for v in trend])
-                lines.append(f"近期三法人：{trend_str}")
+        hist5 = r.get("history_5d", [])
+        if len(hist5) >= 2:
+            trend = [d.get("total_net", d.get("foreign_net", 0)) for d in hist5]
+            trend_str = " → ".join([fmt(v) for v in trend])
+            lines.append(f"近期三法人：{trend_str}")
 
     lines.append(f"\n{'─'*20}")
     lines.append("⚠️ 僅供參考，請自行判斷")
