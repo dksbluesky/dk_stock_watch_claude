@@ -18,34 +18,30 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const workflow_id = 'daily_radar.yml';
-            const keep = 3;
+            const targets = [
+              { workflow_id: 'daily_radar.yml',  keep: 3 },
+              { workflow_id: 'cleanup_runs.yml', keep: 3 },
+            ];
 
-            const runs = await github.paginate(
-              github.rest.actions.listWorkflowRuns,
-              {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                workflow_id,
-                per_page: 100,
-              }
-            );
+            for (const { workflow_id, keep } of targets) {
+              const runs = await github.paginate(
+                github.rest.actions.listWorkflowRuns,
+                { owner: context.repo.owner, repo: context.repo.repo, workflow_id, per_page: 100 }
+              );
 
-            // Newest first
-            runs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+              runs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+              const toDelete = runs.slice(keep);
+              console.log(`[${workflow_id}] ${runs.length} runs, deleting ${toDelete.length}.`);
 
-            const toDelete = runs.slice(keep);
-            console.log(`Found ${runs.length} runs, deleting ${toDelete.length} (keeping newest ${keep}).`);
-
-            for (const run of toDelete) {
-              console.log(`Deleting run ${run.id} (created ${run.created_at}, status ${run.status})`);
-              try {
-                await github.rest.actions.deleteWorkflowRun({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  run_id: run.id,
-                });
-              } catch (e) {
-                console.log(`  Failed to delete ${run.id}: ${e.message}`);
+              for (const run of toDelete) {
+                try {
+                  await github.rest.actions.deleteWorkflowRun({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    run_id: run.id,
+                  });
+                } catch (e) {
+                  console.log(`  Failed to delete ${run.id}: ${e.message}`);
+                }
               }
             }
