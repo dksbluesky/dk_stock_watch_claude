@@ -633,6 +633,27 @@ async function triggerAndRefresh() {
   // 3. Auto-refresh data
   setLabel('⏳ 載入資料...');
   await loadAll();
+
+  // 4. Cleanup: keep only latest 3 runs
+  setLabel('⏳ 清理舊記錄...');
+  try {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/daily_radar.yml/runs?per_page=20`, {
+      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    const data = await r.json();
+    const runs = (data.workflow_runs || []).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    const toDelete = runs.slice(3);
+    if (toDelete.length) {
+      console.log(`Deleting ${toDelete.length} old run(s)...`);
+      await Promise.all(toDelete.map(run =>
+        fetch(`https://api.github.com/repos/${REPO}/actions/runs/${run.id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+        })
+      ));
+    }
+  } catch(_) {}
+
   btn.disabled = false;
   setLabel('🔄 更新資料');
 }
