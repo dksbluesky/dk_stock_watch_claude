@@ -640,17 +640,28 @@ async function triggerAndRefresh() {
   setLabel('⏳ 載入資料...');
   await loadAll();
 
-  // 4. Cleanup: keep only latest 3 runs
+  // 4. Cleanup: keep only latest 3 runs per workflow across all workflows
   setLabel('⏳ 清理舊記錄...');
   try {
-    const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/daily_radar.yml/runs?per_page=20`, {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/actions/runs?per_page=100`, {
       headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
     });
     const data = await r.json();
-    const runs = (data.workflow_runs || []).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-    const toDelete = runs.slice(3);
+    const allRuns = data.workflow_runs || [];
+
+    // Group by workflow_id, sort newest first
+    const byWorkflow = {};
+    for (const run of allRuns) {
+      if (!byWorkflow[run.workflow_id]) byWorkflow[run.workflow_id] = [];
+      byWorkflow[run.workflow_id].push(run);
+    }
+    const toDelete = [];
+    for (const runs of Object.values(byWorkflow)) {
+      runs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      toDelete.push(...runs.slice(3));
+    }
     if (toDelete.length) {
-      console.log(`Deleting ${toDelete.length} old run(s)...`);
+      console.log(`Deleting ${toDelete.length} old run(s) across all workflows...`);
       await Promise.all(toDelete.map(run =>
         fetch(`https://api.github.com/repos/${REPO}/actions/runs/${run.id}`, {
           method: 'DELETE',

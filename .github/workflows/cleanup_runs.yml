@@ -18,21 +18,27 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const targets = [
-              { workflow_id: 'daily_radar.yml',  keep: 3 },
-              { workflow_id: 'cleanup_runs.yml', keep: 3 },
-            ];
+            const keep = 3;
 
-            for (const { workflow_id, keep } of targets) {
-              const runs = await github.paginate(
-                github.rest.actions.listWorkflowRuns,
-                { owner: context.repo.owner, repo: context.repo.repo, workflow_id, per_page: 100 }
-              );
+            // Fetch ALL runs across all workflows
+            const allRuns = await github.paginate(
+              github.rest.actions.listWorkflowRunsForRepo,
+              { owner: context.repo.owner, repo: context.repo.repo, per_page: 100 }
+            );
 
+            // Group by workflow_id, sort newest first
+            const byWorkflow = {};
+            for (const run of allRuns) {
+              const wid = run.workflow_id;
+              if (!byWorkflow[wid]) byWorkflow[wid] = [];
+              byWorkflow[wid].push(run);
+            }
+
+            let deleted = 0;
+            for (const [wid, runs] of Object.entries(byWorkflow)) {
               runs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
               const toDelete = runs.slice(keep);
-              console.log(`[${workflow_id}] ${runs.length} runs, deleting ${toDelete.length}.`);
-
+              console.log(`workflow ${wid}: ${runs.length} runs, deleting ${toDelete.length}`);
               for (const run of toDelete) {
                 try {
                   await github.rest.actions.deleteWorkflowRun({
@@ -40,8 +46,10 @@ jobs:
                     repo: context.repo.repo,
                     run_id: run.id,
                   });
+                  deleted++;
                 } catch (e) {
                   console.log(`  Failed to delete ${run.id}: ${e.message}`);
                 }
               }
             }
+            console.log(`Done. Deleted ${deleted} run(s) total.`);
