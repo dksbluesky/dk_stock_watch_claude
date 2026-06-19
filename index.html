@@ -29,11 +29,10 @@
   .logo { font-size:18px; font-weight:700; color:var(--accent); }
   .logo span { color:var(--green); }
   .update-time { font-size:11px; color:var(--muted); margin-top:4px; display:flex; align-items:center; gap:8px; }
-  .btn-refresh { background:none; border:1px solid var(--border); border-radius:6px; padding:2px 8px; font-size:11px; color:var(--accent); cursor:pointer; }
+  .btn-refresh { background:none; border:1px solid var(--border); border-radius:6px; padding:2px 8px; font-size:11px; color:var(--muted); cursor:pointer; }
   .btn-refresh:active { opacity:0.6; }
-  .btn-trigger { background:none; border:1px solid var(--border); border-radius:6px; padding:2px 8px; font-size:11px; color:var(--green); cursor:pointer; }
-  .btn-trigger:active { opacity:0.6; }
-  .btn-refresh.spinning { animation:spin 1s linear infinite; display:inline-block; }
+  .btn-update { background:var(--accent); border:none; border-radius:6px; padding:3px 10px; font-size:11px; color:#fff; cursor:pointer; font-family:'Microsoft JhengHei',sans-serif; }
+  .btn-update:disabled { opacity:0.6; cursor:default; }
   @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
   /* Tabs */
@@ -130,8 +129,8 @@
   </div>
   <div class="update-time">
     <span id="update-time">載入中...</span>
-    <button class="btn-refresh" id="btn-refresh" onclick="refreshData()" title="重新抓取最新資料">↻ 重新整理</button>
-    <button class="btn-trigger" id="btn-trigger" onclick="triggerWorkflow()" title="觸發 GitHub Actions 重新跑分析">🔄 觸發更新</button>
+    <button class="btn-refresh" id="btn-refresh" onclick="refreshData()" title="重新整理頁面資料">↻</button>
+    <button class="btn-update" id="btn-update" onclick="triggerAndRefresh()" title="觸發分析並自動更新">🔄 更新資料</button>
   </div>
 </div>
 
@@ -571,17 +570,22 @@ function switchTab(id, el) {
   document.getElementById("tab-" + id).classList.add("active");
 }
 
-async function triggerWorkflow() {
+async function triggerAndRefresh() {
   let token = localStorage.getItem('gh_token');
   if (!token) {
-    token = prompt('請輸入 GitHub Personal Access Token\n(需要 workflow 權限，只存在本機，不會上傳)');
+    token = prompt('請輸入 GitHub Personal Access Token（需要 workflow 權限）\n只存在本機 localStorage，不會上傳');
     if (!token) return;
     localStorage.setItem('gh_token', token.trim());
     token = token.trim();
   }
-  const btn = document.getElementById('btn-trigger');
+
+  const btn = document.getElementById('btn-update');
+  const setLabel = t => { btn.textContent = t; };
   btn.disabled = true;
-  btn.textContent = '⏳ 更新中...';
+  setLabel('⏳ 觸發中...');
+
+  // 1. Dispatch workflow
+  const dispatchTime = new Date();
   try {
     const res = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/daily_radar.yml/dispatches`, {
       method: 'POST',
@@ -592,21 +596,45 @@ async function triggerWorkflow() {
       },
       body: JSON.stringify({ ref: 'main' }),
     });
-    if (res.status === 204) {
-      btn.textContent = '⏳ 約 3 分後按重新整理';
-      setTimeout(() => { btn.disabled = false; btn.textContent = '🔄 觸發更新'; }, 180000);
-    } else if (res.status === 401) {
+    if (res.status === 401) {
       localStorage.removeItem('gh_token');
       alert('Token 無效，請重新輸入');
-      btn.disabled = false; btn.textContent = '🔄 觸發更新';
-    } else {
+      btn.disabled = false; setLabel('🔄 更新資料'); return;
+    }
+    if (res.status !== 204) {
       alert(`觸發失敗：HTTP ${res.status}`);
-      btn.disabled = false; btn.textContent = '🔄 觸發更新';
+      btn.disabled = false; setLabel('🔄 更新資料'); return;
     }
   } catch(e) {
     alert(`觸發失敗：${e.message}`);
-    btn.disabled = false; btn.textContent = '🔄 觸發更新';
+    btn.disabled = false; setLabel('🔄 更新資料'); return;
   }
+
+  // 2. Poll every 15s (up to 6 min) for the run to complete
+  setLabel('⏳ 等待分析...');
+  let elapsed = 0;
+  const maxWait = 360;
+  while (elapsed < maxWait) {
+    await new Promise(r => setTimeout(r, 15000));
+    elapsed += 15;
+    setLabel(`⏳ ${elapsed}s...`);
+    try {
+      const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/daily_radar.yml/runs?per_page=1`, {
+        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+      });
+      const data = await r.json();
+      const run = data.workflow_runs?.[0];
+      if (run && new Date(run.created_at) >= dispatchTime && run.status === 'completed') {
+        break;
+      }
+    } catch(_) {}
+  }
+
+  // 3. Auto-refresh data
+  setLabel('⏳ 載入資料...');
+  await loadAll();
+  btn.disabled = false;
+  setLabel('🔄 更新資料');
 }
 
 async function refreshData() {
