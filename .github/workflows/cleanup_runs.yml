@@ -20,36 +20,26 @@ jobs:
           script: |
             const keep = 3;
 
-            // Fetch ALL runs across all workflows
+            // Fetch ALL runs across all workflows, sort newest first
             const allRuns = await github.paginate(
               github.rest.actions.listWorkflowRunsForRepo,
               { owner: context.repo.owner, repo: context.repo.repo, per_page: 100 }
             );
+            allRuns.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-            // Group by workflow_id, sort newest first
-            const byWorkflow = {};
-            for (const run of allRuns) {
-              const wid = run.workflow_id;
-              if (!byWorkflow[wid]) byWorkflow[wid] = [];
-              byWorkflow[wid].push(run);
-            }
+            const toDelete = allRuns.slice(keep);
+            console.log(`Total runs: ${allRuns.length}, keeping ${keep}, deleting ${toDelete.length}`);
 
-            let deleted = 0;
-            for (const [wid, runs] of Object.entries(byWorkflow)) {
-              runs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-              const toDelete = runs.slice(keep);
-              console.log(`workflow ${wid}: ${runs.length} runs, deleting ${toDelete.length}`);
-              for (const run of toDelete) {
-                try {
-                  await github.rest.actions.deleteWorkflowRun({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    run_id: run.id,
-                  });
-                  deleted++;
-                } catch (e) {
-                  console.log(`  Failed to delete ${run.id}: ${e.message}`);
-                }
+            for (const run of toDelete) {
+              console.log(`  Deleting ${run.name} #${run.run_number} (${run.created_at})`);
+              try {
+                await github.rest.actions.deleteWorkflowRun({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  run_id: run.id,
+                });
+              } catch (e) {
+                console.log(`  Failed: ${e.message}`);
               }
             }
-            console.log(`Done. Deleted ${deleted} run(s) total.`);
+            console.log('Done.');

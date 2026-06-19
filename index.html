@@ -647,19 +647,10 @@ async function triggerAndRefresh() {
       headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
     });
     const data = await r.json();
-    const allRuns = data.workflow_runs || [];
-
-    // Group by workflow_id, sort newest first
-    const byWorkflow = {};
-    for (const run of allRuns) {
-      if (!byWorkflow[run.workflow_id]) byWorkflow[run.workflow_id] = [];
-      byWorkflow[run.workflow_id].push(run);
-    }
-    const toDelete = [];
-    for (const runs of Object.values(byWorkflow)) {
-      runs.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-      toDelete.push(...runs.slice(3));
-    }
+    // Sort all runs newest first, keep only latest 3 total
+    const allRuns = (data.workflow_runs || [])
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    const toDelete = allRuns.slice(3);
     if (toDelete.length) {
       console.log(`Deleting ${toDelete.length} old run(s) across all workflows...`);
       await Promise.all(toDelete.map(run =>
