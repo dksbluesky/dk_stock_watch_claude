@@ -31,6 +31,8 @@
   .update-time { font-size:11px; color:var(--muted); margin-top:4px; display:flex; align-items:center; gap:8px; }
   .btn-refresh { background:none; border:1px solid var(--border); border-radius:6px; padding:2px 8px; font-size:11px; color:var(--accent); cursor:pointer; }
   .btn-refresh:active { opacity:0.6; }
+  .btn-trigger { background:none; border:1px solid var(--border); border-radius:6px; padding:2px 8px; font-size:11px; color:var(--green); cursor:pointer; }
+  .btn-trigger:active { opacity:0.6; }
   .btn-refresh.spinning { animation:spin 1s linear infinite; display:inline-block; }
   @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
@@ -129,6 +131,7 @@
   <div class="update-time">
     <span id="update-time">載入中...</span>
     <button class="btn-refresh" id="btn-refresh" onclick="refreshData()" title="重新抓取最新資料">↻ 重新整理</button>
+    <button class="btn-trigger" id="btn-trigger" onclick="triggerWorkflow()" title="觸發 GitHub Actions 重新跑分析">🔄 觸發更新</button>
   </div>
 </div>
 
@@ -566,6 +569,44 @@ function switchTab(id, el) {
   document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
   el.classList.add("active");
   document.getElementById("tab-" + id).classList.add("active");
+}
+
+async function triggerWorkflow() {
+  let token = localStorage.getItem('gh_token');
+  if (!token) {
+    token = prompt('請輸入 GitHub Personal Access Token\n(需要 workflow 權限，只存在本機，不會上傳)');
+    if (!token) return;
+    localStorage.setItem('gh_token', token.trim());
+    token = token.trim();
+  }
+  const btn = document.getElementById('btn-trigger');
+  btn.disabled = true;
+  btn.textContent = '⏳ 更新中...';
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/daily_radar.yml/dispatches`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ref: 'main' }),
+    });
+    if (res.status === 204) {
+      btn.textContent = '⏳ 約 3 分後按重新整理';
+      setTimeout(() => { btn.disabled = false; btn.textContent = '🔄 觸發更新'; }, 180000);
+    } else if (res.status === 401) {
+      localStorage.removeItem('gh_token');
+      alert('Token 無效，請重新輸入');
+      btn.disabled = false; btn.textContent = '🔄 觸發更新';
+    } else {
+      alert(`觸發失敗：HTTP ${res.status}`);
+      btn.disabled = false; btn.textContent = '🔄 觸發更新';
+    }
+  } catch(e) {
+    alert(`觸發失敗：${e.message}`);
+    btn.disabled = false; btn.textContent = '🔄 觸發更新';
+  }
 }
 
 async function refreshData() {

@@ -2,6 +2,7 @@ name: Daily Stock Radar
 
 on:
   schedule:
+    - cron: '20 7 * * 1-5'  # 15:20 TW
     - cron: '0 8 * * 1-5'   # 16:00 TW
     - cron: '0 9 * * 1-5'   # 17:00 TW
     - cron: '0 10 * * 1-5'  # 18:00 TW
