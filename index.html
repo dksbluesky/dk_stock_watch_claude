@@ -202,6 +202,7 @@
       </div>
     </div>
     <button class="btn-save" onclick="saveWatchlist()">💾 儲存清單（產生下載檔案）</button>
+    <button class="btn-save" style="background:var(--muted);margin-top:8px" onclick="resetToken()">🔑 重設 GitHub Token</button>
   </div>
 
 </div>
@@ -540,6 +541,11 @@ function removeHolding(idx) {
   if (watchlist.holdings.length <= 1) { alert("至少需保留 1 筆持倉"); return; }
   watchlist.holdings.splice(idx, 1);
   renderManage();
+}
+
+function resetToken() {
+  localStorage.removeItem('gh_token');
+  alert('Token 已清除，下次按「🔄 更新資料」時會重新提示輸入');
 }
 
 function saveWatchlist() {
