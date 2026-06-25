@@ -1,16 +1,6 @@
 {
   "2330": [
     {
-      "date": "20260514",
-      "foreign_net": 600,
-      "trust_net": 5856,
-      "dealer_net": -1290,
-      "total_net": 5166,
-      "volume": 31747,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
-    {
       "date": "20260515",
       "foreign_net": -3399,
       "trust_net": 3385,
@@ -306,20 +296,20 @@
       "trust_net": 685,
       "dealer_net": 1077,
       "total_net": -36689,
-      "volume": 65632
-    }
-  ],
-  "006208": [
-    {
-      "date": "20260513",
-      "foreign_net": 183,
-      "trust_net": -36,
-      "dealer_net": 1797,
-      "total_net": 1944,
-      "volume": 6615,
+      "volume": 65632,
       "margin_balance": 0,
       "short_balance": 0
     },
+    {
+      "date": "20260625",
+      "foreign_net": -6104,
+      "trust_net": 174,
+      "dealer_net": -312,
+      "total_net": -6242,
+      "volume": 36789
+    }
+  ],
+  "006208": [
     {
       "date": "20260514",
       "foreign_net": 2488,
@@ -641,19 +631,25 @@
       "margin_shrink": true,
       "volume": 5282,
       "date": "20260624"
+    },
+    {
+      "foreign_buy": 1597,
+      "foreign_sell": 609,
+      "foreign_net": 988,
+      "trust_buy": 90,
+      "trust_sell": 0,
+      "trust_net": 90,
+      "dealer_net": -1446,
+      "total_net": -368,
+      "margin_balance": 267,
+      "margin_prev": 192,
+      "short_balance": 18,
+      "margin_shrink": false,
+      "volume": 2864,
+      "date": "20260625"
     }
   ],
   "00878": [
-    {
-      "date": "20260513",
-      "foreign_net": -23803,
-      "trust_net": 0,
-      "dealer_net": 12897,
-      "total_net": -10906,
-      "volume": 102003,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
     {
       "date": "20260514",
       "foreign_net": 4339,
@@ -967,6 +963,18 @@
       "margin_shrink": false,
       "volume": 45723,
       "date": "20260624"
+    },
+    {
+      "foreign_net": 886,
+      "trust_net": 0,
+      "dealer_net": 4109,
+      "total_net": 4995,
+      "margin_balance": 2874,
+      "margin_prev": 2804,
+      "short_balance": 46,
+      "margin_shrink": false,
+      "volume": 32532,
+      "date": "20260625"
     }
   ]
 }
