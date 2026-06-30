@@ -1,16 +1,6 @@
 {
   "2330": [
     {
-      "date": "20260519",
-      "foreign_net": -17247,
-      "trust_net": 4144,
-      "dealer_net": 199,
-      "total_net": -12904,
-      "volume": 34824,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
-    {
       "date": "20260520",
       "foreign_net": -11032,
       "trust_net": 2188,
@@ -303,23 +293,23 @@
     {
       "date": "20260629",
       "foreign_net": -1913,
-      "trust_net": 903,
+      "trust_net": 919,
       "dealer_net": 996,
-      "total_net": -14,
-      "volume": 34770
-    }
-  ],
-  "006208": [
-    {
-      "date": "20260519",
-      "foreign_net": -351,
-      "trust_net": 0,
-      "dealer_net": -1047,
-      "total_net": -1398,
-      "volume": 3274,
+      "total_net": 2,
+      "volume": 33267,
       "margin_balance": 0,
       "short_balance": 0
     },
+    {
+      "date": "20260630",
+      "foreign_net": -1426,
+      "trust_net": -51,
+      "dealer_net": 651,
+      "total_net": -826,
+      "volume": 45060
+    }
+  ],
+  "006208": [
     {
       "date": "20260520",
       "foreign_net": 1018,
@@ -650,20 +640,20 @@
       "trust_net": 0,
       "dealer_net": 157,
       "total_net": 331,
-      "volume": 4183
-    }
-  ],
-  "00878": [
-    {
-      "date": "20260519",
-      "foreign_net": -3409,
-      "trust_net": 0,
-      "dealer_net": -836,
-      "total_net": -4245,
-      "volume": 84521,
+      "volume": 4183,
       "margin_balance": 0,
       "short_balance": 0
     },
+    {
+      "date": "20260630",
+      "foreign_net": 1016,
+      "trust_net": 0,
+      "dealer_net": 612,
+      "total_net": 1628,
+      "volume": 3222
+    }
+  ],
+  "00878": [
     {
       "date": "20260520",
       "foreign_net": 3446,
@@ -982,7 +972,17 @@
       "trust_net": 0,
       "dealer_net": 1954,
       "total_net": 10782,
-      "volume": 38206
+      "volume": 38206,
+      "margin_balance": 0,
+      "short_balance": 0
+    },
+    {
+      "date": "20260630",
+      "foreign_net": 5039,
+      "trust_net": 0,
+      "dealer_net": 7226,
+      "total_net": 12265,
+      "volume": 29395
     }
   ]
 }
