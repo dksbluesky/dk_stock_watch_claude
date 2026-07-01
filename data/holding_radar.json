@@ -1,36 +1,30 @@
 {
-  "generated": "2026/06/30 10:41",
-  "date": "20260630",
+  "generated": "2026/07/01 10:51",
+  "date": "20260701",
   "holdings": [
     {
       "code": "2330",
       "name": "台積電",
       "is_etf": false,
-      "date": "20260630",
-      "foreign_net": -1426,
-      "total_net": -824,
-      "margin_balance": 31486,
-      "short_balance": 21,
+      "date": "20260701",
+      "foreign_net": 7399,
+      "total_net": 11421,
+      "margin_balance": 33305,
+      "short_balance": 22,
       "margin_shrink": false,
-      "conc_5d": -25.55,
-      "conc_20d": -15.44,
-      "streak": -6,
+      "conc_5d": -4.36,
+      "conc_20d": -13.68,
+      "streak": 1,
       "signals": {
-        "foreign_flip": false,
-        "total_positive": false,
+        "foreign_flip": true,
+        "total_positive": true,
         "conc5_rising": true,
         "conc20_positive": false,
         "margin_shrink": false,
         "price_support": true
       },
-      "exhaustion": 2,
+      "exhaustion": 4,
       "history_5d": [
-        {
-          "date": "20260624",
-          "foreign_net": -38451,
-          "total_net": -36689,
-          "margin_balance": 0
-        },
         {
           "date": "20260625",
           "foreign_net": -6104,
@@ -53,6 +47,12 @@
           "date": "20260630",
           "foreign_net": -1426,
           "total_net": -826,
+          "margin_balance": 0
+        },
+        {
+          "date": "20260701",
+          "foreign_net": 7399,
+          "total_net": 11421,
           "margin_balance": null
         }
       ]
@@ -61,31 +61,25 @@
       "code": "006208",
       "name": "富邦台50",
       "is_etf": true,
-      "date": "20260630",
-      "foreign_net": 1016,
-      "total_net": 1628,
-      "margin_balance": 321,
-      "short_balance": 22,
+      "date": "20260701",
+      "foreign_net": -486,
+      "total_net": -3,
+      "margin_balance": 334,
+      "short_balance": 17,
       "margin_shrink": false,
-      "conc_5d": -19.13,
-      "conc_20d": -9.41,
-      "streak": 2,
+      "conc_5d": -11.0,
+      "conc_20d": -9.47,
+      "streak": -1,
       "signals": {
-        "foreign_flip": true,
-        "total_positive": true,
+        "foreign_flip": false,
+        "total_positive": false,
         "conc5_rising": true,
         "conc20_positive": false,
         "margin_shrink": false,
         "price_support": true
       },
-      "exhaustion": 4,
+      "exhaustion": 2,
       "history_5d": [
-        {
-          "date": "20260624",
-          "foreign_net": -144,
-          "total_net": -2341,
-          "margin_balance": 192
-        },
         {
           "date": "20260625",
           "foreign_net": 988,
@@ -108,7 +102,13 @@
           "date": "20260630",
           "foreign_net": 1016,
           "total_net": 1628,
-          "margin_balance": null
+          "margin_balance": 0
+        },
+        {
+          "date": "20260701",
+          "foreign_net": -486,
+          "total_net": -3,
+          "margin_balance": 334
         }
       ]
     },
@@ -116,31 +116,25 @@
       "code": "00878",
       "name": "國泰高股息",
       "is_etf": true,
-      "date": "20260630",
-      "foreign_net": 5039,
-      "total_net": 12265,
-      "margin_balance": 2615,
-      "short_balance": 36,
+      "date": "20260701",
+      "foreign_net": -2538,
+      "total_net": -3417,
+      "margin_balance": 2642,
+      "short_balance": 43,
       "margin_shrink": false,
-      "conc_5d": -6.27,
-      "conc_20d": 22.35,
-      "streak": 2,
+      "conc_5d": -1.07,
+      "conc_20d": 23.01,
+      "streak": -1,
       "signals": {
-        "foreign_flip": true,
-        "total_positive": true,
+        "foreign_flip": false,
+        "total_positive": false,
         "conc5_rising": true,
         "conc20_positive": true,
         "margin_shrink": false,
         "price_support": true
       },
-      "exhaustion": 5,
+      "exhaustion": 3,
       "history_5d": [
-        {
-          "date": "20260624",
-          "foreign_net": -11375,
-          "total_net": -14801,
-          "margin_balance": 2804
-        },
         {
           "date": "20260625",
           "foreign_net": 886,
@@ -163,7 +157,13 @@
           "date": "20260630",
           "foreign_net": 5039,
           "total_net": 12265,
-          "margin_balance": null
+          "margin_balance": 0
+        },
+        {
+          "date": "20260701",
+          "foreign_net": -2538,
+          "total_net": -3417,
+          "margin_balance": 2642
         }
       ]
     }
