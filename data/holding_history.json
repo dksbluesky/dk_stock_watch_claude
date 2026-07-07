@@ -1,16 +1,6 @@
 {
   "2330": [
     {
-      "date": "20260526",
-      "foreign_net": -7749,
-      "trust_net": -598,
-      "dealer_net": 97,
-      "total_net": -8250,
-      "volume": 22586,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
-    {
       "date": "20260527",
       "foreign_net": 8810,
       "trust_net": 1,
@@ -306,20 +296,20 @@
       "trust_net": 380,
       "dealer_net": 119,
       "total_net": 257,
-      "volume": 20752
-    }
-  ],
-  "006208": [
-    {
-      "date": "20260526",
-      "foreign_net": 69,
-      "trust_net": 0,
-      "dealer_net": -175,
-      "total_net": -106,
-      "volume": 2109,
+      "volume": 20752,
       "margin_balance": 0,
       "short_balance": 0
     },
+    {
+      "date": "20260707",
+      "foreign_net": 83,
+      "trust_net": 558,
+      "dealer_net": -238,
+      "total_net": 403,
+      "volume": 30232
+    }
+  ],
+  "006208": [
     {
       "date": "20260527",
       "foreign_net": 808,
@@ -664,7 +654,17 @@
       "trust_net": 0,
       "dealer_net": -1321,
       "total_net": -1562,
-      "volume": 4108
+      "volume": 4108,
+      "margin_balance": 0,
+      "short_balance": 0
+    },
+    {
+      "date": "20260707",
+      "foreign_net": -1073,
+      "trust_net": 0,
+      "dealer_net": -965,
+      "total_net": -2038,
+      "volume": 5019
     }
   ],
   "00878": [
@@ -735,16 +735,6 @@
       "dealer_net": 28180,
       "total_net": 32379,
       "volume": 101706,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
-    {
-      "date": "20260604",
-      "foreign_net": -9231,
-      "trust_net": 0,
-      "dealer_net": 9408,
-      "total_net": 177,
-      "volume": 76212,
       "margin_balance": 0,
       "short_balance": 0
     },
@@ -1010,7 +1000,25 @@
       "trust_net": 0,
       "dealer_net": -1976,
       "total_net": 856,
-      "volume": 34536
+      "volume": 34536,
+      "margin_balance": 0,
+      "short_balance": 0
+    },
+    {
+      "foreign_buy": 3502,
+      "foreign_sell": 7577,
+      "foreign_net": -4075,
+      "trust_buy": 0,
+      "trust_sell": 0,
+      "trust_net": 0,
+      "dealer_net": -3511,
+      "total_net": -7586,
+      "margin_balance": 2548,
+      "margin_prev": 2561,
+      "short_balance": 38,
+      "margin_shrink": true,
+      "volume": 34825,
+      "date": "20260707"
     }
   ]
 }
