@@ -306,7 +306,9 @@
       "trust_net": -80,
       "dealer_net": 88,
       "total_net": -12741,
-      "volume": 30349
+      "volume": 30349,
+      "margin_balance": 0,
+      "short_balance": 0
     }
   ],
   "006208": [

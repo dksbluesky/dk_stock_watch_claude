@@ -1,5 +1,5 @@
 {
-  "generated": "2026/07/09 10:34",
+  "generated": "2026/07/10 10:31",
   "results": [
     {
       "code": "2330",
@@ -10,7 +10,7 @@
       "signals": [
         "✅ 守住 MA20（2403.2）"
       ],
-      "vol_ratio": 0.92,
+      "vol_ratio": 0.82,
       "ma20": 2403.25,
       "is_etf": false
     },
@@ -24,7 +24,7 @@
         "📍 回踩 MA20 支撐（246.24）",
         "✅ MA5 > MA20（趨勢向上）"
       ],
-      "vol_ratio": 0.86,
+      "vol_ratio": 0.79,
       "ma20": 246.24,
       "is_etf": true
     },
@@ -38,7 +38,7 @@
         "📍 回踩 MA20 支撐（33.09）",
         "✅ MA5 > MA20（趨勢向上）"
       ],
-      "vol_ratio": 0.58,
+      "vol_ratio": 0.56,
       "ma20": 33.09,
       "is_etf": true
     },
@@ -52,7 +52,7 @@
         "💥 今日爆量（1.7x 均量）",
         "🕯️ 收盤強勢（收在高點 100%）"
       ],
-      "vol_ratio": 1.74,
+      "vol_ratio": 1.71,
       "ma20": 224.55,
       "is_etf": false
     },
@@ -67,7 +67,7 @@
         "⚡ 逼近近20日高點（113.0）",
         "✅ 守住 MA20（102.9）"
       ],
-      "vol_ratio": 2.12,
+      "vol_ratio": 2.09,
       "ma20": 102.88,
       "is_etf": false
     },
@@ -81,7 +81,7 @@
         "🕯️ 收盤強勢（收在高點 100%）",
         "✅ 守住 MA20（993.6）"
       ],
-      "vol_ratio": 1.27,
+      "vol_ratio": 1.23,
       "ma20": 993.6,
       "is_etf": false
     },
@@ -94,7 +94,7 @@
       "signals": [
         "💥 今日爆量（4.0x 均量）"
       ],
-      "vol_ratio": 4.04,
+      "vol_ratio": 4.01,
       "ma20": 143.18,
       "is_etf": false
     },
@@ -108,7 +108,7 @@
         "⚡ 逼近近20日高點（365.0）",
         "✅ 守住 MA20（314.4）"
       ],
-      "vol_ratio": 1.1,
+      "vol_ratio": 1.08,
       "ma20": 314.43,
       "is_etf": false
     },
@@ -121,7 +121,7 @@
       "signals": [
         "📉 量縮中（近10日均量縮 30%+）"
       ],
-      "vol_ratio": 0.37,
+      "vol_ratio": 0.36,
       "ma20": 18.91,
       "is_etf": false
     },
@@ -134,7 +134,7 @@
       "signals": [
         "🕯️ 收盤強勢（收在高點 80%）"
       ],
-      "vol_ratio": 0.35,
+      "vol_ratio": 0.34,
       "ma20": 174.93,
       "is_etf": false
     },
@@ -147,7 +147,7 @@
       "signals": [
         "📉 量縮中（近10日均量縮 30%+）"
       ],
-      "vol_ratio": 0.46,
+      "vol_ratio": 0.44,
       "ma20": 234.03,
       "is_etf": false
     },
@@ -161,7 +161,7 @@
         "⚡ 逼近近20日高點（79.0）",
         "✅ 守住 MA20（75.7）"
       ],
-      "vol_ratio": 1.25,
+      "vol_ratio": 1.24,
       "ma20": 75.7,
       "is_etf": false
     },
@@ -174,7 +174,7 @@
       "signals": [
         "✅ 守住 MA20（524.6）"
       ],
-      "vol_ratio": 1.08,
+      "vol_ratio": 1.07,
       "ma20": 524.65,
       "is_etf": false
     },
@@ -200,7 +200,7 @@
       "signals": [
         "✅ 守住 MA20（51.6）"
       ],
-      "vol_ratio": 1.47,
+      "vol_ratio": 1.46,
       "ma20": 51.64,
       "is_etf": false
     },
@@ -213,7 +213,7 @@
       "signals": [
         "✅ 守住 MA20（56.2）"
       ],
-      "vol_ratio": 1.22,
+      "vol_ratio": 1.21,
       "ma20": 56.24,
       "is_etf": false
     },
@@ -237,7 +237,7 @@
       "status": "—",
       "close": 237.5,
       "signals": [],
-      "vol_ratio": 0.67,
+      "vol_ratio": 0.66,
       "ma20": 254.53,
       "is_etf": false
     },
@@ -259,7 +259,7 @@
       "status": "—",
       "close": 3925.0,
       "signals": [],
-      "vol_ratio": 0.57,
+      "vol_ratio": 0.52,
       "ma20": 4247.75,
       "is_etf": false
     },
@@ -270,7 +270,7 @@
       "status": "—",
       "close": 549.0,
       "signals": [],
-      "vol_ratio": 0.88,
+      "vol_ratio": 0.85,
       "ma20": 550.9,
       "is_etf": false
     },
@@ -281,7 +281,7 @@
       "status": "—",
       "close": 875.0,
       "signals": [],
-      "vol_ratio": 1.22,
+      "vol_ratio": 1.18,
       "ma20": 954.8,
       "is_etf": false
     },
@@ -292,7 +292,7 @@
       "status": "—",
       "close": 331.5,
       "signals": [],
-      "vol_ratio": 0.6,
+      "vol_ratio": 0.57,
       "ma20": 333.98,
       "is_etf": false
     },
@@ -303,7 +303,7 @@
       "status": "—",
       "close": 336.5,
       "signals": [],
-      "vol_ratio": 0.55,
+      "vol_ratio": 0.54,
       "ma20": 338.0,
       "is_etf": false
     },
@@ -314,7 +314,7 @@
       "status": "—",
       "close": 144.5,
       "signals": [],
-      "vol_ratio": 0.77,
+      "vol_ratio": 0.75,
       "ma20": 157.57,
       "is_etf": false
     },
@@ -325,7 +325,7 @@
       "status": "—",
       "close": 900.0,
       "signals": [],
-      "vol_ratio": 0.83,
+      "vol_ratio": 0.81,
       "ma20": 998.3,
       "is_etf": false
     },
@@ -336,7 +336,7 @@
       "status": "—",
       "close": 1880.0,
       "signals": [],
-      "vol_ratio": 0.69,
+      "vol_ratio": 0.65,
       "ma20": 2050.0,
       "is_etf": false
     },
@@ -347,7 +347,7 @@
       "status": "—",
       "close": 67.5,
       "signals": [],
-      "vol_ratio": 0.73,
+      "vol_ratio": 0.72,
       "ma20": 70.37,
       "is_etf": false
     },
@@ -391,7 +391,7 @@
       "status": "—",
       "close": 684.0,
       "signals": [],
-      "vol_ratio": 0.91,
+      "vol_ratio": 0.9,
       "ma20": 738.25,
       "is_etf": false
     }

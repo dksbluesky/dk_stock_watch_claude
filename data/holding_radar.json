@@ -1,17 +1,17 @@
 {
-  "generated": "2026/07/09 10:34",
-  "date": "20260709",
+  "generated": "2026/07/10 10:30",
+  "date": "20260710",
   "holdings": [
     {
       "code": "2330",
       "name": "台積電",
       "is_etf": false,
-      "date": "20260709",
-      "foreign_net": -12749,
-      "total_net": -12741,
-      "margin_balance": 32283,
-      "short_balance": 85,
-      "margin_shrink": true,
+      "date": "20260710",
+      "foreign_net": 0,
+      "total_net": 0,
+      "margin_balance": 33061,
+      "short_balance": 71,
+      "margin_shrink": false,
       "conc_5d": -19.27,
       "conc_20d": -8.83,
       "streak": -2,
@@ -20,10 +20,10 @@
         "total_positive": false,
         "conc5_rising": false,
         "conc20_positive": false,
-        "margin_shrink": true,
-        "price_support": true
+        "margin_shrink": false,
+        "price_support": false
       },
-      "exhaustion": 2,
+      "exhaustion": 0,
       "history_5d": [
         {
           "date": "20260703",
@@ -53,7 +53,7 @@
           "date": "20260709",
           "foreign_net": -12749,
           "total_net": -12741,
-          "margin_balance": null
+          "margin_balance": 0
         }
       ]
     },
@@ -61,12 +61,12 @@
       "code": "006208",
       "name": "富邦台50",
       "is_etf": true,
-      "date": "20260709",
+      "date": "20260710",
       "foreign_net": 0,
-      "total_net": -50,
-      "margin_balance": 321,
+      "total_net": 0,
+      "margin_balance": 317,
       "short_balance": 15,
-      "margin_shrink": false,
+      "margin_shrink": true,
       "conc_5d": -34.67,
       "conc_20d": -9.67,
       "streak": -7,
@@ -75,8 +75,8 @@
         "total_positive": false,
         "conc5_rising": true,
         "conc20_positive": false,
-        "margin_shrink": false,
-        "price_support": true
+        "margin_shrink": true,
+        "price_support": false
       },
       "exhaustion": 2,
       "history_5d": [
@@ -116,24 +116,24 @@
       "code": "00878",
       "name": "國泰高股息",
       "is_etf": true,
-      "date": "20260709",
-      "foreign_net": 1795,
-      "total_net": 3559,
-      "margin_balance": 2555,
-      "short_balance": 36,
-      "margin_shrink": false,
+      "date": "20260710",
+      "foreign_net": 0,
+      "total_net": 0,
+      "margin_balance": 2402,
+      "short_balance": 37,
+      "margin_shrink": true,
       "conc_5d": 5.44,
       "conc_20d": 12.65,
-      "streak": 1,
+      "streak": 0,
       "signals": {
-        "foreign_flip": true,
-        "total_positive": true,
+        "foreign_flip": false,
+        "total_positive": false,
         "conc5_rising": true,
         "conc20_positive": true,
-        "margin_shrink": false,
-        "price_support": true
+        "margin_shrink": true,
+        "price_support": false
       },
-      "exhaustion": 5,
+      "exhaustion": 3,
       "history_5d": [
         {
           "date": "20260703",
