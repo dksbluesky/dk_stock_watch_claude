@@ -1,16 +1,6 @@
 {
   "2330": [
     {
-      "date": "20260603",
-      "foreign_net": -104,
-      "trust_net": 647,
-      "dealer_net": 226,
-      "total_net": 769,
-      "volume": 22536,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
-    {
       "date": "20260604",
       "foreign_net": -11257,
       "trust_net": 537,
@@ -306,20 +296,20 @@
       "trust_net": -1037,
       "dealer_net": 455,
       "total_net": -4010,
-      "volume": 29857
-    }
-  ],
-  "006208": [
-    {
-      "date": "20260603",
-      "foreign_net": -19,
-      "trust_net": 0,
-      "dealer_net": 311,
-      "total_net": 292,
-      "volume": 2729,
+      "volume": 29857,
       "margin_balance": 0,
       "short_balance": 0
     },
+    {
+      "date": "20260716",
+      "foreign_net": -4215,
+      "trust_net": 532,
+      "dealer_net": 1061,
+      "total_net": -2622,
+      "volume": 29218
+    }
+  ],
+  "006208": [
     {
       "date": "20260604",
       "foreign_net": -213,
@@ -676,20 +666,20 @@
       "trust_net": 0,
       "dealer_net": 336,
       "total_net": 302,
-      "volume": 3576
-    }
-  ],
-  "00878": [
-    {
-      "date": "20260602",
-      "foreign_net": 17420,
-      "trust_net": 0,
-      "dealer_net": 33568,
-      "total_net": 50988,
-      "volume": 110549,
+      "volume": 3576,
       "margin_balance": 0,
       "short_balance": 0
     },
+    {
+      "date": "20260716",
+      "foreign_net": -18,
+      "trust_net": 0,
+      "dealer_net": -1946,
+      "total_net": -1964,
+      "volume": 4512
+    }
+  ],
+  "00878": [
     {
       "date": "20260603",
       "foreign_net": 4199,
@@ -1045,6 +1035,22 @@
       "margin_shrink": false,
       "volume": 25962,
       "date": "20260715"
+    },
+    {
+      "foreign_buy": 4071,
+      "foreign_sell": 10108,
+      "foreign_net": -6037,
+      "trust_buy": 0,
+      "trust_sell": 0,
+      "trust_net": 0,
+      "dealer_net": 171,
+      "total_net": -5865,
+      "margin_balance": 2292,
+      "margin_prev": 2343,
+      "short_balance": 33,
+      "margin_shrink": true,
+      "volume": 26647,
+      "date": "20260716"
     }
   ]
 }
