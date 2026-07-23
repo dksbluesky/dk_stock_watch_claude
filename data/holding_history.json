@@ -295,19 +295,25 @@
       "margin_shrink": true,
       "volume": 30943,
       "date": "20260722"
+    },
+    {
+      "foreign_buy": 10889,
+      "foreign_sell": 15503,
+      "foreign_net": -4615,
+      "trust_buy": 322,
+      "trust_sell": 1266,
+      "trust_net": -944,
+      "dealer_net": 38,
+      "total_net": -5520,
+      "margin_balance": 31928,
+      "margin_prev": 31823,
+      "short_balance": 99,
+      "margin_shrink": false,
+      "volume": 25264,
+      "date": "20260723"
     }
   ],
   "006208": [
-    {
-      "date": "20260609",
-      "foreign_net": -359,
-      "trust_net": 0,
-      "dealer_net": 455,
-      "total_net": 96,
-      "volume": 2294,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
     {
       "date": "20260610",
       "foreign_net": -834,
@@ -679,19 +685,25 @@
       "margin_shrink": true,
       "volume": 2641,
       "date": "20260722"
+    },
+    {
+      "foreign_buy": 301,
+      "foreign_sell": 678,
+      "foreign_net": -377,
+      "trust_buy": 0,
+      "trust_sell": 0,
+      "trust_net": 0,
+      "dealer_net": 255,
+      "total_net": -122,
+      "margin_balance": 399,
+      "margin_prev": 413,
+      "short_balance": 1,
+      "margin_shrink": true,
+      "volume": 1784,
+      "date": "20260723"
     }
   ],
   "00878": [
-    {
-      "date": "20260610",
-      "foreign_net": -4330,
-      "trust_net": 0,
-      "dealer_net": 2998,
-      "total_net": -1332,
-      "volume": 59300,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
     {
       "date": "20260611",
       "foreign_net": 2958,
@@ -1071,6 +1083,22 @@
       "margin_shrink": false,
       "volume": 25452,
       "date": "20260722"
+    },
+    {
+      "foreign_buy": 3178,
+      "foreign_sell": 3652,
+      "foreign_net": -475,
+      "trust_buy": 0,
+      "trust_sell": 0,
+      "trust_net": 0,
+      "dealer_net": -3180,
+      "total_net": -3654,
+      "margin_balance": 2599,
+      "margin_prev": 2695,
+      "short_balance": 36,
+      "margin_shrink": true,
+      "volume": 17309,
+      "date": "20260723"
     }
   ]
 }
