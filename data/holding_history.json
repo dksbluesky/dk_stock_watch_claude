@@ -311,19 +311,25 @@
       "margin_shrink": false,
       "volume": 25264,
       "date": "20260723"
+    },
+    {
+      "foreign_buy": 8654,
+      "foreign_sell": 18290,
+      "foreign_net": -9637,
+      "trust_buy": 1189,
+      "trust_sell": 639,
+      "trust_net": 549,
+      "dealer_net": 305,
+      "total_net": -8782,
+      "margin_balance": 31932,
+      "margin_prev": 31928,
+      "short_balance": 82,
+      "margin_shrink": false,
+      "volume": 24443,
+      "date": "20260724"
     }
   ],
   "006208": [
-    {
-      "date": "20260610",
-      "foreign_net": -834,
-      "trust_net": 0,
-      "dealer_net": -1459,
-      "total_net": -2293,
-      "volume": 4446,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
     {
       "date": "20260611",
       "foreign_net": 20,
@@ -701,19 +707,25 @@
       "margin_shrink": true,
       "volume": 1784,
       "date": "20260723"
+    },
+    {
+      "foreign_buy": 173,
+      "foreign_sell": 636,
+      "foreign_net": -463,
+      "trust_buy": 14,
+      "trust_sell": 0,
+      "trust_net": 14,
+      "dealer_net": -423,
+      "total_net": -871,
+      "margin_balance": 391,
+      "margin_prev": 399,
+      "short_balance": 3,
+      "margin_shrink": true,
+      "volume": 1916,
+      "date": "20260724"
     }
   ],
   "00878": [
-    {
-      "date": "20260611",
-      "foreign_net": 2958,
-      "trust_net": 0,
-      "dealer_net": 18069,
-      "total_net": 21027,
-      "volume": 57553,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
     {
       "foreign_buy": 10240,
       "foreign_sell": 4862,
@@ -1099,6 +1111,22 @@
       "margin_shrink": true,
       "volume": 17309,
       "date": "20260723"
+    },
+    {
+      "foreign_buy": 3154,
+      "foreign_sell": 3211,
+      "foreign_net": -57,
+      "trust_buy": 0,
+      "trust_sell": 0,
+      "trust_net": 0,
+      "dealer_net": -3585,
+      "total_net": -3641,
+      "margin_balance": 2650,
+      "margin_prev": 2599,
+      "short_balance": 35,
+      "margin_shrink": false,
+      "volume": 18211,
+      "date": "20260724"
     }
   ]
 }
