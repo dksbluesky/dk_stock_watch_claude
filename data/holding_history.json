@@ -17,16 +17,6 @@
       "date": "20260617"
     },
     {
-      "date": "20260618",
-      "foreign_net": 7515,
-      "trust_net": -7269,
-      "dealer_net": 36,
-      "total_net": 282,
-      "volume": 46429,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
-    {
       "foreign_net": -5004,
       "trust_net": -559,
       "dealer_net": 149,
@@ -85,16 +75,6 @@
       "dealer_net": 1008,
       "total_net": -12540,
       "volume": 39547,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
-    {
-      "date": "20260629",
-      "foreign_net": -1913,
-      "trust_net": 919,
-      "dealer_net": 996,
-      "total_net": 2,
-      "volume": 33267,
       "margin_balance": 0,
       "short_balance": 0
     },
@@ -297,16 +277,6 @@
       "date": "20260724"
     },
     {
-      "date": "20260727",
-      "foreign_net": -2662,
-      "trust_net": 566,
-      "dealer_net": 1410,
-      "total_net": -686,
-      "volume": 24040,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
-    {
       "date": "20260728",
       "foreign_net": -14660,
       "trust_net": 280,
@@ -322,26 +292,28 @@
       "trust_net": 1622,
       "dealer_net": 4892,
       "total_net": -4697,
-      "volume": 65620
+      "volume": 65620,
+      "margin_balance": 0,
+      "short_balance": 0
+    },
+    {
+      "foreign_buy": 28519,
+      "foreign_sell": 32476,
+      "foreign_net": -3958,
+      "trust_buy": 959,
+      "trust_sell": 88,
+      "trust_net": 870,
+      "dealer_net": 1637,
+      "total_net": -1450,
+      "margin_balance": 30832,
+      "margin_prev": 31527,
+      "short_balance": 230,
+      "margin_shrink": true,
+      "volume": 47137,
+      "date": "20260730"
     }
   ],
   "006208": [
-    {
-      "foreign_buy": 755,
-      "foreign_sell": 295,
-      "foreign_net": 459,
-      "trust_buy": 0,
-      "trust_sell": 0,
-      "trust_net": 0,
-      "dealer_net": 733,
-      "total_net": 1193,
-      "margin_balance": 240,
-      "margin_prev": 246,
-      "short_balance": 27,
-      "margin_shrink": true,
-      "volume": 3273,
-      "date": "20260616"
-    },
     {
       "foreign_buy": 1763,
       "foreign_sell": 534,
@@ -719,21 +691,25 @@
       "margin_shrink": false,
       "volume": 10428,
       "date": "20260729"
+    },
+    {
+      "foreign_buy": 1126,
+      "foreign_sell": 1553,
+      "foreign_net": -427,
+      "trust_buy": 0,
+      "trust_sell": 0,
+      "trust_net": 0,
+      "dealer_net": -450,
+      "total_net": -877,
+      "margin_balance": 454,
+      "margin_prev": 429,
+      "short_balance": 1,
+      "margin_shrink": false,
+      "volume": 4706,
+      "date": "20260730"
     }
   ],
   "00878": [
-    {
-      "foreign_net": -1834,
-      "trust_net": 0,
-      "dealer_net": 19473,
-      "total_net": 17639,
-      "margin_balance": 3616,
-      "margin_prev": 3688,
-      "short_balance": 41,
-      "margin_shrink": true,
-      "volume": 44113,
-      "date": "20260617"
-    },
     {
       "foreign_buy": 7356,
       "foreign_sell": 1016,
@@ -1123,6 +1099,22 @@
       "margin_shrink": false,
       "volume": 93284,
       "date": "20260729"
+    },
+    {
+      "foreign_buy": 14697,
+      "foreign_sell": 13375,
+      "foreign_net": 1322,
+      "trust_buy": 0,
+      "trust_sell": 0,
+      "trust_net": 0,
+      "dealer_net": -7267,
+      "total_net": -5944,
+      "margin_balance": 3677,
+      "margin_prev": 3224,
+      "short_balance": 77,
+      "margin_shrink": false,
+      "volume": 48242,
+      "date": "20260730"
     }
   ]
 }
