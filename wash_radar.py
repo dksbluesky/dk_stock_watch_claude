@@ -321,10 +321,10 @@ def analyze_etf(code: str, history: list) -> dict:
         score += 1
         signals.append("✅ MA5 > MA20（趨勢向上）")
 
-    # 加碼訊號4：今日收紅
+    # 加碼訊號4：日內收紅（收盤高於開盤）
     if today_close > today["open"]:
         score += 1
-        signals.append("🕯️ 今日收紅")
+        signals.append("🕯️ 日內收紅（收盤高於開盤）")
 
     if score >= 5:
         status = "💰 加碼參考訊號"
