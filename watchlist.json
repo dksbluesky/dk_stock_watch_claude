@@ -16,6 +16,12 @@
       "name": "國泰高股息",
       "note": "持倉ETF",
       "is_etf": true
+    },
+    {
+      "code": "00981A",
+      "name": "主動統一台股高增長",
+      "note": "持倉ETF",
+      "is_etf": true
     }
   ],
   "watchlist": [
@@ -165,5 +171,5 @@
       "group": "消費電信"
     }
   ],
-  "updated": "2026-06-15"
+  "updated": "2026-08-05"
 }
