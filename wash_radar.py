@@ -195,6 +195,14 @@ def fetch_history(code: str, days: int = 25) -> list:
     return []
 
 
+def add_previous_close_gain_signal(signals: list, today_close: float, prev_close):
+    """加入較昨收上漲的資訊，不影響原有評分。"""
+    if prev_close and today_close > prev_close:
+        change = today_close - prev_close
+        change_pct = change / prev_close * 100
+        signals.append(f"📈 較昨收上漲（+{change:.2f}，+{change_pct:.2f}%）")
+
+
 def analyze_stock(code: str, history: list) -> dict:
     """
     分析洗籌碼評分
@@ -222,6 +230,7 @@ def analyze_stock(code: str, history: list) -> dict:
     today_high  = today["high"]
     today_low   = today["low"]
     today_open  = today["open"]
+    prev_close  = closes[-2] if len(closes) >= 2 else None
 
     # 近20日高點
     recent_high = max(highs[-21:-1]) if len(highs) >= 21 else max(highs[:-1])
@@ -248,6 +257,8 @@ def analyze_stock(code: str, history: list) -> dict:
         if closing_strength > 0.6:
             score += 2
             signals.append(f"🕯️ 收盤強勢（收在高點 {closing_strength:.0%}）")
+
+    add_previous_close_gain_signal(signals, today_close, prev_close)
 
     # 條件4：突破近20日高點
     if today_close > recent_high:
@@ -304,6 +315,7 @@ def analyze_etf(code: str, history: list) -> dict:
     today_close = today["close"]
     today_low   = today["low"]
     today_vol   = today["vol"]
+    prev_close  = closes[-2] if len(closes) >= 2 else None
 
     # 加碼訊號1：回踩 MA20 支撐（距離 MA20 在 2% 以內）
     if ma20 > 0 and abs(today_close - ma20) / ma20 < 0.02:
@@ -325,6 +337,8 @@ def analyze_etf(code: str, history: list) -> dict:
     if today_close > today["open"]:
         score += 1
         signals.append("🕯️ 日內收紅（收盤高於開盤）")
+
+    add_previous_close_gain_signal(signals, today_close, prev_close)
 
     if score >= 5:
         status = "💰 加碼參考訊號"
