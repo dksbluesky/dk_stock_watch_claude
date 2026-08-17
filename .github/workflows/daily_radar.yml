@@ -35,12 +35,19 @@ jobs:
           try:
               data = json.load(open('data/holding_radar.json'))
               existing = data.get('date', '')
-              if existing == today:
-                  print(f'Data for {today} already exists — skipping.')
+              holdings = data.get('holdings', [])
+              confirmed = bool(holdings) and all(
+                  h.get('date') == today and any(
+                      row.get('date') == today for row in h.get('history_5d', [])
+                  )
+                  for h in holdings
+              )
+              if existing == today and confirmed:
+                  print(f'Confirmed data for {today} already exists — skipping.')
                   with open(os.environ['GITHUB_ENV'], 'a') as f:
                       f.write('SKIP=true\n')
               else:
-                  print(f'Need update: last={existing}, today={today}')
+                  print(f'Need confirmed update: last={existing}, today={today}')
           except Exception as e:
               print(f'No existing data ({e}) — will run.')
           "
