@@ -356,7 +356,7 @@ def calc_concentration(history_list: list, days: int) -> float:
 
 
 # ── 主分析 ──────────────────────────────────────────────────
-def analyze_holding(code: str, name: str, is_etf: bool, history: dict) -> dict:
+def analyze_holding(code: str, name: str, is_etf: bool, history: dict) -> dict | None:
     date = get_trading_date()
     print(f"  抓取 {code} {name} ({date})...")
 
@@ -364,6 +364,10 @@ def analyze_holding(code: str, name: str, is_etf: bool, history: dict) -> dict:
     if not inst:
         print(f"  T86 無資料（可能被雲端 IP 擋掉），改用 FinMind 補抓 {date}...")
         inst = fetch_institutional_finmind(code, date)
+
+    if not inst:
+        print("  當日三大法人資料尚未發布，保留上一筆確認資料並等待下一次排程重試。")
+        return None
     margin = fetch_margin(code, date)
 
     vol_map = fetch_volume_history(code)
@@ -549,6 +553,9 @@ def main():
     results = []
     for h in HOLDINGS:
         r = analyze_holding(h["code"], h["name"], h["is_etf"], history)
+        if r is None:
+            print(f"  {h['code']}: 當日法人資料未就緒，保留上一筆確認資料，等待下一次排程重試。")
+            return
         results.append(r)
         print(f"  {h['code']}: 外資{r['foreign_net']:+,}張 三法人{r['total_net']:+,}張 5d{r['conc_5d']:+.2f}% 20d{r['conc_20d']:+.2f}% 耗盡{r['exhaustion']}/6")
 
