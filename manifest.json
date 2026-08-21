@@ -1,7 +1,9 @@
 {
   "name": "dk 投資雷達",
   "short_name": "投資雷達",
-  "start_url": ".",
+  "id": "./dk-investment-radar-pwa",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#f5f7fa",
   "theme_color": "#3b82f6",
@@ -12,9 +14,10 @@
       "type": "image/png"
     },
     {
-      "src": "static/icon.png",
+      "src": "static/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

@@ -685,6 +685,11 @@ async function refreshData() {
 // 啟動
 loadAll();
 </script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch((error) => console.warn('Service worker registration failed:', error));
+}
+</script>
 </body>
 </html>
 
