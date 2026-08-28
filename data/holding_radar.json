@@ -1,36 +1,30 @@
 {
-  "generated": "2026/08/27 19:12",
-  "date": "20260827",
+  "generated": "2026/08/28 20:18",
+  "date": "20260828",
   "holdings": [
     {
       "code": "2330",
       "name": "台積電",
       "is_etf": false,
-      "date": "20260827",
-      "foreign_net": 4500,
-      "total_net": 4340,
-      "margin_balance": 27670,
-      "short_balance": 32,
+      "date": "20260828",
+      "foreign_net": 3031,
+      "total_net": 1243,
+      "margin_balance": 27630,
+      "short_balance": 28,
       "margin_shrink": true,
-      "conc_5d": 17.38,
-      "conc_20d": 4.51,
-      "streak": 2,
+      "conc_5d": 11.2,
+      "conc_20d": -0.3,
+      "streak": 3,
       "signals": {
         "foreign_flip": true,
         "total_positive": true,
-        "conc5_rising": true,
-        "conc20_positive": true,
+        "conc5_rising": false,
+        "conc20_positive": false,
         "margin_shrink": true,
         "price_support": true
       },
-      "exhaustion": 6,
+      "exhaustion": 4,
       "history_5d": [
-        {
-          "date": "20260821",
-          "foreign_net": 5795,
-          "total_net": 6435,
-          "margin_balance": 28308
-        },
         {
           "date": "20260824",
           "foreign_net": -1621,
@@ -54,6 +48,12 @@
           "foreign_net": 4500,
           "total_net": 4340,
           "margin_balance": 27670
+        },
+        {
+          "date": "20260828",
+          "foreign_net": 3031,
+          "total_net": 1243,
+          "margin_balance": 27630
         }
       ]
     },
@@ -61,15 +61,15 @@
       "code": "006208",
       "name": "富邦台50",
       "is_etf": true,
-      "date": "20260827",
-      "foreign_net": 62,
-      "total_net": 793,
-      "margin_balance": 288,
+      "date": "20260828",
+      "foreign_net": 93,
+      "total_net": 876,
+      "margin_balance": 282,
       "short_balance": 2,
       "margin_shrink": true,
-      "conc_5d": 6.73,
-      "conc_20d": -3.07,
-      "streak": 1,
+      "conc_5d": 12.3,
+      "conc_20d": -5.22,
+      "streak": 2,
       "signals": {
         "foreign_flip": true,
         "total_positive": true,
@@ -80,12 +80,6 @@
       },
       "exhaustion": 5,
       "history_5d": [
-        {
-          "date": "20260821",
-          "foreign_net": 38,
-          "total_net": 302,
-          "margin_balance": 313
-        },
         {
           "date": "20260824",
           "foreign_net": -213,
@@ -109,6 +103,12 @@
           "foreign_net": 62,
           "total_net": 793,
           "margin_balance": 288
+        },
+        {
+          "date": "20260828",
+          "foreign_net": 93,
+          "total_net": 876,
+          "margin_balance": 282
         }
       ]
     },
@@ -116,24 +116,24 @@
       "code": "00878",
       "name": "國泰高股息",
       "is_etf": true,
-      "date": "20260827",
-      "foreign_net": 3574,
-      "total_net": -245,
-      "margin_balance": 7003,
-      "short_balance": 58,
+      "date": "20260828",
+      "foreign_net": 11532,
+      "total_net": 16803,
+      "margin_balance": 6844,
+      "short_balance": 67,
       "margin_shrink": true,
-      "conc_5d": 11.97,
-      "conc_20d": -44.11,
+      "conc_5d": 25.1,
+      "conc_20d": -42.13,
       "streak": 6,
       "signals": {
         "foreign_flip": true,
-        "total_positive": false,
+        "total_positive": true,
         "conc5_rising": true,
         "conc20_positive": false,
         "margin_shrink": true,
         "price_support": true
       },
-      "exhaustion": 4,
+      "exhaustion": 5,
       "history_5d": [
         {
           "date": "20260821",
@@ -160,10 +160,10 @@
           "margin_balance": 7703
         },
         {
-          "date": "20260827",
-          "foreign_net": 3574,
-          "total_net": -245,
-          "margin_balance": 7003
+          "date": "20260828",
+          "foreign_net": 11532,
+          "total_net": 16803,
+          "margin_balance": 6844
         }
       ]
     },
@@ -171,31 +171,25 @@
       "code": "00981A",
       "name": "主動統一台股高增長",
       "is_etf": true,
-      "date": "20260827",
-      "foreign_net": 30328,
-      "total_net": 48593,
-      "margin_balance": 164358,
-      "short_balance": 3248,
-      "margin_shrink": true,
-      "conc_5d": -1.13,
-      "conc_20d": 15.02,
-      "streak": 2,
+      "date": "20260828",
+      "foreign_net": 88578,
+      "total_net": 121769,
+      "margin_balance": 164640,
+      "short_balance": 3518,
+      "margin_shrink": false,
+      "conc_5d": 20.01,
+      "conc_20d": 24.43,
+      "streak": 3,
       "signals": {
         "foreign_flip": true,
         "total_positive": true,
         "conc5_rising": true,
         "conc20_positive": true,
-        "margin_shrink": true,
+        "margin_shrink": false,
         "price_support": true
       },
-      "exhaustion": 6,
+      "exhaustion": 5,
       "history_5d": [
-        {
-          "date": "20260821",
-          "foreign_net": -26880,
-          "total_net": -49806,
-          "margin_balance": 176695
-        },
         {
           "date": "20260824",
           "foreign_net": -9392,
@@ -219,6 +213,12 @@
           "foreign_net": 30328,
           "total_net": 48593,
           "margin_balance": 164358
+        },
+        {
+          "date": "20260828",
+          "foreign_net": 88578,
+          "total_net": 121769,
+          "margin_balance": 164640
         }
       ]
     }
