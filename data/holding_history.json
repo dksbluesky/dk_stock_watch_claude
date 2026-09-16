@@ -1,22 +1,6 @@
 {
   "2330": [
     {
-      "foreign_buy": 23128,
-      "foreign_sell": 10877,
-      "foreign_net": 12251,
-      "trust_buy": 343,
-      "trust_sell": 1564,
-      "trust_net": -1222,
-      "dealer_net": -1100,
-      "total_net": 9930,
-      "margin_balance": 30765,
-      "margin_prev": 30003,
-      "short_balance": 47,
-      "margin_shrink": false,
-      "volume": 35214,
-      "date": "20260805"
-    },
-    {
       "foreign_buy": 12456,
       "foreign_sell": 16467,
       "foreign_net": -4012,
@@ -461,25 +445,25 @@
       "margin_shrink": false,
       "volume": 14966,
       "date": "20260915"
+    },
+    {
+      "foreign_buy": 8374,
+      "foreign_sell": 17118,
+      "foreign_net": -8745,
+      "trust_buy": 266,
+      "trust_sell": 100,
+      "trust_net": 166,
+      "dealer_net": 762,
+      "total_net": -7816,
+      "margin_balance": 29766,
+      "margin_prev": 29282,
+      "short_balance": 1,
+      "margin_shrink": false,
+      "volume": 20838,
+      "date": "20260916"
     }
   ],
   "006208": [
-    {
-      "foreign_buy": 2451,
-      "foreign_sell": 763,
-      "foreign_net": 1688,
-      "trust_buy": 0,
-      "trust_sell": 0,
-      "trust_net": 0,
-      "dealer_net": -294,
-      "total_net": 1394,
-      "margin_balance": 413,
-      "margin_prev": 434,
-      "short_balance": 2,
-      "margin_shrink": true,
-      "volume": 4367,
-      "date": "20260805"
-    },
     {
       "foreign_buy": 1255,
       "foreign_sell": 1649,
@@ -937,6 +921,22 @@
       "margin_shrink": false,
       "volume": 1888,
       "date": "20260915"
+    },
+    {
+      "foreign_buy": 259,
+      "foreign_sell": 689,
+      "foreign_net": -430,
+      "trust_buy": 0,
+      "trust_sell": 0,
+      "trust_net": 0,
+      "dealer_net": -253,
+      "total_net": -683,
+      "margin_balance": 259,
+      "margin_prev": 257,
+      "short_balance": 1,
+      "margin_shrink": false,
+      "volume": 2080,
+      "date": "20260916"
     }
   ],
   "00878": [
@@ -1191,16 +1191,6 @@
       "date": "20260826"
     },
     {
-      "date": "20260827",
-      "foreign_net": 3574,
-      "trust_net": 0,
-      "dealer_net": -3820,
-      "total_net": -246,
-      "volume": 25519,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
-    {
       "foreign_buy": 13221,
       "foreign_sell": 1689,
       "foreign_net": 11532,
@@ -1365,16 +1355,6 @@
       "date": "20260911"
     },
     {
-      "date": "20260914",
-      "foreign_net": -6802,
-      "trust_net": 0,
-      "dealer_net": 8440,
-      "total_net": 1638,
-      "volume": 34784,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
-    {
       "date": "20260915",
       "foreign_net": -14493,
       "trust_net": -100,
@@ -1383,19 +1363,25 @@
       "volume": 41623,
       "margin_balance": 0,
       "short_balance": 0
+    },
+    {
+      "foreign_buy": 2026,
+      "foreign_sell": 3647,
+      "foreign_net": -1622,
+      "trust_buy": 0,
+      "trust_sell": 100,
+      "trust_net": -100,
+      "dealer_net": 3271,
+      "total_net": 1550,
+      "margin_balance": 3376,
+      "margin_prev": 3532,
+      "short_balance": 104,
+      "margin_shrink": true,
+      "volume": 24462,
+      "date": "20260916"
     }
   ],
   "00981A": [
-    {
-      "date": "20260805",
-      "foreign_net": 38457,
-      "trust_net": 1300,
-      "dealer_net": 11136,
-      "total_net": 50893,
-      "volume": 240469,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
     {
       "foreign_buy": 45767,
       "foreign_sell": 35206,
@@ -1853,6 +1839,22 @@
       "margin_shrink": true,
       "volume": 163299,
       "date": "20260915"
+    },
+    {
+      "foreign_buy": 15725,
+      "foreign_sell": 39966,
+      "foreign_net": -24241,
+      "trust_buy": 0,
+      "trust_sell": 0,
+      "trust_net": 0,
+      "dealer_net": -56000,
+      "total_net": -80240,
+      "margin_balance": 189623,
+      "margin_prev": 179834,
+      "short_balance": 654,
+      "margin_shrink": false,
+      "volume": 142927,
+      "date": "20260916"
     }
   ]
 }
