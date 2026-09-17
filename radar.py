@@ -17,8 +17,8 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # ============================================================
 # 設定區
 # ============================================================
-TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8225398265:AAF8uJObOAfElE789AQPu6p7v6Y7XzbGFjk")
-CHAT_ID        = os.environ.get("CHAT_ID", "8695864227")
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+CHAT_ID = os.environ.get("CHAT_ID")
 YOY_THRESHOLD  = 20.0   # 去年同月增減(%) 門檻（下限）
 YOY_MAX        = 500.0  # YoY 上限：超過通常是建案認列，非真實成長
 REV_LY_MIN     = 10000  # 去年同月營收下限（千元）= 1000 萬，排除基期近零
@@ -46,6 +46,8 @@ HEADERS = {
 
 
 def send_telegram(text: str):
+    if not TELEGRAM_TOKEN or not CHAT_ID:
+        raise ValueError("TELEGRAM_TOKEN or CHAT_ID is not configured")
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     try:
         r = requests.post(url, json={

@@ -15,8 +15,8 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # ============================================================
 # 設定區
 # ============================================================
-TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8225398265:AAF8uJObOAfElE789AQPu6p7v6Y7XzbGFjk")
-CHAT_ID        = os.environ.get("CHAT_ID", "8695864227")
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+CHAT_ID = os.environ.get("CHAT_ID")
 
 # 持倉清單（可新增/刪除）
 HOLDINGS = [
@@ -35,6 +35,8 @@ HEADERS = {
 
 
 def send_telegram(text: str):
+    if not TELEGRAM_TOKEN or not CHAT_ID:
+        raise ValueError("TELEGRAM_TOKEN or CHAT_ID is not configured")
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     try:
         r = requests.post(url, json={

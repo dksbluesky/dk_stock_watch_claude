@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check if today already ran
+        if: github.event_name != 'workflow_dispatch'
         id: check
         run: |
           python3 -c "
