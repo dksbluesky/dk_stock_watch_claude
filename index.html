@@ -129,8 +129,8 @@
   </div>
   <div class="update-time">
     <span id="update-time">載入中...</span>
-    <button class="btn-refresh" id="btn-refresh" onclick="refreshData()" title="重新整理頁面資料">↻</button>
-    <button class="btn-update" id="btn-update" onclick="triggerAndRefresh()" title="觸發分析並自動更新">🔄 更新資料</button>
+    <button class="btn-refresh" id="btn-refresh" onclick="refreshData()" title="重新載入已發布資料">↻</button>
+    <button class="btn-update" id="btn-update" onclick="triggerAndRefresh()" title="執行最新資料分析">🔄 更新資料</button>
   </div>
 </div>
 
@@ -620,20 +620,31 @@ async function triggerAndRefresh() {
   setLabel('⏳ 等待分析...');
   let elapsed = 0;
   const maxWait = 360;
+  let completed = false;
   while (elapsed < maxWait) {
     await new Promise(r => setTimeout(r, 15000));
     elapsed += 15;
     setLabel(`⏳ ${elapsed}s...`);
     try {
-      const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/daily_radar.yml/runs?per_page=1`, {
+      const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/daily_radar.yml/runs?event=workflow_dispatch&per_page=10`, {
         headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
       });
       const data = await r.json();
-      const run = data.workflow_runs?.[0];
-      if (run && new Date(run.created_at) >= dispatchTime && run.status === 'completed') {
+      const run = (data.workflow_runs || []).find(item => new Date(item.created_at) >= dispatchTime);
+      if (run && run.status === 'completed') {
+        if (run.conclusion !== 'success') {
+          alert(`分析未完成：${run.conclusion || 'unknown'}。請到 GitHub Actions 查看記錄。`);
+          btn.disabled = false; setLabel('🔄 更新資料'); return;
+        }
+        completed = true;
         break;
       }
     } catch(_) {}
+  }
+
+  if (!completed) {
+    alert('等待超過 6 分鐘；分析可能仍在執行，請稍後按 ↻ 重新載入。');
+    btn.disabled = false; setLabel('🔄 更新資料'); return;
   }
 
   // 3. Auto-refresh data
@@ -662,6 +673,7 @@ async function triggerAndRefresh() {
     }
   } catch(_) {}
 
+  alert('最新資料已更新。');
   btn.disabled = false;
   setLabel('🔄 更新資料');
 }
@@ -678,7 +690,7 @@ async function refreshData() {
   } finally {
     btn.disabled = false;
     btn.classList.remove("spinning");
-    btn.textContent = "↻ 重新整理";
+    btn.textContent = "↻";
   }
 }
 
