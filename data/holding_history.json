@@ -1027,16 +1027,6 @@
       "date": "20260826"
     },
     {
-      "date": "20260827",
-      "foreign_net": 3574,
-      "trust_net": 0,
-      "dealer_net": -3820,
-      "total_net": -246,
-      "volume": 25519,
-      "margin_balance": 0,
-      "short_balance": 0
-    },
-    {
       "foreign_buy": 13221,
       "foreign_sell": 1689,
       "foreign_net": 11532,
@@ -1199,16 +1189,6 @@
       "margin_shrink": true,
       "volume": 36692,
       "date": "20260911"
-    },
-    {
-      "date": "20260914",
-      "foreign_net": -6802,
-      "trust_net": 0,
-      "dealer_net": 8440,
-      "total_net": 1638,
-      "volume": 34784,
-      "margin_balance": 0,
-      "short_balance": 0
     },
     {
       "date": "20260915",

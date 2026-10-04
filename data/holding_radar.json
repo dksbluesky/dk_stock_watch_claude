@@ -1,5 +1,5 @@
 {
-  "generated": "2026/10/02 14:53",
+  "generated": "2026/10/04 01:43",
   "date": "20261002",
   "holdings": [
     {
@@ -123,7 +123,7 @@
       "short_balance": 36,
       "margin_shrink": false,
       "conc_5d": -58.99,
-      "conc_20d": -8.4,
+      "conc_20d": -7.71,
       "streak": -3,
       "signals": {
         "foreign_flip": false,
