@@ -226,6 +226,25 @@ async function fetchGitHub(path) {
   return res.json();
 }
 
+function reportStamp(data) {
+  return [data.holding?.generated, data.wash?.generated, data.revenue?.generated]
+    .filter(Boolean)
+    .join('|');
+}
+
+function currentReportStamp() {
+  return reportStamp({ holding: holdingData, wash: washData, revenue: revData });
+}
+
+async function fetchPublishedReportStamp() {
+  const [holding, wash, revenue] = await Promise.all([
+    fetchGitHub('data/holding_radar.json'),
+    fetchGitHub('data/wash_radar.json'),
+    fetchGitHub('data/revenue.json'),
+  ]);
+  return reportStamp({ holding, wash, revenue });
+}
+
 // ── 載入資料 ────────────────────────────────────────────────
 async function loadAll() {
   try {
@@ -587,6 +606,7 @@ async function triggerAndRefresh() {
 
   const btn = document.getElementById('btn-update');
   const setLabel = t => { btn.textContent = t; };
+  const initialReportStamp = currentReportStamp();
   btn.disabled = true;
   setLabel('⏳ 觸發中...');
 
@@ -636,6 +656,16 @@ async function triggerAndRefresh() {
           alert(`分析未完成：${run.conclusion || 'unknown'}。請到 GitHub Actions 查看記錄。`);
           btn.disabled = false; setLabel('🔄 更新資料'); return;
         }
+        completed = true;
+        break;
+      }
+    } catch(_) {}
+
+    // The cleanup workflow may delete this run before the next poll.  A changed
+    // published report is equally conclusive and lets the app reload normally.
+    try {
+      const publishedReportStamp = await fetchPublishedReportStamp();
+      if (publishedReportStamp && publishedReportStamp !== initialReportStamp) {
         completed = true;
         break;
       }
