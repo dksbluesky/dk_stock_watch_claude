@@ -1,5 +1,5 @@
 {
-  "generated": "2026/10/08 15:47",
+  "generated": "2026/10/09 15:28",
   "results": [
     {
       "code": "2330",
@@ -11,7 +11,7 @@
         "⚡ 逼近近20日高點（2590.0）",
         "✅ 守住 MA20（2472.5）"
       ],
-      "vol_ratio": 1.15,
+      "vol_ratio": 1.04,
       "ma20": 2472.5,
       "is_etf": false
     },
@@ -20,39 +20,40 @@
       "name": "富邦台50",
       "score": 1,
       "status": "—",
-      "close": 263.3999938964844,
+      "close": 265.6000061035156,
       "signals": [
         "✅ MA5 > MA20（趨勢向上）"
       ],
-      "vol_ratio": 0.89,
+      "vol_ratio": 0.57,
       "ma20": 253.13,
       "is_etf": true
     },
     {
       "code": "00878",
       "name": "國泰高股息",
-      "score": 4,
-      "status": "👀 觀察中",
-      "close": 34.9900016784668,
+      "score": 5,
+      "status": "💰 加碼參考訊號",
+      "close": 35.220001220703125,
       "signals": [
         "📍 回踩 MA20 支撐（34.66）",
-        "✅ MA5 > MA20（趨勢向上）"
+        "✅ MA5 > MA20（趨勢向上）",
+        "🕯️ 日內收紅（收盤高於開盤）",
+        "📈 較昨收上漲（+0.05，+0.14%）"
       ],
-      "vol_ratio": 1.37,
+      "vol_ratio": 0.59,
       "ma20": 34.66,
       "is_etf": true
     },
     {
       "code": "00981A",
       "name": "主動統一台股高增長",
-      "score": 2,
+      "score": 1,
       "status": "—",
-      "close": 32.2400016784668,
+      "close": 32.2599983215332,
       "signals": [
-        "✅ MA5 > MA20（趨勢向上）",
-        "🕯️ 日內收紅（收盤高於開盤）"
+        "✅ MA5 > MA20（趨勢向上）"
       ],
-      "vol_ratio": 0.64,
+      "vol_ratio": 0.78,
       "ma20": 30.13,
       "is_etf": true
     },
@@ -69,7 +70,7 @@
         "🚀 突破近20日高點（75.4）",
         "✅ 守住 MA20（65.8）"
       ],
-      "vol_ratio": 8.61,
+      "vol_ratio": 8.58,
       "ma20": 65.81,
       "is_etf": false
     },
@@ -85,7 +86,7 @@
         "🚀 突破近20日高點（77.1）",
         "✅ 守住 MA20（69.2）"
       ],
-      "vol_ratio": 3.12,
+      "vol_ratio": 3.11,
       "ma20": 69.17,
       "is_etf": false
     },
@@ -101,7 +102,7 @@
         "⚡ 逼近近20日高點（684.0）",
         "✅ 守住 MA20（562.1）"
       ],
-      "vol_ratio": 0.66,
+      "vol_ratio": 0.63,
       "ma20": 562.15,
       "is_etf": false
     },
@@ -117,7 +118,7 @@
         "⚡ 逼近近20日高點（120.0）",
         "✅ 守住 MA20（116.7）"
       ],
-      "vol_ratio": 0.71,
+      "vol_ratio": 0.7,
       "ma20": 116.72,
       "is_etf": false
     },
@@ -131,7 +132,7 @@
         "💥 今日爆量（1.8x 均量）",
         "✅ 守住 MA20（69.8）"
       ],
-      "vol_ratio": 1.81,
+      "vol_ratio": 1.79,
       "ma20": 69.79,
       "is_etf": false
     },
@@ -147,7 +148,7 @@
         "⚡ 逼近近20日高點（1010.0）",
         "✅ 守住 MA20（960.7）"
       ],
-      "vol_ratio": 0.75,
+      "vol_ratio": 0.71,
       "ma20": 960.7,
       "is_etf": false
     },
@@ -178,7 +179,7 @@
         "📈 較昨收上漲（+1.50，+0.52%）",
         "✅ 守住 MA20（283.0）"
       ],
-      "vol_ratio": 0.63,
+      "vol_ratio": 0.61,
       "ma20": 283.0,
       "is_etf": false
     },
@@ -191,7 +192,7 @@
       "signals": [
         "📉 量縮中（近10日均量縮 30%+）"
       ],
-      "vol_ratio": 0.71,
+      "vol_ratio": 0.69,
       "ma20": 338.82,
       "is_etf": false
     },
@@ -233,7 +234,7 @@
         "⚡ 逼近近20日高點（169.5）",
         "✅ 守住 MA20（165.8）"
       ],
-      "vol_ratio": 0.86,
+      "vol_ratio": 0.84,
       "ma20": 165.85,
       "is_etf": false
     },
@@ -248,7 +249,7 @@
         "⚡ 逼近近20日高點（76.7）",
         "✅ 守住 MA20（74.7）"
       ],
-      "vol_ratio": 1.09,
+      "vol_ratio": 1.08,
       "ma20": 74.66,
       "is_etf": false
     },
@@ -261,7 +262,7 @@
       "signals": [
         "✅ 守住 MA20（1100.3）"
       ],
-      "vol_ratio": 0.59,
+      "vol_ratio": 0.56,
       "ma20": 1100.3,
       "is_etf": false
     },
@@ -274,7 +275,7 @@
       "signals": [
         "✅ 守住 MA20（1217.0）"
       ],
-      "vol_ratio": 0.49,
+      "vol_ratio": 0.48,
       "ma20": 1217.0,
       "is_etf": false
     },
@@ -287,7 +288,7 @@
       "signals": [
         "✅ 守住 MA20（908.2）"
       ],
-      "vol_ratio": 0.4,
+      "vol_ratio": 0.39,
       "ma20": 908.25,
       "is_etf": false
     },
@@ -300,7 +301,7 @@
       "signals": [
         "✅ 守住 MA20（360.6）"
       ],
-      "vol_ratio": 0.64,
+      "vol_ratio": 0.63,
       "ma20": 360.62,
       "is_etf": false
     },
@@ -313,7 +314,7 @@
       "signals": [
         "✅ 守住 MA20（572.4）"
       ],
-      "vol_ratio": 1.17,
+      "vol_ratio": 1.13,
       "ma20": 572.4,
       "is_etf": false
     },
@@ -326,7 +327,7 @@
       "signals": [
         "✅ 守住 MA20（1823.0）"
       ],
-      "vol_ratio": 0.48,
+      "vol_ratio": 0.44,
       "ma20": 1823.0,
       "is_etf": false
     },
@@ -337,7 +338,7 @@
       "status": "—",
       "close": 249.0,
       "signals": [],
-      "vol_ratio": 1.22,
+      "vol_ratio": 1.18,
       "ma20": 251.25,
       "is_etf": false
     },
@@ -348,7 +349,7 @@
       "status": "—",
       "close": 147.5,
       "signals": [],
-      "vol_ratio": 0.46,
+      "vol_ratio": 0.45,
       "ma20": 149.93,
       "is_etf": false
     },
@@ -359,7 +360,7 @@
       "status": "—",
       "close": 267.0,
       "signals": [],
-      "vol_ratio": 0.59,
+      "vol_ratio": 0.57,
       "ma20": 283.43,
       "is_etf": false
     },
@@ -372,7 +373,7 @@
       "signals": [
         "📈 較昨收上漲（+2.00，+0.38%）"
       ],
-      "vol_ratio": 0.78,
+      "vol_ratio": 0.77,
       "ma20": 544.45,
       "is_etf": false
     },
@@ -383,7 +384,7 @@
       "status": "—",
       "close": 4690.0,
       "signals": [],
-      "vol_ratio": 1.28,
+      "vol_ratio": 0.94,
       "ma20": 4835.5,
       "is_etf": false
     },
@@ -394,7 +395,7 @@
       "status": "—",
       "close": 63.20000076293945,
       "signals": [],
-      "vol_ratio": 0.49,
+      "vol_ratio": 0.48,
       "ma20": 64.01,
       "is_etf": false
     },
@@ -405,7 +406,7 @@
       "status": "—",
       "close": 197.0,
       "signals": [],
-      "vol_ratio": 0.78,
+      "vol_ratio": 0.74,
       "ma20": 198.43,
       "is_etf": false
     },
@@ -438,7 +439,7 @@
       "status": "—",
       "close": 232.5,
       "signals": [],
-      "vol_ratio": 0.92,
+      "vol_ratio": 0.91,
       "ma20": 237.53,
       "is_etf": false
     }
