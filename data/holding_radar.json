@@ -1,20 +1,20 @@
 {
-  "generated": "2026/11/26 18:33",
-  "date": "20261126",
+  "generated": "2026/11/27 18:21",
+  "date": "20261127",
   "holdings": [
     {
       "code": "2330",
       "name": "台積電",
       "is_etf": false,
-      "date": "20261126",
-      "foreign_net": -18135,
-      "total_net": -15497,
-      "margin_balance": 29267,
-      "short_balance": 27,
+      "date": "20261127",
+      "foreign_net": -8711,
+      "total_net": -7207,
+      "margin_balance": 28191,
+      "short_balance": 42,
       "margin_shrink": true,
-      "conc_5d": -19.92,
-      "conc_20d": -13.25,
-      "streak": -11,
+      "conc_5d": -22.3,
+      "conc_20d": -13.33,
+      "streak": -12,
       "signals": {
         "foreign_flip": false,
         "total_positive": false,
@@ -25,12 +25,6 @@
       },
       "exhaustion": 2,
       "history_5d": [
-        {
-          "date": "20261120",
-          "foreign_net": -11863,
-          "total_net": -10903,
-          "margin_balance": 0
-        },
         {
           "date": "20261123",
           "foreign_net": -11040,
@@ -54,6 +48,12 @@
           "foreign_net": -18135,
           "total_net": -15498,
           "margin_balance": 0
+        },
+        {
+          "date": "20261127",
+          "foreign_net": -8711,
+          "total_net": -7207,
+          "margin_balance": 0
         }
       ]
     },
@@ -61,31 +61,25 @@
       "code": "006208",
       "name": "富邦台50",
       "is_etf": true,
-      "date": "20261126",
-      "foreign_net": 171,
-      "total_net": 436,
-      "margin_balance": 737,
+      "date": "20261127",
+      "foreign_net": -66,
+      "total_net": -443,
+      "margin_balance": 723,
       "short_balance": 0,
       "margin_shrink": true,
-      "conc_5d": -26.93,
-      "conc_20d": -44.3,
-      "streak": 1,
+      "conc_5d": -25.71,
+      "conc_20d": -42.11,
+      "streak": -1,
       "signals": {
-        "foreign_flip": true,
-        "total_positive": true,
+        "foreign_flip": false,
+        "total_positive": false,
         "conc5_rising": true,
         "conc20_positive": false,
         "margin_shrink": true,
         "price_support": true
       },
-      "exhaustion": 5,
+      "exhaustion": 3,
       "history_5d": [
-        {
-          "date": "20261120",
-          "foreign_net": 1013,
-          "total_net": -5402,
-          "margin_balance": 721
-        },
         {
           "date": "20261123",
           "foreign_net": 558,
@@ -109,6 +103,12 @@
           "foreign_net": 171,
           "total_net": 436,
           "margin_balance": 737
+        },
+        {
+          "date": "20261127",
+          "foreign_net": -66,
+          "total_net": -443,
+          "margin_balance": 723
         }
       ]
     },
@@ -116,24 +116,24 @@
       "code": "00878",
       "name": "國泰高股息",
       "is_etf": true,
-      "date": "20261126",
-      "foreign_net": 3254,
-      "total_net": -849,
-      "margin_balance": 13987,
-      "short_balance": 174,
+      "date": "20261127",
+      "foreign_net": -1024,
+      "total_net": -9140,
+      "margin_balance": 13632,
+      "short_balance": 179,
       "margin_shrink": true,
-      "conc_5d": -34.27,
-      "conc_20d": -56.17,
-      "streak": 1,
+      "conc_5d": -36.78,
+      "conc_20d": -56.88,
+      "streak": -4,
       "signals": {
-        "foreign_flip": true,
+        "foreign_flip": false,
         "total_positive": false,
         "conc5_rising": true,
         "conc20_positive": false,
         "margin_shrink": true,
         "price_support": true
       },
-      "exhaustion": 4,
+      "exhaustion": 3,
       "history_5d": [
         {
           "date": "20261120",
@@ -160,10 +160,10 @@
           "margin_balance": 14339
         },
         {
-          "date": "20261126",
-          "foreign_net": 3254,
-          "total_net": -849,
-          "margin_balance": 13987
+          "date": "20261127",
+          "foreign_net": -1024,
+          "total_net": -9140,
+          "margin_balance": 13632
         }
       ]
     },
@@ -171,15 +171,15 @@
       "code": "00981A",
       "name": "主動統一台股高增長",
       "is_etf": true,
-      "date": "20261126",
-      "foreign_net": 157037,
-      "total_net": 212873,
-      "margin_balance": 454218,
-      "short_balance": 6635,
+      "date": "20261127",
+      "foreign_net": 7007,
+      "total_net": 51201,
+      "margin_balance": 433855,
+      "short_balance": 7776,
       "margin_shrink": true,
-      "conc_5d": -13.4,
-      "conc_20d": -20.01,
-      "streak": 4,
+      "conc_5d": -13.24,
+      "conc_20d": -18.54,
+      "streak": 5,
       "signals": {
         "foreign_flip": true,
         "total_positive": true,
@@ -190,12 +190,6 @@
       },
       "exhaustion": 5,
       "history_5d": [
-        {
-          "date": "20261120",
-          "foreign_net": -12659,
-          "total_net": 22149,
-          "margin_balance": 0
-        },
         {
           "date": "20261123",
           "foreign_net": 22265,
@@ -219,6 +213,12 @@
           "foreign_net": 157037,
           "total_net": 212873,
           "margin_balance": 454218
+        },
+        {
+          "date": "20261127",
+          "foreign_net": 7007,
+          "total_net": 51201,
+          "margin_balance": 433855
         }
       ]
     }
